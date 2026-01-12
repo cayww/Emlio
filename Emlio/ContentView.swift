@@ -1,66 +1,43 @@
-//
-//  ContentView.swift
-//  Emlio
-//
-//  Created by yangyang on 2026/1/12.
-//
-
 import SwiftData
 import SwiftUI
 
 struct ContentView: View {
   @Environment(\.modelContext) private var modelContext
-  @Query private var items: [Item]
+  @Query(sort: \UserData.name) private var users: [UserData]
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
   var body: some View {
     let _ = forceRedraw
-    NavigationSplitView {
+    NavigationStack {
       List {
-        ForEach(items) { item in
-          NavigationLink {
-            Text(
-              "Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))"
-            )
-          } label: {
-            Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        ForEach(users) { user in
+          VStack(alignment: .leading, spacing: 4) {
+            Text(user.name)
+              .font(.headline)
           }
         }
-        .onDelete(perform: deleteItems)
       }
+      .navigationTitle("Emlio")
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
-          EditButton()
-        }
-        ToolbarItem {
-          Button(action: addItem) {
-            Label("Add Item", systemImage: "plus")
+          Button("添加示例") {
+            addSampleUser()
           }
         }
       }
-    } detail: {
-      Text("Select an item")
     }.enableInjection()
   }
 
-  private func addItem() {
-    withAnimation {
-      let newItem = Item(timestamp: Date())
-      modelContext.insert(newItem)
-    }
-  }
-
-  private func deleteItems(offsets: IndexSet) {
-    withAnimation {
-      for index in offsets {
-        modelContext.delete(items[index])
-      }
-    }
+  private func addSampleUser() {
+    let new = UserData(
+      id: Int(Date().timeIntervalSince1970),
+      name: "User name",
+    )
+    modelContext.insert(new)
   }
 }
-
 #Preview {
   ContentView()
-    .modelContainer(for: Item.self, inMemory: true)
+    .modelContainer(for: UserData.self, inMemory: true)
 }

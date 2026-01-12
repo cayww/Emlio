@@ -11,6 +11,7 @@ import SwiftUI
 
 @main
 struct EmlioApp: App {
+  let container: ModelContainer
 
   init() {
     #if DEBUG
@@ -33,26 +34,18 @@ struct EmlioApp: App {
         Bundle(path: path)!.load()
       }
     #endif
-  }
-
-  var sharedModelContainer: ModelContainer = {
-    let schema = Schema([
-      Item.self
-    ])
-    let modelConfiguration: ModelConfiguration = ModelConfiguration(
-      schema: schema, isStoredInMemoryOnly: false)
 
     do {
-      return try ModelContainer(for: schema, configurations: [modelConfiguration])
+      container = try ModelContainer(for: UserData.self)
     } catch {
-      fatalError("Could not create ModelContainer: \(error)")
+      fatalError("Failed to create ModelContainer: \(error)")
     }
-  }()
+  }
 
   var body: some Scene {
     WindowGroup {
       ContentView()
     }
-    .modelContainer(sharedModelContainer)
+    .modelContainer(container)
   }
 }
