@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashBanner" translatesAutoresizingMaskIntoConstraints="NO" id="BvP-f1-1Yr">
-                                <rect key="frame" x="165" y="356" width="100" height="100"/>
+                                <rect key="frame" x="165" y="446" width="100" height="100"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
@@ -28,8 +28,8 @@
                             <constraint firstAttribute="trailing" secondItem="JQ9-Qb-wsS" secondAttribute="trailing" id="DoV-RL-5GD"/>
                             <constraint firstItem="JQ9-Qb-wsS" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="Lrp-7W-UY8"/>
                             <constraint firstItem="JQ9-Qb-wsS" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Nzc-fq-FK3"/>
+                            <constraint firstItem="BvP-f1-1Yr" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="328" id="g66-sr-nje"/>
                             <constraint firstItem="JQ9-Qb-wsS" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="mW8-gV-XeP"/>
-                            <constraint firstItem="BvP-f1-1Yr" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="356" id="s4l-6U-U1p"/>
                             <constraint firstAttribute="bottom" secondItem="JQ9-Qb-wsS" secondAttribute="bottom" id="sGD-Uw-430"/>
                             <constraint firstItem="BvP-f1-1Yr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xYP-4R-lkI"/>
                         </constraints>
