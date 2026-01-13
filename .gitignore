@@ -1,0 +1,4 @@
+# Xcode
+*.xcuserstate
+xcuserdata/
+Emlio.xcodeproj/project.xcworkspace/xcuserdata/yangyang.xcuserdatad/UserInterfaceState.xcuserstate
