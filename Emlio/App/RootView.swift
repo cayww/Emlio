@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RootView: View {
   @State private var route: AppRoute = .launch
-  @State private var path: NavigationPath = NavigationPath()
+  @StateObject private var router = NavigationRouter()
 
   var body: some View {
     if route == .launch {
@@ -10,15 +10,17 @@ struct RootView: View {
         self.route = .guide
       }
     } else {
-      NavigationStack(path: $path) {
+      NavigationStack(path: $router.path) {
         GuideView()
           .navigationDestination(for: AppRoute.self) { route in
             switch route {
+            case .agreement(let url):
+              AgreementView(url: url)
             default:
               EmptyView()
             }
           }
-      }
+      }.environmentObject(router)
     }
   }
 }
