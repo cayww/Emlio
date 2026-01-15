@@ -1,5 +1,5 @@
 {
-  "originHash" : "59bbaafa0d0bf919be60c49f8a6e3e7ee21c821b4e839b1f39298d6cea1d2957",
+  "originHash" : "12de6847b63bdef35742081250c2ae98832c434906a603fe8adbc5c2487d07fd",
   "pins" : [
     {
       "identity" : "hotswiftui",
@@ -8,15 +8,6 @@
       "state" : {
         "revision" : "9e701abd2da67c7cfac5b70ae6f225fa92a1c7bc",
         "version" : "1.2.4"
-      }
-    },
-    {
-      "identity" : "richtextkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/danielsaidi/RichTextKit.git",
-      "state" : {
-        "revision" : "8aa44cfa645404ad84e52e3ab7723ecf4b82f92b",
-        "version" : "1.2.0"
       }
     }
   ],

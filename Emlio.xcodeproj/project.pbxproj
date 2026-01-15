@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DDBCFE862F17AAB3000F34E9 /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = DDBCFE852F17AAB3000F34E9 /* RichTextKit */; };
 		DDD52BC72F14E8E100B41C50 /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = DDD52BC62F14E8E100B41C50 /* HotSwiftUI */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDBCFE862F17AAB3000F34E9 /* RichTextKit in Frameworks */,
 				DDD52BC72F14E8E100B41C50 /* HotSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,7 +72,6 @@
 			name = Emlio;
 			packageProductDependencies = (
 				DDD52BC62F14E8E100B41C50 /* HotSwiftUI */,
-				DDBCFE852F17AAB3000F34E9 /* RichTextKit */,
 			);
 			productName = Emlio;
 			productReference = DDD52BB52F14E66900B41C50 /* Emlio.app */;
@@ -106,7 +103,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				DDD52BC52F14E8E100B41C50 /* XCRemoteSwiftPackageReference "HotSwiftUI" */,
-				DDBCFE842F17AAB3000F34E9 /* XCRemoteSwiftPackageReference "RichTextKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DDD52BB62F14E66900B41C50 /* Products */;
@@ -390,14 +386,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DDBCFE842F17AAB3000F34E9 /* XCRemoteSwiftPackageReference "RichTextKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/danielsaidi/RichTextKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
 		DDD52BC52F14E8E100B41C50 /* XCRemoteSwiftPackageReference "HotSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/johnno1962/HotSwiftUI.git";
@@ -409,11 +397,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DDBCFE852F17AAB3000F34E9 /* RichTextKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DDBCFE842F17AAB3000F34E9 /* XCRemoteSwiftPackageReference "RichTextKit" */;
-			productName = RichTextKit;
-		};
 		DDD52BC62F14E8E100B41C50 /* HotSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DDD52BC52F14E8E100B41C50 /* XCRemoteSwiftPackageReference "HotSwiftUI" */;

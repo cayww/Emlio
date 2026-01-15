@@ -29,7 +29,8 @@ struct GuideView: View {
         Spacer()
           .frame(height: 20)
         Button(action: {
-          print("")
+          guard isSelected else { return }
+          router.path.append(AppRoute.login)
         }) {
           Text("Login With Email")
             .foregroundStyle(.white)

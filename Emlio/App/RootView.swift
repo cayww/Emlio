@@ -16,6 +16,8 @@ struct RootView: View {
             switch route {
             case .agreement(let url):
               AgreementView(url: url)
+            case .login:
+              LoginView()
             default:
               EmptyView()
             }

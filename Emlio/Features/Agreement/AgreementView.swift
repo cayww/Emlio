@@ -20,11 +20,31 @@ struct AgreementContent: UIViewRepresentable {
 
 struct AgreementView: View {
   let url: URL
+  @EnvironmentObject var router: NavigationRouter
 
+  #if DEBUG
+    @ObserveInjection var forceRedraw
+  #endif
   var body: some View {
+    let _ = forceRedraw
     VStack(spacing: 0) {
       AgreementContent(url: url)
         .edgesIgnoringSafeArea(.bottom)
+    }
+    .navigationBarBackButtonHidden(true)
+    .toolbar {
+      ToolbarItem(placement: .navigationBarLeading) {
+        Button {
+          router.path.removeLast()
+        } label: {
+          Image("Assets/emlio_back")
+            .resizable()
+            .renderingMode(.template)
+            .scaledToFit()
+            .frame(width: 40, height: 40)
+            .foregroundColor(.black)
+        }
+      }
     }
   }
 }
