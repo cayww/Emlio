@@ -1,12 +1,16 @@
-import RichTextKit
+import SwiftData
 import SwiftUI
 
 struct GuideView: View {
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
+  @State private var isLoading = false
   @State private var isSelected = false
+  @Environment(\.modelContext) private var modelContext
   @EnvironmentObject var router: NavigationRouter
+  @EnvironmentObject var appState: AppState
+
   var body: some View {
     #if DEBUG
       let _ = forceRedraw
@@ -18,12 +22,40 @@ struct GuideView: View {
         .ignoresSafeArea()
       VStack(spacing: 0) {
         Spacer()
-        Button(action: {
-          print("按钮点击")
-        }) {
-          Text("I'm New")
-            .foregroundColor(.white)
-            .bold()
+        Button(
+          action: {
+            let newUser = UserData(
+              name: "cay",
+              email: "cay@gmail.com",
+              coin: 0
+            )
+            do {
+              let descriptor = FetchDescriptor<UserData>(
+                predicate: #Predicate { $0.email == "cay@gmail.com" })
+              let results = try modelContext.fetch(descriptor)
+              let users = Array(results)
+              if let user = users.first {
+                appState.currentUser = user
+                print("登录成功: \(user.name)")
+              } else {
+                appState.currentUser = newUser
+                modelContext.insert(newUser)
+                try modelContext.save()
+                print("用户新增成功")
+              }
+            } catch {
+              print("保存失败: \(error)")
+            }
+          }
+        ) {
+          if !isLoading {
+            Text("I'm New")
+              .foregroundColor(.white)
+              .bold()
+          } else {
+            ProgressView()
+              .progressViewStyle(CircularProgressViewStyle(tint: .white))
+          }
         }
         .buttonStyle(GradientButtonStyle())
         Spacer()

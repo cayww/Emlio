@@ -1,10 +1,3 @@
-//
-//  EmlioApp.swift
-//  Emlio
-//
-//  Created by yangyang on 2026/1/12.
-//
-
 @_exported import HotSwiftUI
 import SwiftData
 import SwiftUI
@@ -12,14 +5,12 @@ import SwiftUI
 @main
 struct EmlioApp: App {
   let container: ModelContainer
+  let appState: AppState = AppState()
 
   init() {
     #if DEBUG
       Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?.load()
-      if let path = Bundle.main.path(
-        forResource:
-          "iOSInjection", ofType: "bundle")
-      {
+      if let path = Bundle.main.path(forResource: "iOSInjection", ofType: "bundle") {
         Bundle(path: path)!.load()
       }
     #endif
@@ -33,7 +24,8 @@ struct EmlioApp: App {
 
   var body: some Scene {
     WindowGroup {
-      RootView().enableInjection()
+      RootView()
+        .environmentObject(appState)
     }
     .modelContainer(container)
   }
