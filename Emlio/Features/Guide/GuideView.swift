@@ -118,10 +118,11 @@ struct GuideView: View {
           Text("Terms of Service")
             .foregroundColor(Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255))
             .underline()
+            .font(.system(size: 14, weight: .regular, design: .default))
             .onTapGesture {
               let url = URL(string: "https://app.szj237s2.link/users")!
               router.path.append(AppRoute.agreement(url: url))
-            }.font(.system(size: 14, weight: .regular, design: .default))
+            }
         }
         HStack {
           Text(" and ")

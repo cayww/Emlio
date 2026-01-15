@@ -6,6 +6,7 @@ enum AppRoute: Hashable {
   case guide
   case agreement(url: URL)
   case login
+  case register
 }
 
 class NavigationRouter: ObservableObject {

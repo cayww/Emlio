@@ -84,7 +84,14 @@ struct LoginView: View {
               .bold()
           }
           .buttonStyle(GradientButtonStyle())
-
+          Spacer(minLength: 30)
+          Text("Register")
+            .foregroundColor(Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255))
+            .underline()
+            .font(.system(size: 14, weight: .regular, design: .default))
+            .onTapGesture {
+              router.path.append(AppRoute.register)
+            }
           Spacer(minLength: 173)
         }
       }
