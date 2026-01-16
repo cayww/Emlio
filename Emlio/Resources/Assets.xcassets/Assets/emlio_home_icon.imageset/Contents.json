@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "emlio_home_icon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

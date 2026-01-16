@@ -2,88 +2,106 @@ import SwiftData
 import SwiftUI
 
 struct GuideView: View {
+  let onFinish: () -> Void
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
   @State private var isLoading = false
   @State private var isSelected = false
   @Environment(\.modelContext) private var modelContext
-  @EnvironmentObject var router: NavigationRouter
+  @StateObject private var router = NavigationRouter()
   @EnvironmentObject var appState: AppState
-
   var body: some View {
     #if DEBUG
       let _ = forceRedraw
     #endif
-    ZStack {
-      Image("Assets/emlio_background_guide")
-        .resizable()
-        .scaledToFill()
-        .ignoresSafeArea()
-      VStack(spacing: 0) {
-        Spacer()
-        Button(
-          action: {
-            let newUser = UserData(
-              name: "cay",
-              email: "cay@gmail.com",
-              coin: 0
-            )
-            do {
-              let descriptor = FetchDescriptor<UserData>(
-                predicate: #Predicate { $0.email == "cay@gmail.com" })
-              let results = try modelContext.fetch(descriptor)
-              let users = Array(results)
-              if let user = users.first {
-                appState.currentUser = user
-                print("登录成功: \(user.name)")
-              } else {
-                appState.currentUser = newUser
-                modelContext.insert(newUser)
-                try modelContext.save()
-                print("用户新增成功")
+    NavigationStack(path: $router.path) {
+      ZStack {
+        Image("Assets/emlio_background_guide")
+          .resizable()
+          .scaledToFill()
+          .ignoresSafeArea()
+        VStack(spacing: 0) {
+          Spacer()
+          Button(
+            action: {
+              guard isSelected else { return }
+              let newUser = UserData(
+                name: "User5196",
+                email: "dvkcna@gmail.com",
+                coin: 0
+              )
+              do {
+                let descriptor = FetchDescriptor<UserData>(
+                  predicate: #Predicate { $0.email == "dvkcna@gmail.com" })
+                let results = try modelContext.fetch(descriptor)
+                let users = Array(results)
+                if let user = users.first {
+                  appState.currentUser = user
+                  onFinish()
+                } else {
+                  appState.currentUser = newUser
+                  modelContext.insert(newUser)
+                  try modelContext.save()
+                  onFinish()
+                }
+              } catch {
+                print(" \(error)")
               }
-            } catch {
-              print("保存失败: \(error)")
+            }
+          ) {
+            if !isLoading {
+              Text("I'm New")
+                .foregroundColor(.white)
+                .bold()
+            } else {
+              ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .white))
             }
           }
-        ) {
-          if !isLoading {
-            Text("I'm New")
-              .foregroundColor(.white)
+          .buttonStyle(GradientButtonStyle())
+          Spacer()
+            .frame(height: 20)
+          Button(action: {
+            guard isSelected else { return }
+            router.path.append(GuideRoute.login)
+          }) {
+            Text("Login With Email")
+              .foregroundStyle(.white)
               .bold()
-          } else {
-            ProgressView()
-              .progressViewStyle(CircularProgressViewStyle(tint: .white))
+              .frame(width: 343, height: 52)
+              .background(
+                Color(
+                  red: 254 / 255,
+                  green: 13 / 255,
+                  blue: 231 / 255,
+                  opacity: 1)
+              )
+              .cornerRadius(100)
           }
+          .buttonStyle(PlainButtonStyle())
+          Spacer()
+            .frame(height: 30)
+          argeeHStack
         }
-        .buttonStyle(GradientButtonStyle())
-        Spacer()
-          .frame(height: 20)
-        Button(action: {
-          guard isSelected else { return }
-          router.path.append(AppRoute.login)
-        }) {
-          Text("Login With Email")
-            .foregroundStyle(.white)
-            .bold()
-            .frame(width: 343, height: 52)
-            .background(
-              Color(
-                red: 254 / 255,
-                green: 13 / 255,
-                blue: 231 / 255,
-                opacity: 1)
-            )
-            .cornerRadius(100)
-        }
-        .buttonStyle(PlainButtonStyle())
-        Spacer()
-          .frame(height: 30)
-        argeeHStack
       }
-    }.enableInjection()
+      .navigationDestination(for: GuideRoute.self) { route in
+        switch route {
+        case .agreement(let url):
+          AgreementView(url: url)
+        case .login:
+          LoginView(onFinish: onFinish, modelContext: modelContext)
+        case .register:
+          RegisterView()
+        default:
+          EmptyView()
+        }
+      }
+    }
+    .environmentObject(router)
+    .enableInjection()
   }
+
   private var argeeHStack: some View {
     HStack(alignment: .top, spacing: 6) {
       Button(action: {
@@ -121,7 +139,7 @@ struct GuideView: View {
             .font(.system(size: 14, weight: .regular, design: .default))
             .onTapGesture {
               let url = URL(string: "https://app.szj237s2.link/users")!
-              router.path.append(AppRoute.agreement(url: url))
+              router.path.append(GuideRoute.agreement(url: url))
             }
         }
         HStack {
@@ -133,7 +151,7 @@ struct GuideView: View {
             .underline()
             .onTapGesture {
               let url = URL(string: "https://app.szj237s2.link/privacy")!
-              router.path.append(AppRoute.agreement(url: url))
+              router.path.append(GuideRoute.agreement(url: url))
             }.font(.system(size: 14, weight: .regular, design: .default))
         }
       }

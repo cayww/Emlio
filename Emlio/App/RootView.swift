@@ -1,28 +1,23 @@
+import SwiftData
 import SwiftUI
 
 struct RootView: View {
-  @State private var route: AppRoute = .launch
-  @StateObject private var router = NavigationRouter()
-
+  @State private var route: AppPhase = .launch
+  @Environment(\.modelContext) private var modelContext
   var body: some View {
-    if route == .launch {
+    switch route {
+    case .launch:
       LaunchView {
         self.route = .guide
       }
-    } else {
-      NavigationStack(path: $router.path) {
-        GuideView()
-          .navigationDestination(for: AppRoute.self) { route in
-            switch route {
-            case .agreement(let url):
-              AgreementView(url: url)
-            case .login:
-              LoginView()
-            default:
-              EmptyView()
-            }
-          }
-      }.environmentObject(router)
+    case .guide:
+      GuideView {
+        self.route = .main
+      }
+    case .main:
+      MainView {
+        self.route = .guide
+      }
     }
   }
 }

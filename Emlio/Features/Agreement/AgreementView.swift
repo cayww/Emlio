@@ -19,8 +19,8 @@ struct AgreementContent: UIViewRepresentable {
 }
 
 struct AgreementView: View {
-  let url: URL
   @EnvironmentObject var router: NavigationRouter
+  let url: URL
 
   #if DEBUG
     @ObserveInjection var forceRedraw

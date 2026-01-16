@@ -1,26 +1,14 @@
 import SwiftData
 import SwiftUI
 
-struct LoginView: View {
-  private let onFinish: () -> Void
+struct RegisterView: View {
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
-  enum Field: Hashable {
-    case email
-    case password
-  }
-
-  @StateObject private var loginViewModel: LoginViewModel
-  @FocusState private var focusedField: Field?
   @EnvironmentObject var router: NavigationRouter
-  @EnvironmentObject var appState: AppState
-  @Environment(\.modelContext) private var modelContext: ModelContext
-
-  init(onFinish: @escaping () -> Void, modelContext: ModelContext) {
-    self.onFinish = onFinish
-    _loginViewModel = StateObject(wrappedValue: LoginViewModel(modelContext: modelContext))
-  }
+  @State private var email = ""
+  @State private var password = ""
+  @State private var agaginPassword = ""
 
   var body: some View {
     let _ = forceRedraw
@@ -32,10 +20,10 @@ struct LoginView: View {
           emailGroup
           Spacer(minLength: 32)
           passwordGroup
-          Spacer(minLength: 211)
-          loginButton
-          Spacer(minLength: 30)
-          registerText
+          Spacer(minLength: 32)
+          passwordGroup
+          Spacer(minLength: 89)
+          registerButton
           Spacer(minLength: 173)
         }
       }
@@ -56,7 +44,7 @@ struct LoginView: View {
         }
       }
       ToolbarItem(placement: .principal) {
-        Text("Login")
+        Text("Sign Up")
           .foregroundColor(.white)
           .font(.system(size: 20, weight: .bold))
       }
@@ -71,7 +59,7 @@ struct LoginView: View {
         .font(.system(size: 15, weight: .bold))
         .padding(.bottom)
       TextField(
-        "", text: $loginViewModel.email,
+        "", text: $email,
         prompt: Text("Enter email address")
           .foregroundColor(.gray)
           .font(.system(size: 14, weight: .regular))
@@ -84,11 +72,7 @@ struct LoginView: View {
       .padding(.horizontal, 16)
       .padding(.vertical, 18)
       .background(RoundedRectangle(cornerRadius: 20).fill(.white.opacity(0.1)))
-      .focused($focusedField, equals: .email)
-      .submitLabel(.next)
-      .onSubmit {
-        focusedField = .password
-      }
+      .submitLabel(.done)
     }
   }
 
@@ -99,7 +83,8 @@ struct LoginView: View {
         .font(.system(size: 15, weight: .bold))
         .padding(.bottom)
       SecureField(
-        "", text: $loginViewModel.password,
+        "",
+        text: $password,
         prompt: Text("Enter password")
           .foregroundColor(.gray)
           .font(.system(size: 14, weight: .regular))
@@ -111,33 +96,18 @@ struct LoginView: View {
       .padding(.horizontal, 16)
       .padding(.vertical, 18)
       .background(RoundedRectangle(cornerRadius: 20).fill(.white.opacity(0.1)))
-      .focused($focusedField, equals: .password)
       .submitLabel(.done)
-      .onSubmit {
-        focusedField = nil
-      }
     }
   }
 
-  private var loginButton: some View {
+  private var registerButton: some View {
     Button(
       action: {
-        Task { @MainActor in
-          if let user = await loginViewModel.login() {
-            appState.currentUser = user
-            onFinish()
-          }
-        }
       }
     ) {
-      if loginViewModel.isLoading {
-        ProgressView()
-          .progressViewStyle(CircularProgressViewStyle(tint: .white))
-      } else {
-        Text("Login")
-          .foregroundColor(.white)
-          .bold()
-      }
+      Text("Sign Up")
+        .foregroundColor(.white)
+        .bold()
     }
     .buttonStyle(GradientButtonStyle())
   }

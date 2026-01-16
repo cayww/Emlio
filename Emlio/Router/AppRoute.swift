@@ -1,12 +1,20 @@
 import Combine
 import SwiftUI
 
-enum AppRoute: Hashable {
+enum AppPhase: Hashable {
   case launch
+  case guide
+  case main
+}
+enum GuideRoute: Hashable {
   case guide
   case agreement(url: URL)
   case login
   case register
+}
+
+enum MainRoute: Hashable {
+
 }
 
 class NavigationRouter: ObservableObject {
