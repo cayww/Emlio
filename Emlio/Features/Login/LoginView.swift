@@ -24,23 +24,22 @@ struct LoginView: View {
 
   var body: some View {
     let _ = forceRedraw
-    ZStack {
-      DefaultBackground()
-      GeometryReader { _ in
-        VStack(alignment: .leading, spacing: 0) {
-          Spacer(minLength: 64)
-          emailGroup
-          Spacer(minLength: 32)
-          passwordGroup
-          Spacer(minLength: 211)
-          loginButton
-          Spacer(minLength: 30)
-          registerText
-          Spacer(minLength: 173)
-        }
+    GeometryReader { geo in
+      VStack(alignment: .leading, spacing: 0) {
+        Spacer(minLength: 60)
+        emailGroup
+        Spacer(minLength: 32)
+        passwordGroup
+        Spacer()
+          .layoutPriority(1)
+        loginButton.frame(maxWidth: .infinity, alignment: .center)
+        Spacer(minLength: 30)
+        registerText
+        Spacer(minLength: 87)
       }
-      .padding(.horizontal)
     }
+    .padding(.horizontal)
+    .background(DefaultBackground())
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .navigationBarLeading) {
@@ -74,7 +73,7 @@ struct LoginView: View {
         "", text: $loginViewModel.email,
         prompt: Text("Enter email address")
           .foregroundColor(.gray)
-          .font(.system(size: 14, weight: .regular))
+          .font(.system(size: 14, weight: .regular)),
       )
       .keyboardType(.emailAddress)
       .autocapitalization(.none)

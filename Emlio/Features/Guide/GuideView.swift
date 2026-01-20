@@ -16,13 +16,9 @@ struct GuideView: View {
       let _ = forceRedraw
     #endif
     NavigationStack(path: $router.path) {
-      ZStack {
-        Image("Assets/emlio_background_guide")
-          .resizable()
-          .scaledToFill()
-          .ignoresSafeArea()
+      GeometryReader { geo in
         VStack(spacing: 0) {
-          Spacer()
+          Spacer().layoutPriority(1)
           Button(
             action: {
               guard isSelected else { return }
@@ -60,8 +56,7 @@ struct GuideView: View {
             }
           }
           .buttonStyle(GradientButtonStyle())
-          Spacer()
-            .frame(height: 20)
+          Spacer(minLength: 20)
           Button(action: {
             guard isSelected else { return }
             router.path.append(GuideRoute.login)
@@ -80,10 +75,17 @@ struct GuideView: View {
               .cornerRadius(100)
           }
           .buttonStyle(PlainButtonStyle())
-          Spacer()
-            .frame(height: 30)
+          Spacer(minLength: 30)
           argeeHStack
+          Spacer(minLength: geo.safeAreaInsets.bottom + 6)
         }
+        .frame(width: geo.size.width, height: geo.size.height)
+        .background(
+          Image("Assets/emlio_background_guide")
+            .resizable()
+            .scaledToFill()
+            .ignoresSafeArea()
+        )
       }
       .navigationDestination(for: GuideRoute.self) { route in
         switch route {
@@ -156,7 +158,6 @@ struct GuideView: View {
         }
       }
     }
-    .padding(.bottom, 36)
   }
 
 }

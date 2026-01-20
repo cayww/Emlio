@@ -12,23 +12,21 @@ struct RegisterView: View {
 
   var body: some View {
     let _ = forceRedraw
-    ZStack {
-      DefaultBackground()
-      GeometryReader { _ in
-        VStack(alignment: .leading, spacing: 0) {
-          Spacer(minLength: 64)
-          emailGroup
-          Spacer(minLength: 32)
-          passwordGroup
-          Spacer(minLength: 32)
-          passwordGroup
-          Spacer(minLength: 89)
-          registerButton
-          Spacer(minLength: 173)
-        }
+    GeometryReader { _ in
+      VStack(alignment: .leading, spacing: 0) {
+        Spacer(minLength: 64)
+        emailGroup
+        Spacer(minLength: 32)
+        passwordGroup
+        Spacer(minLength: 32)
+        passwordGroup
+        Spacer(minLength: 89)
+        registerButton
+        Spacer().layoutPriority(1)
       }
-      .padding(.horizontal)
     }
+    .padding(.horizontal)
+    .background(DefaultBackground())
     .navigationBarBackButtonHidden(true)
     .toolbar {
       ToolbarItem(placement: .navigationBarLeading) {

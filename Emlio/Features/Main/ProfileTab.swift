@@ -10,7 +10,10 @@ struct ProfileTab: View {
     ZStack {
       DefaultBackground()
       VStack {
-        Text("DiscoverTab").foregroundColor(.white)
+        Text("ProfileTab").foregroundColor(.white)
+          .onTapGesture {
+            print("sssss")
+          }
       }
     }
     .enableInjection()

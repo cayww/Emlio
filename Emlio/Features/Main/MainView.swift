@@ -7,11 +7,10 @@ struct MainView: View {
   #endif
   enum Tab: Hashable {
     case home
-    case discover
     case profile
   }
   @State private var selectedTab: Tab = .home
-
+  @State private var path = NavigationPath()
   init(onFinish: @escaping () -> Void = {}) {
     self.onFinish = onFinish
     let appearance = UITabBarAppearance()
@@ -25,24 +24,44 @@ struct MainView: View {
 
   var body: some View {
     let _ = forceRedraw
-    ZStack {
-      DefaultBackground()
-      TabView(selection: $selectedTab) {
-        HomeTab()
-          .tabItem {
-            Image("Assets/emlio_home_icon")
-              .renderingMode(.template)
-          }
-          .tag(Tab.home)
+    NavigationStack(path: $path) {
+      GeometryReader { geo in
+        ZStack {
+          TabView(selection: $selectedTab) {
+            HomeTab()
+              .tabItem {
+                Image("Assets/emlio_home_icon")
+                  .renderingMode(.template)
+              }
+              .tag(Tab.home)
 
-        ProfileTab()
-          .tabItem {
-            Image("Assets/emlio_profile_icon")
-              .renderingMode(.template)
+            ProfileTab()
+              .tabItem {
+                Image("Assets/emlio_profile_icon")
+                  .renderingMode(.template)
+              }
+              .tag(Tab.profile)
           }
-          .tag(Tab.discover)
+          .background(DefaultBackground())
+          .accentColor(.white)
+          VStack {
+            Spacer()
+            Image("Assets/emlio_tabbar_post")
+              .resizable()
+              .scaledToFit()
+              .frame(width: 75, height: 38)
+              .onTapGesture {
+                path.append(MainRoute.post)
+              }
+          }
+        }
       }
-      .accentColor(.white)
+      .navigationDestination(for: MainRoute.self) { path in
+        switch path {
+        case .post:
+          PostView(path: $path)
+        }
+      }
     }
     .navigationBarBackButtonHidden(true)
     .enableInjection()

@@ -28,15 +28,25 @@ class UserData {
   }
 
   var photoURL: URL? {
-    Bundle.main.url(
-      forResource: photo.replacingOccurrences(of: ".png", with: ""),
-      withExtension: "png",
-      subdirectory: "Resources/AppAssets/Images"
-    )
+    let fileManager = FileManager.default
+
+    if fileManager.fileExists(atPath: photo) {
+      return URL(fileURLWithPath: photo)
+    }
+
+    if let url = Bundle.main.url(
+      forResource: photo, withExtension: nil, subdirectory: "Resources/AppAssets/Images")
+    {
+      return url
+    }
+
+    return nil
   }
 
   var photoImage: Image {
-    if let url = photoURL, let uiImage = UIImage(contentsOfFile: url.path) {
+    if let url = photoURL,
+      let uiImage = UIImage(contentsOfFile: url.path)
+    {
       return Image(uiImage: uiImage)
     } else {
       return Image(systemName: "person.fill")

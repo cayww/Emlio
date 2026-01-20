@@ -3,7 +3,6 @@ import SwiftUI
 
 struct RootView: View {
   @State private var route: AppPhase = .launch
-  @Environment(\.modelContext) private var modelContext
   var body: some View {
     switch route {
     case .launch:
