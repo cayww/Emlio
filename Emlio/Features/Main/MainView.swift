@@ -11,6 +11,7 @@ struct MainView: View {
   }
   @State private var selectedTab: Tab = .home
   @State private var path = NavigationPath()
+  @EnvironmentObject var appState: AppState
   init(onFinish: @escaping () -> Void = {}) {
     self.onFinish = onFinish
     let appearance = UITabBarAppearance()
@@ -28,7 +29,7 @@ struct MainView: View {
       GeometryReader { geo in
         ZStack {
           TabView(selection: $selectedTab) {
-            HomeTab()
+            HomeTab(currentID: appState.currentUser!.id)
               .tabItem {
                 Image("Assets/emlio_home_icon")
                   .renderingMode(.template)

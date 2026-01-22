@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "content": "Let the details light up your look Fashionable and lively accessories such as pearl rings, Baroque pearl necklaces and bracelets, and leaping gold pearl necklaces Gently boost the overall fashion quotient",
+    "image": "post_1.png",
+    "createdAt": "2026-01-01T08:00:00Z"
+  },
+  {
+    "id": 2,
+    "userId": 2,
+    "content": "Pair with the Heart Sutra: Round faces opt for angular rectangular ear cuffs, while square faces use curved earrings to soften the angularity",
+    "image": "post_2.png",
+    "createdAt": "2026-01-02T08:00:00Z"
+  },
+  {
+    "id": 3,
+    "userId": 3,
+    "content": "V-neck paired with Y-shaped chain, high-neck matched with coin chain, square neckline layered with choker + long chain",
+    "image": "post_3.png",
+    "createdAt": "2026-01-03T08:00:00Z"
+  },
+  {
+    "id": 4,
+    "userId": 4,
+    "content": "Look at my new necklace!!!",
+    "image": "post_4.png",
+    "createdAt": "2026-01-04T08:00:00Z"
+  },
+  {
+    "id": 5,
+    "userId": 5,
+    "content": "Jewelry brings an outfit to life 🪷✨",
+    "image": "post_5.png",
+    "createdAt": "2026-01-05T08:00:00Z"
+  }
+]

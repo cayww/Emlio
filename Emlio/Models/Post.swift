@@ -5,20 +5,20 @@ import SwiftUI
 class PostData {
 
   @Attribute(.unique) var id: Int
-  var userId: Int
   var content: String
   var image: String
   var createdAt: Date
+  var user: UserData
 
   init(
     id: Int = 0,
-    userId: Int,
+    user: UserData,
     content: String,
     image: String,
     createdAt: Date = .now
   ) {
+    self.user = user
     self.id = id
-    self.userId = userId
     self.content = content
     self.image = image
     self.createdAt = createdAt
@@ -31,9 +31,17 @@ class PostData {
       return URL(fileURLWithPath: image)
     }
 
-    if let url = Bundle.main.url(
-      forResource: image, withExtension: nil, subdirectory: "Resources/AppAssets/Images")
-    {
+    if let resourcePath = Bundle.main.resourcePath {
+      let resourceURL = URL(fileURLWithPath: resourcePath)
+      let potentialURL = resourceURL.appendingPathComponent(image)
+      if fileManager.fileExists(atPath: potentialURL.path) {
+        return potentialURL
+      }
+    }
+
+    let name = (image as NSString).deletingPathExtension
+    let ext = (image as NSString).pathExtension
+    if let url = Bundle.main.url(forResource: name, withExtension: ext) {
       return url
     }
 
@@ -46,7 +54,15 @@ class PostData {
     {
       return Image(uiImage: uiImage)
     } else {
-      return Image(systemName: "photo")
+      return Image(systemName: "image")
     }
   }
+}
+
+struct PostDTO: Decodable {
+  let id: Int
+  let userId: Int
+  let content: String
+  let image: String
+  let createdAt: Date
 }

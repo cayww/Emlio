@@ -11,6 +11,9 @@ class UserData {
   var photo: String
   var password: String
 
+  @Relationship(deleteRule: .cascade, inverse: \PostData.user)
+  var posts: [PostData] = []
+
   init(
     id: Int = 0,
     name: String,
@@ -34,9 +37,17 @@ class UserData {
       return URL(fileURLWithPath: photo)
     }
 
-    if let url = Bundle.main.url(
-      forResource: photo, withExtension: nil, subdirectory: "Resources/AppAssets/Images")
-    {
+    if let resourcePath = Bundle.main.resourcePath {
+      let resourceURL = URL(fileURLWithPath: resourcePath)
+      let potentialURL = resourceURL.appendingPathComponent(photo)
+      if fileManager.fileExists(atPath: potentialURL.path) {
+        return potentialURL
+      }
+    }
+
+    let name = (photo as NSString).deletingPathExtension
+    let ext = (photo as NSString).pathExtension
+    if let url = Bundle.main.url(forResource: name, withExtension: ext) {
       return url
     }
 
@@ -52,4 +63,13 @@ class UserData {
       return Image(systemName: "person.fill")
     }
   }
+}
+
+struct UserDTO: Decodable {
+  let id: Int
+  let name: String
+  let email: String
+  let coin: Int
+  let photo: String
+  let password: String
 }

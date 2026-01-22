@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Ticosa",
+    "email": "ticosa@gmail.com",
+    "coin": 0,
+    "photo": "user_1.png",
+    "password": "123456789"
+  },
+  {
+    "id": 2,
+    "name": "Acciyo",
+    "email": "acciyo@gmail.com",
+    "coin": 0,
+    "photo": "user_2.png",
+    "password": "123456789"
+  },
+  {
+    "id": 3,
+    "name": "Solkatt",
+    "email": "solkatt@gmail.com",
+    "coin": 0,
+    "photo": "user_3.png",
+    "password": "123456789"
+  },
+  {
+    "id": 4,
+    "name": "Bahati_",
+    "email": "bahati@gmail.com",
+    "coin": 0,
+    "photo": "user_4.png",
+    "password": "123456789"
+  },
+  {
+    "id": 5,
+    "name": "Amber00",
+    "email": "amber@gmail.com",
+    "coin": 0,
+    "photo": "user_5.png",
+    "password": "123456789"
+  }
+]

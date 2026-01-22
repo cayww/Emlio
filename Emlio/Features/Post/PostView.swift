@@ -88,7 +88,7 @@ struct PostView: View {
               try? await Task.sleep(nanoseconds: 500_000_000)
               if let url = saveImageToDocuments(image: img, prefix: "post") {
                 let post = PostData(
-                  userId: appState.currentUser!.id,
+                  user: appState.currentUser!,
                   content: content,
                   image: url.path,
                   createdAt: Date()

@@ -16,7 +16,8 @@ struct EmlioApp: App {
     #endif
 
     do {
-      container = try ModelContainer(for: UserData.self, PostData.self)
+      container = try ModelContainer(
+        for: UserData.self, PostData.self, BlockData.self, FollowData.self)
     } catch {
       fatalError("Failed to create ModelContainer: \(error)")
     }
@@ -25,8 +26,12 @@ struct EmlioApp: App {
   var body: some Scene {
     WindowGroup {
       RootView()
+        .task {
+          bootstrapIfNeeded(context: container.mainContext)
+        }
         .environmentObject(appState)
     }
     .modelContainer(container)
+
   }
 }
