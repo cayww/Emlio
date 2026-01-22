@@ -6,6 +6,7 @@ struct HomeTab: View {
     @ObserveInjection var forceRedraw
   #endif
   var currentID: Int
+  @EnvironmentObject var router: NavigationRouter
   @Query(sort: \PostData.createdAt, order: .forward) private var posts: [PostData]
   @EnvironmentObject var appState: AppState
   @Query private var following: [FollowData]
@@ -51,7 +52,6 @@ struct HomeTab: View {
               .frame(
                 width: 32, height: 32, alignment: .center
               )
-
             Text("Jewelry AI")
               .foregroundColor(.white)
               .font(.system(size: 13, weight: .bold, design: .default))
@@ -66,6 +66,9 @@ struct HomeTab: View {
             )
           )
           .cornerRadius(100)
+          .onTapGesture {
+            router.path.append(MainRoute.ai)
+          }
         }
         Spacer().frame(height: 20)
         ScrollView(.vertical) {
@@ -184,7 +187,6 @@ struct HomeTab: View {
                               .foregroundColor(.white)
                               .font(.system(size: 6, weight: .bold))
                           )
-
                           .offset(y: 6),
                         alignment: .bottom
                       )
@@ -214,7 +216,7 @@ struct HomeTab: View {
       }
       .padding(.horizontal, 16)
       .background(DefaultBackground())
-      .enableInjection()
     }
+    .enableInjection()
   }
 }

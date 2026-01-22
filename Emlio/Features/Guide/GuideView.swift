@@ -27,22 +27,28 @@ struct GuideView: View {
                 email: "dvkcna@gmail.com",
                 coin: 0
               )
-              do {
-                let descriptor = FetchDescriptor<UserData>(
-                  predicate: #Predicate { $0.email == "dvkcna@gmail.com" })
-                let results = try modelContext.fetch(descriptor)
-                let users = Array(results)
-                if let user = users.first {
-                  appState.currentUser = user
-                  onFinish()
-                } else {
-                  appState.currentUser = newUser
-                  modelContext.insert(newUser)
-                  try modelContext.save()
-                  onFinish()
+              Task { @MainActor in
+                do {
+                  isLoading = true
+                  try await Task.sleep(nanoseconds: 500_000_000)
+                  let descriptor = FetchDescriptor<UserData>(
+                    predicate: #Predicate { $0.email == "dvkcna@gmail.com" })
+                  let results = try modelContext.fetch(descriptor)
+                  let users = Array(results)
+                  if let user = users.first {
+                    appState.currentUser = user
+                    onFinish()
+                  } else {
+                    appState.currentUser = newUser
+                    modelContext.insert(newUser)
+                    try modelContext.save()
+                    onFinish()
+                  }
+                  isLoading = false
+                } catch {
+                  isLoading = false
+                  print(" \(error)")
                 }
-              } catch {
-                print(" \(error)")
               }
             }
           ) {

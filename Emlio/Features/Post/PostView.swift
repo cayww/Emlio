@@ -7,8 +7,8 @@ struct PostView: View {
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
+  @Binding var show: Bool
   @State var content: String = ""
-  @Binding var path: NavigationPath
   @FocusState private var isFocused: Bool
   @State private var isLoading = false
   @State private var showPicker = false
@@ -19,7 +19,7 @@ struct PostView: View {
     let _ = forceRedraw
     GeometryReader { geo in
       VStack(spacing: 0) {
-        Spacer(minLength: 40)
+        Spacer().frame(height: 40)
         ZStack(alignment: .topLeading) {
           if content.isEmpty {
             Text("Share your jewelry moments with us! Show off your latest designs!")
@@ -44,7 +44,6 @@ struct PostView: View {
           .focused($isFocused)
         }
         Spacer().frame(height: 30)
-          .layoutPriority(1)
         if let img = selectedImage {
           Image(uiImage: img)
             .resizable()
@@ -70,7 +69,6 @@ struct PostView: View {
             }
         }
         Spacer()
-          .layoutPriority(2)
         Button(
           action: {
             isLoading = true
@@ -100,7 +98,7 @@ struct PostView: View {
                 } catch {
                   print("保存失败:", error)
                 }
-                path.removeLast()
+                show = false
               }
               isLoading = false
             }
@@ -118,7 +116,6 @@ struct PostView: View {
         .buttonStyle(GradientButtonStyle())
       }
       .padding(.horizontal, 16)
-      .frame(width: geo.size.width, height: geo.size.height)
       .background(
         DefaultBackground()
       )
@@ -133,7 +130,7 @@ struct PostView: View {
     .toolbar {
       ToolbarItem(placement: .navigationBarLeading) {
         Button {
-          path.removeLast()
+          show = false
         } label: {
           Image("Assets/emlio_back")
             .resizable()

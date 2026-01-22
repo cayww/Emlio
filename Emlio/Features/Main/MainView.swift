@@ -9,8 +9,9 @@ struct MainView: View {
     case home
     case profile
   }
+  @StateObject private var router = NavigationRouter()
+  @State private var showPost = false
   @State private var selectedTab: Tab = .home
-  @State private var path = NavigationPath()
   @EnvironmentObject var appState: AppState
   init(onFinish: @escaping () -> Void = {}) {
     self.onFinish = onFinish
@@ -25,7 +26,7 @@ struct MainView: View {
 
   var body: some View {
     let _ = forceRedraw
-    NavigationStack(path: $path) {
+    NavigationStack(path: $router.path) {
       GeometryReader { geo in
         ZStack {
           TabView(selection: $selectedTab) {
@@ -35,7 +36,6 @@ struct MainView: View {
                   .renderingMode(.template)
               }
               .tag(Tab.home)
-
             ProfileTab()
               .tabItem {
                 Image("Assets/emlio_profile_icon")
@@ -52,19 +52,27 @@ struct MainView: View {
               .scaledToFit()
               .frame(width: 75, height: 38)
               .onTapGesture {
-                path.append(MainRoute.post)
+                showPost = true
               }
           }
         }
       }
-      .navigationDestination(for: MainRoute.self) { path in
-        switch path {
-        case .post:
-          PostView(path: $path)
+      .navigationDestination(for: MainRoute.self) { route in
+        switch route {
+        case .ai:
+          AiView()
+        case .aiGenerate:
+          GenerateView()
         }
       }
     }
+    .fullScreenCover(isPresented: $showPost) {
+      NavigationStack {
+        PostView(show: $showPost)
+      }
+    }
     .navigationBarBackButtonHidden(true)
+    .environmentObject(router)
     .enableInjection()
   }
 }
