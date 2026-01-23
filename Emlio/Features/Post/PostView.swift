@@ -16,7 +16,9 @@ struct PostView: View {
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var appState: AppState
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     GeometryReader { geo in
       VStack(spacing: 0) {
         Spacer().frame(height: 40)

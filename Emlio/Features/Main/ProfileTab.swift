@@ -6,7 +6,9 @@ struct ProfileTab: View {
   #endif
 
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     ZStack {
       DefaultBackground()
       VStack {

@@ -23,7 +23,9 @@ struct LoginView: View {
   }
 
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     GeometryReader { geo in
       VStack(alignment: .leading, spacing: 0) {
         Spacer(minLength: 60)

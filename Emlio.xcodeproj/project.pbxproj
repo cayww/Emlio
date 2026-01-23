@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD8916EC2F23492F00F8534D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8916EB2F23492F00F8534D /* StoreKit.framework */; };
 		DDD52BC72F14E8E100B41C50 /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = DDD52BC62F14E8E100B41C50 /* HotSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD8916EB2F23492F00F8534D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DDD52BB52F14E66900B41C50 /* Emlio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emlio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -28,16 +30,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDD52BC72F14E8E100B41C50 /* HotSwiftUI in Frameworks */,
+				DD8916EC2F23492F00F8534D /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD8916EA2F23492F00F8534D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD8916EB2F23492F00F8534D /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DDD52BAC2F14E66900B41C50 = {
 			isa = PBXGroup;
 			children = (
 				DDD52BB72F14E66900B41C50 /* Emlio */,
+				DD8916EA2F23492F00F8534D /* Frameworks */,
 				DDD52BB62F14E66900B41C50 /* Products */,
 			);
 			sourceTree = "<group>";

@@ -5,8 +5,8 @@ import SwiftUI
 @main
 struct EmlioApp: App {
   let container: ModelContainer
-  let appState: AppState = AppState()
-
+  @StateObject private var appState = AppState()
+  @StateObject private var purchaseManager = PurchaseManager()
   init() {
     #if DEBUG
       Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?.load()
@@ -14,7 +14,6 @@ struct EmlioApp: App {
         Bundle(path: path)!.load()
       }
     #endif
-
     do {
       container = try ModelContainer(
         for: UserData.self, PostData.self, BlockData.self, FollowData.self)
@@ -30,6 +29,7 @@ struct EmlioApp: App {
           bootstrapIfNeeded(context: container.mainContext)
         }
         .environmentObject(appState)
+        .environmentObject(purchaseManager)
     }
     .modelContainer(container)
 

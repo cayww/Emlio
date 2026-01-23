@@ -11,7 +11,9 @@ struct RegisterView: View {
   @State private var agaginPassword = ""
 
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     GeometryReader { _ in
       VStack(alignment: .leading, spacing: 0) {
         Spacer(minLength: 64)

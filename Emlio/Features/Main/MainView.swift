@@ -25,7 +25,9 @@ struct MainView: View {
   }
 
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     NavigationStack(path: $router.path) {
       GeometryReader { geo in
         ZStack {
@@ -63,6 +65,8 @@ struct MainView: View {
           AiView()
         case .aiGenerate:
           GenerateView()
+        case .wallet:
+          WalletView()
         }
       }
     }

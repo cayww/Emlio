@@ -26,7 +26,9 @@ struct AgreementView: View {
     @ObserveInjection var forceRedraw
   #endif
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     VStack(spacing: 0) {
       AgreementContent(url: url)
         .edgesIgnoringSafeArea(.bottom)

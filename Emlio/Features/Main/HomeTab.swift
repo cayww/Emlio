@@ -34,7 +34,9 @@ struct HomeTab: View {
   }
 
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     GeometryReader { geo in
       VStack(alignment: .leading, spacing: .zero) {
         Spacer().frame(height: 12)

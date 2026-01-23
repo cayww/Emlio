@@ -6,11 +6,10 @@ import SwiftUI
 final class AppState: ObservableObject {
   @Published var isLoggedIn: Bool = false
   @Published var currentUser: UserData? = nil
-
-  func login(email: String, password: String) {
-
+  func addCoins(_ amount: Int) {
+    guard let user = currentUser else { return }
+    user.coin += amount
   }
-
   func logout() {
     currentUser = nil
     isLoggedIn = false

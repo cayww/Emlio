@@ -6,8 +6,11 @@ struct AiView: View {
   #endif
   @EnvironmentObject var router: NavigationRouter
   @State private var isLoading = false
+
   var body: some View {
-    let _ = forceRedraw
+    #if DEBUG
+      let _ = forceRedraw
+    #endif
     GeometryReader { geo in
       VStack(spacing: 0) {
         Spacer().frame(height: 50)
@@ -19,6 +22,7 @@ struct AiView: View {
           Text(
             "Describe your dream jewelry—I’ll turn it into a visual masterpiece in seconds.\n\nFrom cute to classy, I create it all. Just say the word. 💖"
           )
+          .fixedSize(horizontal: false, vertical: true)
           .foregroundColor(.white)
           .font(.system(size: 16))
           .padding(.horizontal, 16)
