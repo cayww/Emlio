@@ -106,6 +106,7 @@ struct GenerateView: View {
                 try? await Task.sleep(nanoseconds: 500_000_000)
                 if (appState.currentUser?.coin ?? 0) >= 300 {
                   appState.currentUser?.coin = (appState.currentUser?.coin ?? 0) - 300
+                  router.path.append(MainRoute.aiResult)
                 } else {
                   isActive = true
                 }
