@@ -67,6 +67,8 @@ struct MainView: View {
           GenerateView()
         case .wallet:
           WalletView()
+        case .aiResult:
+          ResultView()
         }
       }
     }

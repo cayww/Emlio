@@ -17,6 +17,7 @@ enum MainRoute: Hashable {
   case ai
   case aiGenerate
   case wallet
+  case aiResult
 }
 
 class NavigationRouter: ObservableObject {
