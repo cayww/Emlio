@@ -1,3 +1,4 @@
+import AlertToast
 import StoreKit
 import SwiftUI
 
@@ -14,7 +15,7 @@ struct WalletView: View {
     GridItem(.flexible(), spacing: 13),
     GridItem(.flexible(), spacing: 13),
   ]
-
+  @State private var showToast: Bool = false
   var body: some View {
     #if DEBUG
       let _ = forceRedraw
@@ -89,7 +90,7 @@ struct WalletView: View {
         .scrollBounceBehavior(.basedOnSize)
       }
       .padding(.horizontal, 16)
-      if isLoading { loadingView }
+      if isLoading || isPurchasing { loadingView }
     }
     .onAppear {
       Task {
@@ -97,6 +98,9 @@ struct WalletView: View {
         await purchaseManager.loadProducts()
         isLoading = false
       }
+    }
+    .toast(isPresenting: $showToast) {
+      AlertToast(type: .regular, title: "Purchase failed, please try again later")
     }
     .background(DefaultBackground())
     .navigationBarBackButtonHidden(true)
@@ -142,7 +146,8 @@ struct WalletView: View {
           updateUserCoins(by: coins)
         }
       } catch {
-        print("Purchase failed:", error)
+        showToast = true
+        debugPrint("Purchase failed:", error)
       }
     }
   }

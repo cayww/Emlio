@@ -5,18 +5,15 @@ import SwiftUI
 @MainActor
 final class LoginViewModel: ObservableObject {
 
-  // MARK: - Input
   @Published var email: String = ""
   @Published var password: String = ""
 
-  // MARK: - Output
   @Published private(set) var isLoading: Bool = false
   private let modelContext: ModelContext
 
   init(modelContext: ModelContext) {
     self.modelContext = modelContext
   }
-  // MARK: - Action
   @MainActor
   func login() async -> UserData? {
     guard validate() else { return nil }

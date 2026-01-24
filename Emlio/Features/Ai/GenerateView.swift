@@ -160,7 +160,7 @@ struct GenerateView: View {
         }
       }
       ToolbarItem(placement: .principal) {
-        Text(" AI – Jewelry Art Generator")
+        Text("AI – Jewelry Art Generator")
           .foregroundColor(.white)
           .font(.system(size: 20, weight: .bold))
       }

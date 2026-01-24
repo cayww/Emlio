@@ -28,11 +28,19 @@ struct HomeTab: View {
     let blockedIDs = Set(blocklist.map { $0.toUser.id })
     return users.filter { !blockedIDs.contains($0.id) }
   }
+  var filteredPosts: [PostData] {
+    let blockedIDs = Set(blocklist.map { $0.toUser.id })
+    return posts.filter { !blockedIDs.contains($0.user.id) }
+  }
 
   var followingUserIDs: Set<Int> {
     Set(following.map { $0.toUser.id })
   }
 
+  let columns = [
+    GridItem(.flexible(), spacing: 13),
+    GridItem(.flexible(), spacing: 13),
+  ]
   var body: some View {
     #if DEBUG
       let _ = forceRedraw
@@ -81,7 +89,7 @@ struct HomeTab: View {
             Spacer().frame(height: 22)
             ScrollView(.horizontal, showsIndicators: false) {
               HStack(spacing: 22) {
-                ForEach(posts, id: \.id) { post in
+                ForEach(filteredPosts, id: \.id) { post in
                   VStack(spacing: 0) {
                     ZStack {
                       post.postImage
@@ -213,8 +221,62 @@ struct HomeTab: View {
               .foregroundColor(.white)
               .font(.system(size: 20, weight: .bold, design: .default))
             Spacer().frame(height: 12)
+            LazyVGrid(columns: columns, spacing: 16) {
+              ForEach(filteredPosts.reversed(), id: \.id) { post in
+                ZStack {
+                  VStack(spacing: 0) {
+                    ZStack {
+                      post.postImage
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: .infinity, height: 190)
+                        .cornerRadius(8)
+                      if post.user.id != appState.currentUser!.id {
+                        VStack(spacing: 0) {
+                          HStack {
+                            Spacer()
+                            Image("Assets/emlio_report_icon")
+                              .resizable()
+                              .scaledToFit()
+                              .frame(width: 24, height: 24)
+
+                          }
+                          Spacer()
+                        }
+                        .padding(8)
+                      }
+                    }
+                    .frame(width: .infinity, height: 190)
+                    Spacer().frame(height: 63)
+                  }
+                  VStack(spacing: 0) {
+                    Spacer().frame(height: 145)
+                    post.user.photoImage
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: 46, height: 46)
+                      .clipShape(Circle())
+                      .overlay(
+                        Circle().stroke(
+                          Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255),
+                          lineWidth: 1
+                        )
+                      )
+                    Spacer().frame(height: 6)
+                    Text("\(post.user.name)")
+                      .font(.system(size: 15, design: .default))
+                      .foregroundColor(.white)
+                      .lineLimit(1)
+                      .frame(width: .infinity)
+                  }
+                }
+                .background(.white.opacity(0.1))
+                .cornerRadius(20)
+              }
+            }
           }
         }
+        .scrollIndicators(.hidden)
       }
       .padding(.horizontal, 16)
       .background(DefaultBackground())

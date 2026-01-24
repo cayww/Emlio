@@ -44,7 +44,6 @@ class PostData {
     if let url = Bundle.main.url(forResource: name, withExtension: ext) {
       return url
     }
-
     return nil
   }
 

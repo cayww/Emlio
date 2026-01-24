@@ -47,16 +47,29 @@ struct MainView: View {
           }
           .background(DefaultBackground())
           .accentColor(.white)
-          VStack {
-            Spacer()
-            Image("Assets/emlio_tabbar_post")
-              .resizable()
-              .scaledToFit()
-              .frame(width: 75, height: 38)
-              .onTapGesture {
-                showPost = true
+          Color.clear
+            .safeAreaInset(
+              edge: .bottom,
+              alignment: isIOS26 ? .trailing : .center
+            ) {
+              if isIOS26 {
+                Image("Assets/emlio_tabbar_post")
+                  .resizable()
+                  .scaledToFill()
+                  .frame(width: 40, height: 40)
+                  .clipShape(Circle())
+                  .onTapGesture { showPost = true }
+                  .padding(.bottom, 12)
+                  .padding(.trailing, 20)
+              } else {
+                Image("Assets/emlio_tabbar_post")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 75, height: 38)
+                  .onTapGesture { showPost = true }
+                  .padding(.bottom, 6)
               }
-          }
+            }
         }
       }
       .navigationDestination(for: MainRoute.self) { route in
@@ -81,4 +94,13 @@ struct MainView: View {
     .environmentObject(router)
     .enableInjection()
   }
+
+  var isIOS26: Bool {
+    if #available(iOS 26.0, *) {
+      return true
+    } else {
+      return false
+    }
+  }
+
 }

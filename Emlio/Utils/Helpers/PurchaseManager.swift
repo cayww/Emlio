@@ -27,7 +27,7 @@ final class PurchaseManager: ObservableObject {
       let ids = localProducts.map { $0.id }
       products = try await Product.products(for: ids)
     } catch {
-      print("Load products error:", error)
+      debugPrint("Load products error:", error)
     }
   }
 
