@@ -5,7 +5,7 @@ struct HomeTab: View {
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
-  var currentID: Int
+  var currentID: UUID
   @EnvironmentObject var router: NavigationRouter
   @Query(sort: \PostData.createdAt, order: .forward) private var posts: [PostData]
   @EnvironmentObject var appState: AppState
@@ -13,7 +13,7 @@ struct HomeTab: View {
   @Query private var users: [UserData]
   @Query private var blocklist: [BlockData]
 
-  init(currentID: Int) {
+  init(currentID: UUID) {
     self.currentID = currentID
     _following = Query(filter: #Predicate { $0.fromUser.id == currentID })
     _blocklist = Query(
@@ -33,7 +33,7 @@ struct HomeTab: View {
     return posts.filter { !blockedIDs.contains($0.user.id) }
   }
 
-  var followingUserIDs: Set<Int> {
+  var followingUserIDs: Set<UUID> {
     Set(following.map { $0.toUser.id })
   }
 
@@ -164,6 +164,9 @@ struct HomeTab: View {
                   .padding(10)
                   .background(.white.opacity(0.1))
                   .cornerRadius(20)
+                  .onTapGesture {
+                    router.path.append(MainRoute.postDetail(postItem: post))
+                  }
                 }
               }
             }
@@ -175,7 +178,7 @@ struct HomeTab: View {
             ScrollView(.horizontal, showsIndicators: false) {
               HStack(spacing: 12) {
                 ForEach(filteredUsers, id: \.id) { user in
-                  let isFollowing = followingUserIDs.contains(user.id)
+                  let isFollowing: Bool = followingUserIDs.contains(user.id)
                   ZStack(alignment: .top) {
                     user.photoImage
                       .resizable()
@@ -272,6 +275,9 @@ struct HomeTab: View {
                 }
                 .background(.white.opacity(0.1))
                 .cornerRadius(20)
+                .onTapGesture {
+                  router.path.append(MainRoute.postDetail(postItem: post))
+                }
               }
             }
           }

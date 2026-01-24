@@ -4,21 +4,19 @@ import SwiftUI
 @Model
 class PostData {
 
-  @Attribute(.unique) var id: Int
+  @Attribute(.unique) var id: UUID = UUID()
   var content: String
   var image: String
   var createdAt: Date
   var user: UserData
 
   init(
-    id: Int = 0,
     user: UserData,
     content: String,
     image: String,
     createdAt: Date = .now
   ) {
     self.user = user
-    self.id = id
     self.content = content
     self.image = image
     self.createdAt = createdAt

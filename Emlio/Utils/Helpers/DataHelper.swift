@@ -3,7 +3,6 @@ import SwiftUI
 
 func bootstrapData(context: ModelContext) throws {
 
-  // MARK: - Users
   let usersURL = Bundle.main.url(forResource: "users", withExtension: "json")!
   let usersData = try Data(contentsOf: usersURL)
   let userDTOs = try JSONDecoder().decode([UserDTO].self, from: usersData)
@@ -12,18 +11,17 @@ func bootstrapData(context: ModelContext) throws {
 
   for dto in userDTOs {
     let user = UserData(
-      id: dto.id,
       name: dto.name,
       email: dto.email,
       coin: dto.coin,
       photo: dto.photo,
       password: dto.password
     )
+
     context.insert(user)
     userMap[dto.id] = user
   }
 
-  // MARK: - Posts
   let postsURL = Bundle.main.url(forResource: "posts", withExtension: "json")!
   let postsData = try Data(contentsOf: postsURL)
 
@@ -33,9 +31,7 @@ func bootstrapData(context: ModelContext) throws {
 
   for dto in postDTOs {
     guard let user = userMap[dto.userId] else { continue }
-
     let post = PostData(
-      id: dto.id,
       user: user,
       content: dto.content,
       image: dto.image,

@@ -82,6 +82,8 @@ struct MainView: View {
           WalletView()
         case .aiResult:
           ResultView()
+        case .postDetail(let postItem):
+          DetailView(postItem: postItem)
         }
       }
     }
