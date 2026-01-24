@@ -84,6 +84,8 @@ struct MainView: View {
           ResultView()
         case .postDetail(let postItem):
           DetailView(postItem: postItem)
+        case .addRecreate(let postItem):
+          ReacreateView(postItem: postItem)
         }
       }
     }

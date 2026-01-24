@@ -19,6 +19,7 @@ enum MainRoute: Hashable {
   case wallet
   case aiResult
   case postDetail(postItem: PostData)
+  case addRecreate(postItem: PostData)
 }
 
 class NavigationRouter: ObservableObject {

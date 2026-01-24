@@ -15,6 +15,7 @@ struct DetailView: View {
     let userID = postItem.user.id
     _following = Query(filter: #Predicate { $0.toUser.id == userID })
   }
+
   var followingUserIDs: Set<UUID> {
     Set(following.map { $0.fromUser.id })
   }
@@ -22,24 +23,41 @@ struct DetailView: View {
     #if DEBUG
       let _ = forceRedraw
     #endif
-    VStack {
-      Spacer().frame(height: 15)
-      postItem.postImage
-        .resizable()
-        .scaledToFill()
-        .frame(width: .infinity, height: 440)
+    ScrollView {
+      VStack(spacing: 0) {
+        Spacer().frame(height: 20)
+        postItem.postImage
+          .resizable()
+          .scaledToFill()
+          .frame(width: .infinity, height: 440)
+          .cornerRadius(20)
+        Spacer().frame(height: 20)
+        Text(postItem.content)
+          .foregroundColor(.white.opacity(0.7))
+          .font(.system(size: 18))
+          .frame(maxWidth: .infinity, alignment: .leading)
+        Spacer().frame(height: 30)
+        Text("Replicated jewelry")
+          .foregroundColor(Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255))
+          .font(.system(size: 16))
+          .frame(maxWidth: .infinity, alignment: .leading)
+        Spacer().frame(height: 12)
+        ZStack {
+          Image("Assets/emlio_recreate_add")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 40, height: 40)
+        }
+        .frame(width: 120, height: 160)
+        .background(.white.opacity(0.1))
         .cornerRadius(20)
-      Spacer().frame(height: 20)
-      Text(postItem.content)
-        .foregroundColor(.white.opacity(0.7))
-        .font(.system(size: 18))
-        .frame(maxWidth: .infinity, alignment: .leading)
-      Spacer().frame(height: 30)
-      Text("Replicated jewelry")
-        .foregroundColor(Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255))
-        .font(.system(size: 16))
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .onTapGesture {
+          router.path.append(MainRoute.addRecreate(postItem: postItem))
+        }
+      }
     }
+    .scrollIndicators(.hidden)
+    .scrollBounceBehavior(.basedOnSize)
     .padding(.horizontal, 16)
     .frame(maxHeight: .infinity)
     .background(DefaultBackground())
@@ -89,13 +107,6 @@ struct DetailView: View {
               )
               .onTapGesture {
                 do {
-                  let descriptor = FetchDescriptor<FollowData>()
-                  let results = try modelContext.fetch(descriptor)
-                  let resultsArray = Array(results)
-                  for result in resultsArray {
-                    print(result.toUser.id)
-                    print(result.fromUser.id)
-                  }
                   let followData = FollowData(
                     fromUser: appState.currentUser!,
                     toUser: postItem.user
