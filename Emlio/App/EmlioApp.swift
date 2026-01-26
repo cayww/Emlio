@@ -16,7 +16,8 @@ struct EmlioApp: App {
     #endif
     do {
       container = try ModelContainer(
-        for: UserData.self, PostData.self, BlockData.self, FollowData.self, RecreateData.self)
+        for: UserData.self, PostData.self, BlockData.self, FollowData.self, RecreateData.self,
+        CommentData.self, PostLikeData.self)
     } catch {
       fatalError("Failed to create ModelContainer: \(error)")
     }

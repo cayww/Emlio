@@ -17,9 +17,22 @@
 		DDD52BB52F14E66900B41C50 /* Emlio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emlio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DD8917042F27101600F8534D /* Exceptions for "Emlio" folder in "Emlio" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DDD52BB42F14E66900B41C50 /* Emlio */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DDD52BB72F14E66900B41C50 /* Emlio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DD8917042F27101600F8534D /* Exceptions for "Emlio" folder in "Emlio" target */,
+			);
 			path = Emlio;
 			sourceTree = "<group>";
 		};
@@ -304,6 +317,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Emlio/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to capture landscapes, portraits, and videos. Your photos and videos can decorate your profile or share with friends. They're securely stored on your device and only shared with your permission. Privacy and security are protected.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for recording voice messages and sharing audio. Audio stays on your device unless you share. Privacy is our priority.";
@@ -350,6 +364,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Emlio/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to capture landscapes, portraits, and videos. Your photos and videos can decorate your profile or share with friends. They're securely stored on your device and only shared with your permission. Privacy and security are protected.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for recording voice messages and sharing audio. Audio stays on your device unless you share. Privacy is our priority.";
