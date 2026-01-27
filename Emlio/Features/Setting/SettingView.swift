@@ -18,12 +18,12 @@ struct SettingView: View {
         itemView(itemText: "User Agreement")
           .onTapGesture {
             let url = URL(string: "https://app.szj237s2.link/users")!
-            router.path.append(GuideRoute.agreement(url: url))
+            router.path.append(MainRoute.agreement(url: url))
           }
         itemView(itemText: "Privacy Agreement")
           .onTapGesture {
             let url = URL(string: "https://app.szj237s2.link/privacy")!
-            router.path.append(GuideRoute.agreement(url: url))
+            router.path.append(MainRoute.agreement(url: url))
           }
         itemView(itemText: "Blocklist")
           .onTapGesture {

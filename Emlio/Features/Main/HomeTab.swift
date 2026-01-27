@@ -12,7 +12,8 @@ struct HomeTab: View {
   @Query private var following: [FollowData]
   @Query private var users: [UserData]
   @Query private var blocklist: [BlockData]
-
+  @State private var showSheet = false
+  @State private var otherUser: UserData?
   init(currentID: UUID) {
     self.currentID = currentID
     _following = Query(filter: #Predicate { $0.fromUser.id == currentID })
@@ -105,6 +106,12 @@ struct HomeTab: View {
                               .resizable()
                               .scaledToFit()
                               .frame(width: 24, height: 24)
+                              .onTapGesture {
+                                otherUser = post.user
+                                DispatchQueue.main.async {
+                                  showSheet = true
+                                }
+                              }
                           }
                           Spacer()
                         }
@@ -246,6 +253,12 @@ struct HomeTab: View {
                               .resizable()
                               .scaledToFit()
                               .frame(width: 24, height: 24)
+                              .onTapGesture {
+                                otherUser = post.user
+                                DispatchQueue.main.async {
+                                  showSheet = true
+                                }
+                              }
                           }
                           Spacer()
                         }
@@ -289,6 +302,24 @@ struct HomeTab: View {
       }
       .padding(.horizontal, 16)
       .background(DefaultBackground())
+    }
+    .sheet(isPresented: $showSheet) {
+      BlockBottomSheet(otherUser: otherUser!, showSheet: $showSheet)
+        .presentationCornerRadius(30)
+        .presentationDetents([.height(268), .large])
+        .presentationDragIndicator(.hidden)
+        .interactiveDismissDisabled()
+        .presentationBackground(
+          RadialGradient(
+            gradient: Gradient(colors: [
+              Color(red: 73 / 255, green: 36 / 255, blue: 88 / 255),
+              Color(red: 23 / 255, green: 6 / 255, blue: 28 / 255),
+            ]),
+            center: UnitPoint(x: 1.0, y: 0.295),
+            startRadius: 0,
+            endRadius: 400
+          )
+        )
     }
     .enableInjection()
   }

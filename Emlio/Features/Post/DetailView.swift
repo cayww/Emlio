@@ -17,7 +17,7 @@ struct DetailView: View {
   @Query private var comments: [CommentData]
   @Query private var postLikes: [PostLikeData]
   @State private var commentText: String = ""
-
+  @State private var showBlockSheet = false
   init(postItem: PostData) {
     self.postItem = postItem
     let userID = postItem.user.id
@@ -121,15 +121,6 @@ extension DetailView {
             .scaledToFill()
             .frame(width: 120, height: 160)
             .cornerRadius(20)
-            .overlay(alignment: .topTrailing) {
-              if appState.currentUser?.id != recreate.user.id {
-                Image("Assets/emlio_report_icon")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 24, height: 24)
-                  .padding(8)
-              }
-            }
         }
 
         Image("Assets/emlio_recreate_add")
@@ -266,6 +257,9 @@ extension DetailView {
           .resizable()
           .scaledToFit()
           .frame(width: 40, height: 40)
+          .onTapGesture {
+            showSheet = true
+          }
       }
     }
   }

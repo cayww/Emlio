@@ -13,6 +13,7 @@ struct ChatView: View {
   @Query private var chatMessages: [ChatMessageData]
   @Environment(\.modelContext) private var modelContext
   @State private var commentText: String = ""
+  @State private var showSheet = false
   init(otherUser: UserData, chatID: String) {
     self.otherUser = otherUser
     self.chatID = chatID
@@ -95,6 +96,9 @@ struct ChatView: View {
           .resizable()
           .scaledToFit()
           .frame(width: 40, height: 40)
+          .onTapGesture {
+            showSheet = true
+          }
       }
     }
     .safeAreaInset(edge: .bottom) {
@@ -145,6 +149,24 @@ struct ChatView: View {
             $0.id == chatID
           })
       ).first
+    }
+    .sheet(isPresented: $showSheet) {
+      BlockBottomSheet(otherUser: otherUser, showSheet: $showSheet)
+        .presentationCornerRadius(30)
+        .presentationDetents([.height(268), .large])
+        .presentationDragIndicator(.hidden)
+        .interactiveDismissDisabled()
+        .presentationBackground(
+          RadialGradient(
+            gradient: Gradient(colors: [
+              Color(red: 73 / 255, green: 36 / 255, blue: 88 / 255),
+              Color(red: 23 / 255, green: 6 / 255, blue: 28 / 255),
+            ]),
+            center: UnitPoint(x: 1.0, y: 0.295),
+            startRadius: 0,
+            endRadius: 400
+          )
+        )
     }
     .enableInjection()
   }

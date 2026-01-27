@@ -100,6 +100,8 @@ struct MainView: View {
           FollowView()
         case .editProfile:
           EditView()
+        case .agreement(let url):
+          AgreementView(url: url)
         case .report:
           ReportView()
         }
