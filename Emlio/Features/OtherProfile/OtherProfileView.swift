@@ -1,39 +1,34 @@
 import SwiftData
 import SwiftUI
 
-struct ProfileTab: View {
+struct OtherProfileView: View {
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
-  var currentID: UUID
-  @EnvironmentObject var router: NavigationRouter
+  private var otherUser: UserData
   @EnvironmentObject private var appState: AppState
+  @EnvironmentObject var router: NavigationRouter
+  @Query private var fans: [FollowData]
+  @State private var chatID: String = ""
   @Query private var posts: [PostData]
-  @Query private var followings: [FollowData]
-  init(currentID: UUID) {
-    self.currentID = currentID
+  @State private var followData: FollowData?
+  @Environment(\.modelContext) private var modelContext
+  init(otherUser: UserData) {
+    self.otherUser = otherUser
+    let otherUserID = otherUser.id
+    _fans = Query(filter: #Predicate { $0.toUser.id == otherUserID })
     _posts = Query(
-      filter: #Predicate { $0.user.id == currentID }
+      filter: #Predicate { $0.user.id == otherUserID }
     )
   }
-  let columns = [
-    GridItem(.flexible(), spacing: 13),
-    GridItem(.flexible(), spacing: 13),
-  ]
+
   var body: some View {
     #if DEBUG
       let _ = forceRedraw
     #endif
-
-    VStack(spacing: 0) {
-      Spacer().frame(height: 12)
-      Image("Assets/emlio_setting_icon")
-        .resizable()
-        .scaledToFit()
-        .frame(width: 40, height: 40)
-        .frame(maxWidth: .infinity, alignment: .trailing)
-      Spacer().frame(height: 30)
-      appState.currentUser!.photoImage
+    VStack {
+      Spacer().frame(height: 23)
+      otherUser.photoImage
         .resizable()
         .scaledToFill()
         .frame(width: 115, height: 115)
@@ -45,14 +40,14 @@ struct ProfileTab: View {
           )
         )
       Spacer().frame(height: 16)
-      Text(appState.currentUser!.name)
+      Text(otherUser.name)
         .foregroundColor(.white)
         .font(.system(size: 28, weight: .bold))
       Spacer().frame(height: 8)
       HStack {
         Spacer()
         VStack(spacing: 3) {
-          Text("\(followings.count)")
+          Text("0")
             .foregroundColor(.white)
             .font(.system(size: 20, weight: .bold))
           Text("Followed")
@@ -66,7 +61,7 @@ struct ProfileTab: View {
           .background(Color.white.opacity(0.5))
         Spacer()
         VStack(spacing: 3) {
-          Text("0")
+          Text("\(fans.count)")
             .foregroundColor(.white)
             .font(.system(size: 20, weight: .bold))
           Text("Fans")
@@ -81,41 +76,53 @@ struct ProfileTab: View {
       .cornerRadius(20)
       Spacer().frame(height: 24)
       HStack(spacing: 13) {
-        Button(action: {
-          router.path.append(MainRoute.wallet)
-        }) {
-          HStack(spacing: 8) {
-            Image("Assets/emlio_wallet_p_icon")
-              .resizable()
-              .scaledToFit()
-              .frame(width: 20, height: 20)
-            Text("Wallet")
-              .foregroundColor(.black)
-              .font(.system(size: 18, weight: .bold))
+        Button {
+          if let follow = followData {
+            modelContext.delete(follow)
+            try? modelContext.save()
+            followData = nil
+          } else {
+            let newFollow = FollowData(
+              fromUser: appState.currentUser!,
+              toUser: otherUser
+            )
+            modelContext.insert(newFollow)
+            try? modelContext.save()
+            followData = newFollow
           }
-          .padding(.vertical, 14)
+        } label: {
+          Text(followData != nil ? "- Followed" : "+ Follow")
+            .foregroundColor(
+              followData == nil ? .white : Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255)
+            )
+            .font(.system(size: 18, weight: .bold))
+            .padding(.vertical, 14)
+            .frame(maxWidth: .infinity)
+            .background(
+              followData == nil ? Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255) : .white
+            )
+            .cornerRadius(100)
         }
-        .frame(maxWidth: .infinity)
-        .background(
-          LinearGradient(
-            colors: [
-              Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255),
-              Color(red: 253 / 255, green: 147 / 255, blue: 232 / 255),
-            ],
-            startPoint: .leading,
-            endPoint: .trailing
+        .task {
+          let currentUserID = appState.currentUser!.id
+          let otherUserID = otherUser.id
+          let descriptor = FetchDescriptor<FollowData>(
+            predicate: #Predicate { $0.fromUser.id == currentUserID && $0.toUser.id == otherUserID }
           )
-        )
-        .cornerRadius(100)
+          try? followData = modelContext.fetch(descriptor).first
+        }
         Button(action: {
-          router.path.append(MainRoute.message(currentID: appState.currentUser!.id))
+          guard !chatID.isEmpty else {
+            return
+          }
+          router.path.append(MainRoute.chat(otherUser: otherUser, chatID: chatID))
         }) {
           HStack(spacing: 8) {
             Image("Assets/emlio_msg_p_icon")
               .resizable()
               .scaledToFit()
               .frame(width: 20, height: 20)
-            Text("Message")
+            Text("Chat")
               .foregroundColor(.white)
               .font(.system(size: 18, weight: .bold))
           }
@@ -141,7 +148,12 @@ struct ProfileTab: View {
           Text("Moments")
             .foregroundColor(.white)
             .font(.system(size: 20, weight: .bold))
-          LazyVGrid(columns: columns, spacing: 16) {
+          LazyVGrid(
+            columns: [
+              GridItem(.flexible(), spacing: 13),
+              GridItem(.flexible(), spacing: 13),
+            ], spacing: 16
+          ) {
             ForEach(posts, id: \.id) { post in
               ZStack {
                 VStack(spacing: 0) {
@@ -188,6 +200,44 @@ struct ProfileTab: View {
     }
     .padding(.horizontal, 16)
     .background(DefaultBackground())
+    .navigationBarBackButtonHidden(true)
+    .toolbar {
+      ToolbarItem(placement: .navigationBarLeading) {
+        Button {
+          router.path.removeLast()
+        } label: {
+          Image("Assets/emlio_back")
+            .resizable()
+            .renderingMode(.template)
+            .scaledToFit()
+            .frame(width: 40, height: 40)
+            .foregroundColor(.white)
+        }
+      }
+      ToolbarItem(placement: .navigationBarTrailing) {
+        Image("Assets/emlio_report_icon")
+          .resizable()
+          .scaledToFit()
+          .frame(width: 40, height: 40)
+      }
+    }
+    .onAppear {
+      chatID = ChatRoomData.makeRoomId(userA: appState.currentUser!.id, userB: otherUser.id)
+      Task {
+        let chatRoom = try? modelContext.fetch(
+          FetchDescriptor<ChatRoomData>(
+            predicate: #Predicate {
+              $0.id == chatID
+            })
+        ).first
+        if chatRoom == nil {
+          let chatRoomT = ChatRoomData(
+            id: chatID, firstUser: appState.currentUser!, secondUser: otherUser)
+          modelContext.insert(chatRoomT)
+          try? modelContext.save()
+        }
+      }
+    }
     .enableInjection()
   }
 }

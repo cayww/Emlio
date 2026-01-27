@@ -16,8 +16,17 @@ struct EmlioApp: App {
     #endif
     do {
       container = try ModelContainer(
-        for: UserData.self, PostData.self, BlockData.self, FollowData.self, RecreateData.self,
-        CommentData.self, PostLikeData.self)
+        for:
+          UserData.self,
+        PostData.self,
+        BlockData.self,
+        FollowData.self,
+        RecreateData.self,
+        CommentData.self,
+        PostLikeData.self,
+        ChatRoomData.self,
+        ChatMessageData.self,
+      )
     } catch {
       fatalError("Failed to create ModelContainer: \(error)")
     }
@@ -33,6 +42,5 @@ struct EmlioApp: App {
         .environmentObject(purchaseManager)
     }
     .modelContainer(container)
-
   }
 }

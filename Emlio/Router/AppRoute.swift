@@ -20,6 +20,10 @@ enum MainRoute: Hashable {
   case aiResult
   case postDetail(postItem: PostData)
   case addRecreate(postItem: PostData)
+  case setting
+  case message(currentID: UUID)
+  case otherProfile(otherUser: UserData)
+  case chat(otherUser: UserData, chatID: String)
 }
 
 class NavigationRouter: ObservableObject {

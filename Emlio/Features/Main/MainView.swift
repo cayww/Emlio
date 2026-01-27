@@ -38,7 +38,7 @@ struct MainView: View {
                   .renderingMode(.template)
               }
               .tag(Tab.home)
-            ProfileTab()
+            ProfileTab(currentID: appState.currentUser!.id)
               .tabItem {
                 Image("Assets/emlio_profile_icon")
                   .renderingMode(.template)
@@ -86,6 +86,14 @@ struct MainView: View {
           DetailView(postItem: postItem)
         case .addRecreate(let postItem):
           ReacreateView(postItem: postItem)
+        case .setting:
+          EmptyView()
+        case .message(let currentID):
+          MessageView(currentID: currentID)
+        case .otherProfile(let otherUser):
+          OtherProfileView(otherUser: otherUser)
+        case .chat(let otherUser, let chatID):
+          ChatView(otherUser: otherUser, chatID: chatID)
         }
       }
     }

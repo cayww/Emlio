@@ -216,6 +216,10 @@ struct HomeTab: View {
                     }
                   }
                   .frame(width: 72, height: 90, alignment: .top)
+                  .onTapGesture {
+                    guard user.id != appState.currentUser!.id else { return }
+                    router.path.append(MainRoute.otherProfile(otherUser: user))
+                  }
                 }
               }
             }
