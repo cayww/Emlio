@@ -164,5 +164,4 @@ struct GuideView: View {
       }
     }
   }
-
 }

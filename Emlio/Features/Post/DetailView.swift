@@ -312,30 +312,35 @@ extension DetailView {
         .bold()
         .font(.system(size: 18))
       Spacer().frame(height: 20)
-      ScrollView(.vertical, showsIndicators: false) {
-        VStack(spacing: 20) {
-          ForEach(comments, id: \.id) { comment in
-            HStack(alignment: .top, spacing: 12) {
-              comment.user.photoImage
-                .resizable()
-                .scaledToFill()
-                .frame(width: 44, height: 44)
-                .clipShape(Circle())
-              VStack(alignment: .leading, spacing: 6) {
-                Text(comment.user.name)
-                  .foregroundColor(.white)
-                  .font(.system(size: 15, weight: .bold))
-                Text(comment.content)
-                  .foregroundColor(.white.opacity(0.7))
-                  .font(.system(size: 13, weight: .regular))
+      if comments.isEmpty {
+        Empty()
+          .frame(maxHeight: .infinity, alignment: .center)
+      } else {
+        ScrollView(.vertical, showsIndicators: false) {
+          VStack(spacing: 20) {
+            ForEach(comments, id: \.id) { comment in
+              HStack(alignment: .top, spacing: 12) {
+                comment.user.photoImage
+                  .resizable()
+                  .scaledToFill()
+                  .frame(width: 44, height: 44)
+                  .clipShape(Circle())
+                VStack(alignment: .leading, spacing: 6) {
+                  Text(comment.user.name)
+                    .foregroundColor(.white)
+                    .font(.system(size: 15, weight: .bold))
+                  Text(comment.content)
+                    .foregroundColor(.white.opacity(0.7))
+                    .font(.system(size: 13, weight: .regular))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
               }
-              .frame(maxWidth: .infinity, alignment: .leading)
+              .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
           }
         }
+        .scrollBounceBehavior(.basedOnSize)
       }
-      .scrollBounceBehavior(.basedOnSize)
       Spacer()
     }
     .safeAreaInset(edge: .bottom) {

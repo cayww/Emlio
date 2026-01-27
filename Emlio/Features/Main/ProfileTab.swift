@@ -169,43 +169,48 @@ struct ProfileTab: View {
           Text("Moments")
             .foregroundColor(.white)
             .font(.system(size: 20, weight: .bold))
-          LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(posts, id: \.id) { post in
-              ZStack {
-                VStack(spacing: 0) {
-                  post.postImage
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: .infinity, height: 190)
-                    .cornerRadius(8)
-                    .frame(width: .infinity, height: 190)
-                  Spacer().frame(height: 63)
-                }
-                VStack(spacing: 0) {
-                  Spacer().frame(height: 145)
-                  post.user.photoImage
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 46, height: 46)
-                    .clipShape(Circle())
-                    .overlay(
-                      Circle().stroke(
-                        Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255),
-                        lineWidth: 1
+          if posts.isEmpty {
+            Empty()
+              .frame(maxWidth: .infinity, alignment: .center)
+          } else {
+            LazyVGrid(columns: columns, spacing: 16) {
+              ForEach(posts, id: \.id) { post in
+                ZStack {
+                  VStack(spacing: 0) {
+                    post.postImage
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: .infinity, height: 190)
+                      .cornerRadius(8)
+                      .frame(width: .infinity, height: 190)
+                    Spacer().frame(height: 63)
+                  }
+                  VStack(spacing: 0) {
+                    Spacer().frame(height: 145)
+                    post.user.photoImage
+                      .resizable()
+                      .scaledToFill()
+                      .frame(width: 46, height: 46)
+                      .clipShape(Circle())
+                      .overlay(
+                        Circle().stroke(
+                          Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255),
+                          lineWidth: 1
+                        )
                       )
-                    )
-                  Spacer().frame(height: 6)
-                  Text("\(post.user.name)")
-                    .font(.system(size: 15, design: .default))
-                    .foregroundColor(.white)
-                    .lineLimit(1)
-                    .frame(width: .infinity)
+                    Spacer().frame(height: 6)
+                    Text("\(post.user.name)")
+                      .font(.system(size: 15, design: .default))
+                      .foregroundColor(.white)
+                      .lineLimit(1)
+                      .frame(width: .infinity)
+                  }
                 }
-              }
-              .background(.white.opacity(0.1))
-              .cornerRadius(20)
-              .onTapGesture {
-                router.path.append(MainRoute.postDetail(postItem: post))
+                .background(.white.opacity(0.1))
+                .cornerRadius(20)
+                .onTapGesture {
+                  router.path.append(MainRoute.postDetail(postItem: post))
+                }
               }
             }
           }

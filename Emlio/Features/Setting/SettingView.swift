@@ -17,11 +17,13 @@ struct SettingView: View {
         Spacer().frame(height: 20)
         itemView(itemText: "User Agreement")
           .onTapGesture {
-
+            let url = URL(string: "https://app.szj237s2.link/users")!
+            router.path.append(GuideRoute.agreement(url: url))
           }
         itemView(itemText: "Privacy Agreement")
           .onTapGesture {
-
+            let url = URL(string: "https://app.szj237s2.link/privacy")!
+            router.path.append(GuideRoute.agreement(url: url))
           }
         itemView(itemText: "Blocklist")
           .onTapGesture {

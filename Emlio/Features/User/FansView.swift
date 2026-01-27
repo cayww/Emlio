@@ -12,6 +12,9 @@ struct FansView: View {
     #endif
     GeometryReader { geometry in
       VStack {
+        Empty()
+          .frame(maxHeight: .infinity, alignment: .center)
+          .frame(maxWidth: .infinity, alignment: .center)
       }
     }
     .background(DefaultBackground())

@@ -47,11 +47,15 @@ struct BlockBottomSheet: View {
             let newResults = try modelContext.fetch(descriptor)
             if !newResults.isEmpty {
               showSheet = false
-              router.path.removeLast()
+              if router.path.count >= 1 {
+                router.path.removeLast()
+              }
             }
           } else {
             showSheet = false
-            router.path.removeLast()
+            if router.path.count >= 1 {
+              router.path.removeLast()
+            }
           }
         }
       }) {

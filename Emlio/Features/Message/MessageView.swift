@@ -39,10 +39,12 @@ struct MessageView: View {
     #endif
     VStack(alignment: .leading, spacing: 0) {
       Spacer().frame(height: 30)
-      Text("Followed")
-        .font(.system(size: 18, weight: .bold))
-        .foregroundColor(.white)
-      Spacer().frame(height: 20)
+      if !following.isEmpty {
+        Text("Followed")
+          .font(.system(size: 18, weight: .bold))
+          .foregroundColor(.white)
+        Spacer().frame(height: 20)
+      }
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 12) {
           ForEach(following, id: \.id) { followingItem in
@@ -68,41 +70,47 @@ struct MessageView: View {
         }
       }
       Spacer().frame(height: 20)
-      ScrollView {
-        VStack(spacing: 30) {
-          ForEach(filteredChats, id: \.id) { chat in
-            HStack(alignment: .top, spacing: 12) {
-              chat.secondUser.photoImage
-                .resizable()
-                .scaledToFill()
-                .frame(width: 44, height: 44)
-                .clipShape(Circle())
-              VStack(alignment: .leading, spacing: 6) {
-                HStack {
-                  Text(chat.secondUser.name)
-                    .foregroundColor(.white)
-                    .font(.system(size: 15, weight: .bold))
-                  Spacer()
-                  Text(timeAgo(from: chat.lastMessageAt ?? Date()))
+      if filteredChats.isEmpty {
+        Empty()
+          .frame(maxHeight: .infinity, alignment: .center)
+          .frame(maxWidth: .infinity, alignment: .center)
+      } else {
+        ScrollView {
+          VStack(spacing: 30) {
+            ForEach(filteredChats, id: \.id) { chat in
+              HStack(alignment: .top, spacing: 12) {
+                chat.secondUser.photoImage
+                  .resizable()
+                  .scaledToFill()
+                  .frame(width: 44, height: 44)
+                  .clipShape(Circle())
+                VStack(alignment: .leading, spacing: 6) {
+                  HStack {
+                    Text(chat.secondUser.name)
+                      .foregroundColor(.white)
+                      .font(.system(size: 15, weight: .bold))
+                    Spacer()
+                    Text(timeAgo(from: chat.lastMessageAt ?? Date()))
+                      .foregroundColor(.white.opacity(0.5))
+                      .font(.system(size: 11, weight: .regular))
+                  }
+                  .frame(maxWidth: .infinity)
+                  Text(chat.lastMessage ?? "")
+                    .lineLimit(1)
                     .foregroundColor(.white.opacity(0.5))
-                    .font(.system(size: 11, weight: .regular))
+                    .font(.system(size: 13, weight: .regular))
                 }
-                .frame(maxWidth: .infinity)
-                Text(chat.lastMessage ?? "")
-                  .lineLimit(1)
-                  .foregroundColor(.white.opacity(0.5))
-                  .font(.system(size: 13, weight: .regular))
+                .frame(maxWidth: .infinity, alignment: .leading)
               }
-              .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .onTapGesture {
-              router.path.append(MainRoute.chat(otherUser: chat.secondUser, chatID: chat.id))
+              .onTapGesture {
+                router.path.append(MainRoute.chat(otherUser: chat.secondUser, chatID: chat.id))
+              }
             }
           }
         }
+        .scrollIndicators(.hidden)
+        .scrollBounceBehavior(.basedOnSize)
       }
-      .scrollIndicators(.hidden)
-      .scrollBounceBehavior(.basedOnSize)
     }
     .padding(.horizontal, 16)
     .background(DefaultBackground())

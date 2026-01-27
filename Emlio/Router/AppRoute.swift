@@ -29,6 +29,7 @@ enum MainRoute: Hashable {
   case follower
   case editProfile
   case report
+  case agreement(url: URL)
 }
 
 class NavigationRouter: ObservableObject {
