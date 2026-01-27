@@ -7,68 +7,68 @@ struct SettingView: View {
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject private var appState: AppState
   @State private var isLogOutLoading = false
-  @State private var isDeleteLoading = false
+  @State private var isActive = false
   var body: some View {
     #if DEBUG
       let _ = forceRedraw
     #endif
-    VStack(spacing: 0) {
-      Spacer().frame(height: 20)
-      itemView(itemText: "User Agreement")
-        .onTapGesture {
+    ZStack {
+      VStack(spacing: 0) {
+        Spacer().frame(height: 20)
+        itemView(itemText: "User Agreement")
+          .onTapGesture {
 
-        }
-      itemView(itemText: "Privacy Agreement")
-        .onTapGesture {
+          }
+        itemView(itemText: "Privacy Agreement")
+          .onTapGesture {
 
-        }
-      itemView(itemText: "Blocklist")
-        .onTapGesture {
+          }
+        itemView(itemText: "Blocklist")
+          .onTapGesture {
 
+          }
+        Spacer()
+        Button(action: {
+          Task {
+            isLogOutLoading = true
+            try? await Task.sleep(nanoseconds: 468_000_000)
+            appState.logout()
+          }
+        }) {
+          if isLogOutLoading {
+            ProgressView()
+              .progressViewStyle(CircularProgressViewStyle(tint: .white))
+              .frame(maxWidth: .infinity)
+          } else {
+            Text("Log Out")
+              .foregroundColor(.white)
+              .bold()
+              .frame(maxWidth: .infinity)
+          }
         }
-      Spacer()
-      Button(action: {
-        Task {
-          isLogOutLoading = true
-          try? await Task.sleep(nanoseconds: 468_000_000)
-          appState.logout()
-          // router.path.removeLast(router.path.count)
-        }
-      }) {
-        if isLogOutLoading {
-          ProgressView()
-            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-            .frame(maxWidth: .infinity)
-        } else {
-          Text("Log Out")
-            .foregroundColor(.white)
-            .bold()
-            .frame(maxWidth: .infinity)
-        }
-      }
-      .buttonStyle(
-        GradientButtonStyle()
-      )
-      Spacer().frame(height: 22)
-      Button(action: {
-      }) {
-        if isDeleteLoading {
-          ProgressView()
-            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-            .frame(maxWidth: .infinity)
-        } else {
+        .buttonStyle(
+          GradientButtonStyle()
+        )
+        Spacer().frame(height: 22)
+        Button(action: {
+          isActive = true
+        }) {
           Text("Delete Account")
             .foregroundColor(.white)
             .bold()
             .frame(maxWidth: .infinity)
         }
+        .buttonStyle(
+          GradientButtonStyle(
+            colors: [Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255)])
+        )
       }
-      .buttonStyle(
-        GradientButtonStyle(
-          colors: [Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255)])
-      )
+      .padding(.horizontal, 16)
+      if isActive {
+        DeleteDialog(isActive: $isActive)
+      }
     }
-    .padding(.horizontal, 16)
+
     .background(DefaultBackground())
     .navigationBarBackButtonHidden(true)
     .toolbar {

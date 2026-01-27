@@ -15,12 +15,6 @@ final class ChatRoomData {
 
   var lastMessageAt: Date?
 
-  @Relationship(
-    deleteRule: .cascade,
-    inverse: \ChatMessageData.room
-  )
-  var messages: [ChatMessageData] = []
-
   init(
     id: String,
     firstUser: UserData,

@@ -13,7 +13,9 @@ final class AppState: ObservableObject {
   }
   func logout() {
     phase = .guide
-    currentUser = nil
     isLoggedIn = false
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+      self.currentUser = nil
+    }
   }
 }
