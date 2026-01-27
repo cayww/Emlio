@@ -2,7 +2,6 @@ import SwiftData
 import SwiftUI
 
 struct GuideView: View {
-  let onFinish: () -> Void
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
@@ -37,12 +36,12 @@ struct GuideView: View {
                   let users = Array(results)
                   if let user = users.first {
                     appState.currentUser = user
-                    onFinish()
+                    appState.phase = .main
                   } else {
                     appState.currentUser = newUser
                     modelContext.insert(newUser)
                     try modelContext.save()
-                    onFinish()
+                    appState.phase = .main
                   }
                   isLoading = false
                 } catch {
@@ -98,7 +97,7 @@ struct GuideView: View {
         case .agreement(let url):
           AgreementView(url: url)
         case .login:
-          LoginView(onFinish: onFinish, modelContext: modelContext)
+          LoginView(modelContext: modelContext)
         case .register:
           RegisterView()
         default:

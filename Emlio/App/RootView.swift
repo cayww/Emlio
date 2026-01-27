@@ -2,21 +2,15 @@ import SwiftData
 import SwiftUI
 
 struct RootView: View {
-  @State private var route: AppPhase = .launch
+  @EnvironmentObject var appState: AppState
   var body: some View {
-    switch route {
+    switch appState.phase {
     case .launch:
-      LaunchView {
-        self.route = .guide
-      }
+      LaunchView()
     case .guide:
-      GuideView {
-        self.route = .main
-      }
+      GuideView()
     case .main:
-      MainView {
-        self.route = .guide
-      }
+      MainView()
     }
   }
 }

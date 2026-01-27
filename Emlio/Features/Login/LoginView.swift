@@ -2,7 +2,6 @@ import SwiftData
 import SwiftUI
 
 struct LoginView: View {
-  private let onFinish: () -> Void
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
@@ -17,8 +16,7 @@ struct LoginView: View {
   @EnvironmentObject var appState: AppState
   @Environment(\.modelContext) private var modelContext: ModelContext
 
-  init(onFinish: @escaping () -> Void, modelContext: ModelContext) {
-    self.onFinish = onFinish
+  init(modelContext: ModelContext) {
     _loginViewModel = StateObject(wrappedValue: LoginViewModel(modelContext: modelContext))
   }
 
@@ -126,7 +124,7 @@ struct LoginView: View {
         Task { @MainActor in
           if let user = await loginViewModel.login() {
             appState.currentUser = user
-            onFinish()
+            appState.phase = .main
           }
         }
       }

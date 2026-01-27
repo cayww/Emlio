@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct MainView: View {
-  let onFinish: () -> Void
   #if DEBUG
     @ObserveInjection var forceRedraw
   #endif
@@ -13,8 +12,7 @@ struct MainView: View {
   @State private var showPost = false
   @State private var selectedTab: Tab = .home
   @EnvironmentObject var appState: AppState
-  init(onFinish: @escaping () -> Void = {}) {
-    self.onFinish = onFinish
+  init() {
     let appearance = UITabBarAppearance()
     appearance.configureWithOpaqueBackground()
     appearance.backgroundColor = UIColor.black
@@ -87,7 +85,7 @@ struct MainView: View {
         case .addRecreate(let postItem):
           ReacreateView(postItem: postItem)
         case .setting:
-          EmptyView()
+          SettingView()
         case .message(let currentID):
           MessageView(currentID: currentID)
         case .otherProfile(let otherUser):

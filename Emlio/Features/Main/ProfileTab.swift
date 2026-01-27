@@ -31,6 +31,9 @@ struct ProfileTab: View {
         .resizable()
         .scaledToFit()
         .frame(width: 40, height: 40)
+        .onTapGesture {
+          router.path.append(MainRoute.setting)
+        }
         .frame(maxWidth: .infinity, alignment: .trailing)
       Spacer().frame(height: 30)
       appState.currentUser!.photoImage
