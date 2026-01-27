@@ -25,7 +25,7 @@ struct SettingView: View {
           }
         itemView(itemText: "Blocklist")
           .onTapGesture {
-
+            router.path.append(MainRoute.blocklist)
           }
         Spacer()
         Button(action: {
@@ -68,7 +68,6 @@ struct SettingView: View {
         DeleteDialog(isActive: $isActive)
       }
     }
-
     .background(DefaultBackground())
     .navigationBarBackButtonHidden(true)
     .toolbar {

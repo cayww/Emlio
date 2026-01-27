@@ -69,7 +69,8 @@ struct DeleteDialog: View {
                 .frame(maxWidth: .infinity)
             } else {
               ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                .progressViewStyle(CircularProgressViewStyle(tint: .white)).frame(
+                  maxWidth: .infinity)
             }
           }
           .frame(height: 52)

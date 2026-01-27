@@ -13,6 +13,7 @@ struct OtherProfileView: View {
   @Query private var posts: [PostData]
   @State private var followData: FollowData?
   @Environment(\.modelContext) private var modelContext
+  @State private var showSheet = false
   init(otherUser: UserData) {
     self.otherUser = otherUser
     let otherUserID = otherUser.id
@@ -219,6 +220,9 @@ struct OtherProfileView: View {
           .resizable()
           .scaledToFit()
           .frame(width: 40, height: 40)
+          .onTapGesture {
+            showSheet = true
+          }
       }
     }
     .onAppear {
@@ -237,6 +241,24 @@ struct OtherProfileView: View {
           try? modelContext.save()
         }
       }
+    }
+    .sheet(isPresented: $showSheet) {
+      BlockBottomSheet(otherUser: otherUser, showSheet: $showSheet)
+        .presentationCornerRadius(30)
+        .presentationDetents([.height(268), .large])
+        .presentationDragIndicator(.hidden)
+        .interactiveDismissDisabled()
+        .presentationBackground(
+          RadialGradient(
+            gradient: Gradient(colors: [
+              Color(red: 73 / 255, green: 36 / 255, blue: 88 / 255),
+              Color(red: 23 / 255, green: 6 / 255, blue: 28 / 255),
+            ]),
+            center: UnitPoint(x: 1.0, y: 0.295),
+            startRadius: 0,
+            endRadius: 400
+          )
+        )
     }
     .enableInjection()
   }

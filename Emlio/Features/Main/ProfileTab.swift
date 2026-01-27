@@ -47,6 +47,25 @@ struct ProfileTab: View {
             lineWidth: 1
           )
         )
+        .overlay(
+          Image(systemName: "camera.fill")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 24, height: 24)
+            .foregroundColor(.white)
+            .frame(width: 34, height: 34)
+            .background(
+              Color(
+                red: 254 / 255,
+                green: 13 / 255,
+                blue: 231 / 255
+              )
+            )
+            .clipShape(Circle()), alignment: .bottomTrailing
+        )
+        .onTapGesture {
+          router.path.append(MainRoute.editProfile)
+        }
       Spacer().frame(height: 16)
       Text(appState.currentUser!.name)
         .foregroundColor(.white)
@@ -63,6 +82,9 @@ struct ProfileTab: View {
             .font(.system(size: 11, weight: .medium))
         }
         .frame(width: 50)
+        .onTapGesture {
+          router.path.append(MainRoute.following)
+        }
         Spacer()
         Divider()
           .frame(height: 30)
@@ -77,6 +99,9 @@ struct ProfileTab: View {
             .font(.system(size: 11, weight: .medium))
         }
         .frame(width: 50)
+        .onTapGesture {
+          router.path.append(MainRoute.follower)
+        }
         Spacer()
       }
       .frame(width: 275, height: 56)

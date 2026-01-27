@@ -24,6 +24,11 @@ enum MainRoute: Hashable {
   case message(currentID: UUID)
   case otherProfile(otherUser: UserData)
   case chat(otherUser: UserData, chatID: String)
+  case blocklist
+  case following
+  case follower
+  case editProfile
+  case report
 }
 
 class NavigationRouter: ObservableObject {

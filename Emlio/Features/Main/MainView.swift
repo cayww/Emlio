@@ -92,6 +92,16 @@ struct MainView: View {
           OtherProfileView(otherUser: otherUser)
         case .chat(let otherUser, let chatID):
           ChatView(otherUser: otherUser, chatID: chatID)
+        case .blocklist:
+          BlockView()
+        case .follower:
+          FansView()
+        case .following:
+          FollowView()
+        case .editProfile:
+          EditView()
+        case .report:
+          ReportView()
         }
       }
     }
