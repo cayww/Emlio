@@ -161,11 +161,19 @@ struct HomeTab: View {
                           )
                         )
                         .padding(.trailing, 10)
+                        .onTapGesture {
+                          guard post.user.id != appState.currentUser!.id else { return }
+                          router.path.append(MainRoute.otherProfile(otherUser: post.user))
+                        }
                       Text(post.user.name)
                         .lineLimit(1)
                         .truncationMode(.tail)
                         .foregroundColor(.white)
                         .font(.system(size: 15, weight: .medium, design: .default))
+                        .onTapGesture {
+                          guard post.user.id != appState.currentUser!.id else { return }
+                          router.path.append(MainRoute.otherProfile(otherUser: post.user))
+                        }
                     }.frame(maxWidth: .infinity, alignment: .leading)
                   }
                   .padding(10)
@@ -287,6 +295,10 @@ struct HomeTab: View {
                       .foregroundColor(.white)
                       .lineLimit(1)
                       .frame(width: .infinity)
+                  }
+                  .onTapGesture {
+                    guard post.user.id != appState.currentUser!.id else { return }
+                    router.path.append(MainRoute.otherProfile(otherUser: post.user))
                   }
                 }
                 .background(.white.opacity(0.1))

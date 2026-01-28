@@ -7,7 +7,13 @@ struct ReportView: View {
   #endif
   @EnvironmentObject var router: NavigationRouter
   @State var currentIndex: Int = 0
-  private var reportOptions: [String] = ["1", "2", "3", "4", "5"]
+  private var reportOptions: [String] = [
+    "Spam",
+    "Harassment",
+    "Hate Speech",
+    "Inappropriate",
+    "Other",
+  ]
   @State var isLoading = false
   @State private var showToast: Bool = false
   var body: some View {

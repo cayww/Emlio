@@ -42,6 +42,14 @@ struct BlockBottomSheet: View {
           let results = try modelContext.fetch(descriptor)
           try? await Task.sleep(nanoseconds: 481_000_000)
           if results.isEmpty {
+            let descriptorFollow = FetchDescriptor<FollowData>(
+              predicate: #Predicate {
+                $0.fromUser.id == currentUserUID && $0.toUser.id == otherUserUID
+              }, )
+            let newResultsFollow = try modelContext.fetch(descriptorFollow)
+            if !newResultsFollow.isEmpty {
+              modelContext.delete(newResultsFollow.first!)
+            }
             let block = BlockData(fromUser: appState.currentUser!, toUser: otherUser)
             modelContext.insert(block)
             let newResults = try modelContext.fetch(descriptor)
