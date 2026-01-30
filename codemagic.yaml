@@ -58,5 +58,3 @@ workflows:
       email:
         recipients:
           - cayww9@gmail.com
-        notify_on_build_success: true
-        notify_on_build_failure: true
