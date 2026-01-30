@@ -1,64 +1,73 @@
+# .circleci/config.yml
 version: 2.1
 
-orbs:
-  flutter: circleci/flutter@3.0.0
-
 jobs:
-  build-flutter-ios:
+  build-and-upload:
     macos:
-      xcode: "16.4.0" # 你本机的xcode版本
+      xcode: "26.2.0"
+
+    environment:
+      BUNDLE_PATH: vendor/bundle # Bundler 安装路径，方便缓存
+      FL_OUTPUT_DIR: build
+
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+    #      FASTLANE_USER: "${FASTLANE_USER}"
+    #      ASC_KEY_ID: "${ASC_KEY_ID}"
+    #      ASC_ISSUER_ID: "${ASC_ISSUER_ID}"
+    #      ASC_KEY_CONTENT: "${ASC_KEY_CONTENT}"
+    #      MATCH_PASSWORD: "${MATCH_PASSWORD}"
 
     steps:
       - checkout
 
       - run:
-          name: Set Git
+          name: Setup environment
           command: |
+            mkdir -p "$FL_OUTPUT_DIR"
+            xcodebuild -version
             git config --global user.email "ci@example.com"
             git config --global user.name "CI Bot"
+            git config --list | grep user.
+
+      - restore_cache:
+          keys:
+            - v1-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-bundle-
 
       - run:
-          name: Install Ruby
+          name: Install Ruby 3.3.6 via rbenv
           command: |
             brew install rbenv ruby-build
             eval "$(rbenv init -)"
             rbenv install 3.3.6 --skip-existing
             rbenv global 3.3.6
+            ruby -v
 
       - run:
-          name: Install Bundler
+          name: Install Bundler & Gems
           command: |
             gem install bundler
-            bundle config set --local path 'vendor/bundle'
-            bundle install
+            bundle install --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: v1-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Run Fastlane
           command: bundle exec fastlane release
 
-      - flutter/install_sdk_and_pub:
-          channel: stable
-          version: 3.32.4 # 你本机的flutter版本
-
-      - run:
-          name: Flutter Build
-          command: |
-            gem install cocoapods
-            flutter --version
-            pod --version
-            xcodebuild -version
-            flutter build ipa --release --obfuscate --split-debug-info=debug-info --export-options-plist=build.plist
-            cd build/ios/ipa
-            zip ipa.zip *.ipa
-
       - store_artifacts:
-          path: build/ios/ipa
+          path: build
+
 workflows:
-  version: 2
-  build-flutter-ios:
+  version: 1
+  build-and-upload:
     jobs:
-      - build-flutter-ios:
+      - build-and-upload:
           filters:
             branches:
               only:
-                - pre # 你要打包的分支名字
+                - release # 或你指定的发布分支，如 release/production

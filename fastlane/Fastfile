@@ -57,19 +57,19 @@ platform :ios do
   lane :release do
     on_match
     prepare_gym
-    # gym(
-    #   export_method: export_method,
-    #   # output_directory: "./build",
-    #   # buildlog_path: "./build",
-    #   clean: true,
-    #   silent: true,
-    #   )
-    # deliver(
-    #   skip_metadata: true,
-    #   skip_screenshots: true,
-    #   submit_for_review: false
-    # ) if export_method == "app-store"
-    # pgyer(api_key: pgy_api_key) if export_method == "ad-hoc"
+    gym(
+      export_method: export_method,
+      # output_directory: "./build",
+      # buildlog_path: "./build",
+      clean: true,
+      silent: true,
+      )
+    deliver(
+      skip_metadata: true,
+      skip_screenshots: true,
+      submit_for_review: false
+    ) if export_method == "app-store"
+    pgyer(api_key: pgy_api_key) if export_method == "ad-hoc"
   end
 
   lane :on_match do
@@ -101,16 +101,16 @@ platform :ios do
     # sh "git config --global user.email 'ci@example.com'"
     # sh "git config --global user.name 'CI Bot'"
 
-    # register_devices(
-    #   devices: {
-    #     "iPhone" => "00008110-00066DE92E00402E",
-    #   }
-    # )
+    register_devices(
+      devices: {
+        "iPhone" => "00008110-00066DE92E00402E",
+      }
+    )
 
   	match(
         git_branch: username,
         username: username,
-        type: "appstore",
+        type: "development",
         app_identifier: [bundle_id],
         force_for_new_devices: true,
         readonly: false,
@@ -139,12 +139,9 @@ platform :ios do
 	  UI.important "profile_name = #{profile_name}"
 
     update_code_signing_settings(
-      path: "ios/Runner.xcodeproj",
       use_automatic_signing: false,
-      team_id: "V9PC5ZY5D6",
-      targets: ["Runner"],
-      code_sign_identity: "Apple Distribution",
-      profile_name: "match AppStore com.asjhdsf.emlio",
+      team_id: team_id,
+      profile_name: profile_name,
     )
     
 
