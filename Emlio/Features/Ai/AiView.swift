@@ -1,16 +1,12 @@
 import SwiftUI
 
 struct AiView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @State private var isLoading = false
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     GeometryReader { geo in
       VStack(spacing: 0) {
         Spacer().frame(height: 50)
@@ -95,6 +91,6 @@ struct AiView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

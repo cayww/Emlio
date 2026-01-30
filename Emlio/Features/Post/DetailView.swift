@@ -2,9 +2,6 @@ import SwiftData
 import SwiftUI
 
 struct DetailView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
 
   var postItem: PostData
 
@@ -33,9 +30,6 @@ struct DetailView: View {
   }
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
 
     ScrollView {
       content
@@ -75,7 +69,7 @@ struct DetailView: View {
     }
     .navigationBarBackButtonHidden(true)
     .toolbar { toolbarContent }
-    .enableInjection()
+
   }
 }
 

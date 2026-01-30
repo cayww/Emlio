@@ -22,13 +22,8 @@ struct AgreementView: View {
   @EnvironmentObject var router: NavigationRouter
   let url: URL
 
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack(spacing: 0) {
       AgreementContent(url: url)
         .edgesIgnoringSafeArea(.bottom)

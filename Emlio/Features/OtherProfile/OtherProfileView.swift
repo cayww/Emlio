@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct OtherProfileView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   private var otherUser: UserData
   @EnvironmentObject private var appState: AppState
   @EnvironmentObject var router: NavigationRouter
@@ -24,9 +22,7 @@ struct OtherProfileView: View {
   }
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack {
       Spacer().frame(height: 23)
       otherUser.photoImage
@@ -260,6 +256,6 @@ struct OtherProfileView: View {
           )
         )
     }
-    .enableInjection()
+
   }
 }

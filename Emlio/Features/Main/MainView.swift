@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct MainView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   enum Tab: Hashable {
     case home
     case profile
@@ -23,9 +21,7 @@ struct MainView: View {
   }
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     NavigationStack(path: $router.path) {
       GeometryReader { geo in
         ZStack {
@@ -114,7 +110,7 @@ struct MainView: View {
     }
     .navigationBarBackButtonHidden(true)
     .environmentObject(router)
-    .enableInjection()
+
   }
 
   var isIOS26: Bool {

@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct BlockView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject private var appState: AppState
   @Environment(\.modelContext) private var modelContext
@@ -16,9 +14,7 @@ struct BlockView: View {
     }
   }
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack {
       Spacer().frame(height: 35).frame(maxWidth: .infinity)
       if currentUserBlocklist.isEmpty {
@@ -93,6 +89,6 @@ struct BlockView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

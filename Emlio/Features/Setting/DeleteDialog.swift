@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct DeleteDialog: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @Binding var isActive: Bool
   @State private var isLoading = false
   @EnvironmentObject private var appState: AppState
@@ -12,9 +10,7 @@ struct DeleteDialog: View {
   @State private var overlayOpacity: Double = 0.5
   private let animationDuration = 0.1
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     ZStack {
       Color(.black)
         .opacity(0.5)
@@ -104,7 +100,7 @@ struct DeleteDialog: View {
       }
     }
     .ignoresSafeArea()
-    .enableInjection()
+
   }
   func close() {
     withAnimation(.linear(duration: animationDuration)) {

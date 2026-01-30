@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct ProfileTab: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   var currentID: UUID
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject private var appState: AppState
@@ -21,9 +19,6 @@ struct ProfileTab: View {
     GridItem(.flexible(), spacing: 13),
   ]
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
 
     VStack(spacing: 0) {
       Spacer().frame(height: 12)
@@ -221,6 +216,6 @@ struct ProfileTab: View {
     }
     .padding(.horizontal, 16)
     .background(DefaultBackground())
-    .enableInjection()
+
   }
 }

@@ -2,18 +2,14 @@ import SwiftData
 import SwiftUI
 
 struct RegisterView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @State private var email = ""
   @State private var password = ""
   @State private var agaginPassword = ""
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     GeometryReader { _ in
       VStack(alignment: .leading, spacing: 0) {
         Spacer(minLength: 64)
@@ -49,7 +45,7 @@ struct RegisterView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 
   private var emailGroup: some View {

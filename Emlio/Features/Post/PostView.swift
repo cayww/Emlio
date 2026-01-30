@@ -4,9 +4,7 @@ import SwiftUI
 import UIKit
 
 struct PostView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @Binding var show: Bool
   @State var content: String = ""
   @FocusState private var isFocused: Bool
@@ -16,9 +14,7 @@ struct PostView: View {
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var appState: AppState
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     GeometryReader { geo in
       VStack(spacing: 0) {
         Spacer().frame(height: 40)
@@ -143,6 +139,6 @@ struct PostView: View {
         }
       }
     }
-    .enableInjection()
+
   }
 }

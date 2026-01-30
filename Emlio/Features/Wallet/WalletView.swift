@@ -3,9 +3,7 @@ import StoreKit
 import SwiftUI
 
 struct WalletView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject var appState: AppState
   @EnvironmentObject var purchaseManager: PurchaseManager
@@ -17,9 +15,7 @@ struct WalletView: View {
   ]
   @State private var showToast: Bool = false
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     ZStack {
       VStack(alignment: .leading) {
         Spacer().frame(height: 52)
@@ -123,7 +119,7 @@ struct WalletView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 
   @MainActor

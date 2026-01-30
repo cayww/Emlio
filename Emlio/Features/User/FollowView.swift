@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct FollowView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject private var appState: AppState
   @Environment(\.modelContext) private var modelContext
@@ -17,9 +15,7 @@ struct FollowView: View {
   }
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack {
       Spacer().frame(height: 35).frame(maxWidth: .infinity)
       if currentUserFollowing.isEmpty {
@@ -94,6 +90,6 @@ struct FollowView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

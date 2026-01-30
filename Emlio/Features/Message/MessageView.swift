@@ -3,9 +3,7 @@ import SwiftData
 import SwiftUI
 
 struct MessageView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   var currentID: UUID
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject private var appState: AppState
@@ -34,9 +32,7 @@ struct MessageView: View {
     return formatter.localizedString(for: date, relativeTo: Date())
   }
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack(alignment: .leading, spacing: 0) {
       Spacer().frame(height: 30)
       if !following.isEmpty {
@@ -134,6 +130,6 @@ struct MessageView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

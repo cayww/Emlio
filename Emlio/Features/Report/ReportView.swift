@@ -2,9 +2,7 @@ import AlertToast
 import SwiftUI
 
 struct ReportView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @State var currentIndex: Int = 0
   private var reportOptions: [String] = [
@@ -17,9 +15,7 @@ struct ReportView: View {
   @State var isLoading = false
   @State private var showToast: Bool = false
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack {
       Spacer().frame(height: 24)
       ForEach(reportOptions.indices, id: \.self) { index in
@@ -102,6 +98,6 @@ struct ReportView: View {
     .toast(isPresenting: $showToast) {
       AlertToast(type: .complete(.black), title: "Your report will be processed within 24 hours.")
     }
-    .enableInjection()
+
   }
 }

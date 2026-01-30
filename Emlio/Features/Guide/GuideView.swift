@@ -2,18 +2,14 @@ import SwiftData
 import SwiftUI
 
 struct GuideView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @State private var isLoading = false
   @State private var isSelected = false
   @Environment(\.modelContext) private var modelContext
   @StateObject private var router = NavigationRouter()
   @EnvironmentObject var appState: AppState
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     NavigationStack(path: $router.path) {
       GeometryReader { geo in
         VStack(spacing: 0) {
@@ -106,7 +102,7 @@ struct GuideView: View {
       }
     }
     .environmentObject(router)
-    .enableInjection()
+
   }
 
   private var argeeHStack: some View {

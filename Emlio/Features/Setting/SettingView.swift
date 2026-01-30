@@ -1,17 +1,13 @@
 import SwiftUI
 
 struct SettingView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject private var appState: AppState
   @State private var isLogOutLoading = false
   @State private var isActive = false
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     ZStack {
       VStack(spacing: 0) {
         Spacer().frame(height: 20)
@@ -91,7 +87,7 @@ struct SettingView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }
 

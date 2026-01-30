@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct GenerateView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject var appState: AppState
   @State var options = [
@@ -16,9 +14,7 @@ struct GenerateView: View {
   @State var currentIndex = 0
   @State var content: String = ""
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     ZStack {
       GeometryReader { geo in
         VStack(alignment: .leading, spacing: 0) {
@@ -165,6 +161,6 @@ struct GenerateView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

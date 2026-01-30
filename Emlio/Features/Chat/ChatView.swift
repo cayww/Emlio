@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct ChatView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   private var otherUser: UserData
   private var chatID: String
   @EnvironmentObject var router: NavigationRouter
@@ -21,9 +19,7 @@ struct ChatView: View {
   }
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack {
       Spacer().frame(height: 35).frame(maxWidth: .infinity)
       ScrollView {
@@ -168,6 +164,6 @@ struct ChatView: View {
           )
         )
     }
-    .enableInjection()
+
   }
 }

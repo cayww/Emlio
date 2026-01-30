@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct EditView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject private var appState: AppState
   @Environment(\.modelContext) private var modelContext
@@ -13,9 +11,7 @@ struct EditView: View {
   @State private var showPicker = false
   @State private var selectedImage: UIImage?
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack(alignment: .center, spacing: 0) {
       Spacer().frame(height: 20).frame(maxWidth: .infinity)
       if let img = selectedImage {
@@ -172,6 +168,6 @@ struct EditView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

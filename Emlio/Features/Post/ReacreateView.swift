@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct ReacreateView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   let postItem: PostData
   @Environment(\.modelContext) private var modelContext
   @EnvironmentObject private var appState: AppState
@@ -13,9 +11,7 @@ struct ReacreateView: View {
   @State private var showPicker = false
   @State private var selectedImage: UIImage?
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     GeometryReader { geo in
       VStack(alignment: .leading, spacing: 0) {
         Spacer().frame(height: 30)
@@ -115,6 +111,6 @@ struct ReacreateView: View {
         }
       }
     }
-    .enableInjection()
+
   }
 }

@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct LoginView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   enum Field: Hashable {
     case email
     case password
@@ -21,9 +19,7 @@ struct LoginView: View {
   }
 
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     GeometryReader { geo in
       VStack(alignment: .leading, spacing: 0) {
         Spacer(minLength: 60)
@@ -60,7 +56,7 @@ struct LoginView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 
   private var emailGroup: some View {

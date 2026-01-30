@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct BlockBottomSheet: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @State private var isLoading = false
   @EnvironmentObject private var appState: AppState
   @EnvironmentObject var router: NavigationRouter
@@ -12,9 +10,7 @@ struct BlockBottomSheet: View {
   @Environment(\.modelContext) private var modelContext
   @Binding var showSheet: Bool
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     VStack(spacing: 22) {
       Button(action: {
         showSheet = false
@@ -115,6 +111,5 @@ struct BlockBottomSheet: View {
         ])
       )
     }
-    .enableInjection()
   }
 }

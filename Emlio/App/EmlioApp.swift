@@ -1,4 +1,3 @@
-@_exported import HotSwiftUI
 import SwiftData
 import SwiftUI
 
@@ -8,12 +7,6 @@ struct EmlioApp: App {
   @StateObject private var appState = AppState()
   @StateObject private var purchaseManager = PurchaseManager()
   init() {
-    #if DEBUG
-      Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")?.load()
-      if let path = Bundle.main.path(forResource: "iOSInjection", ofType: "bundle") {
-        Bundle(path: path)!.load()
-      }
-    #endif
     do {
       container = try ModelContainer(
         for:

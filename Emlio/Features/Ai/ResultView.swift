@@ -3,9 +3,7 @@ import PhotosUI
 import SwiftUI
 
 struct ResultView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   @State private var showToast: Bool = false
   private var aiGen = 1
@@ -13,9 +11,7 @@ struct ResultView: View {
     self.aiGen = Int.random(in: 1...5)
   }
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     let name = ("ai_gen_\(aiGen).png" as NSString).deletingPathExtension
     let ext = ("ai_gen_\(aiGen).png" as NSString).pathExtension
     let url = Bundle.main.url(forResource: name, withExtension: ext)
@@ -77,6 +73,6 @@ struct ResultView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

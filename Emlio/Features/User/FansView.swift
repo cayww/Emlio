@@ -2,14 +2,10 @@ import SwiftData
 import SwiftUI
 
 struct FansView: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @EnvironmentObject var router: NavigationRouter
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     GeometryReader { geometry in
       VStack {
         Empty()
@@ -38,6 +34,6 @@ struct FansView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .enableInjection()
+
   }
 }

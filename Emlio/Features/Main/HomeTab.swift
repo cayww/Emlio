@@ -2,9 +2,7 @@ import SwiftData
 import SwiftUI
 
 struct HomeTab: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   var currentID: UUID
   @EnvironmentObject var router: NavigationRouter
   @Query(sort: \PostData.createdAt, order: .forward) private var posts: [PostData]
@@ -43,9 +41,7 @@ struct HomeTab: View {
     GridItem(.flexible(), spacing: 13),
   ]
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     GeometryReader { geo in
       VStack(alignment: .leading, spacing: .zero) {
         Spacer().frame(height: 12)
@@ -333,6 +329,6 @@ struct HomeTab: View {
           )
         )
     }
-    .enableInjection()
+
   }
 }

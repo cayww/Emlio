@@ -1,18 +1,14 @@
 import SwiftUI
 
 struct PayDialog: View {
-  #if DEBUG
-    @ObserveInjection var forceRedraw
-  #endif
+
   @Binding var isActive: Bool
   @EnvironmentObject var router: NavigationRouter
   @State private var offset: CGFloat = -40
   @State private var overlayOpacity: Double = 0.5
   private let animationDuration = 0.1
   var body: some View {
-    #if DEBUG
-      let _ = forceRedraw
-    #endif
+
     ZStack {
       Color(.black)
         .opacity(0.5)
@@ -95,7 +91,7 @@ struct PayDialog: View {
       }
     }
     .ignoresSafeArea()
-    .enableInjection()
+
   }
 
   func close() {
