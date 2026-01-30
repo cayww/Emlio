@@ -63,7 +63,7 @@ jobs:
           path: build
 
 workflows:
-  version: 1
+  version: 2
   build-and-upload:
     jobs:
       - build-and-upload:
