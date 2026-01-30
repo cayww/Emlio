@@ -1,0 +1,62 @@
+workflows:
+  ios-swiftui-release:
+    name: Emlio
+    max_build_duration: 120
+    environment:
+      vars:
+        FL_OUTPUT_DIR: build/ios/ipa
+      xcode: "26.2.0" # 对应你的 Xcode 版本
+    scripts:
+      - name: Clean Build Folder
+        script: |
+          echo "🧹 清理旧的构建缓存"
+          xcodebuild clean -project Emlio.xcodeproj -scheme Emlio -configuration Release
+
+      - name: Build IPA for App Store
+        script: |
+          echo "🔧 构建 IPA（App Store 发布）"
+          set -e
+          mkdir -p $FL_OUTPUT_DIR
+
+          # 构建 archive
+          xcodebuild archive \
+            -project Emlio.xcodeproj \
+            -scheme Emlio \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath $FL_OUTPUT_DIR/Emlio.xcarchive \
+            CODE_SIGN_STYLE=Automatic \
+            SKIP_INSTALL=NO \
+            BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
+
+          # 导出 IPA 用于 App Store
+          xcodebuild -exportArchive \
+            -archivePath $FL_OUTPUT_DIR/Emlio.xcarchive \
+            -exportPath $FL_OUTPUT_DIR \
+            -exportOptionsPlist <(cat <<EOF
+            {
+              "method": "app-store",
+              "signingStyle": "automatic",
+              "compileBitcode": true,
+              "stripSwiftSymbols": true
+            }
+            EOF
+            )
+
+      - name: Upload to TestFlight / App Store Connect
+        script: |
+          echo "📤 上传到 App Store / TestFlight"
+          if [ -f "$FL_OUTPUT_DIR/Emlio.ipa" ]; then
+            gem install fastlane --no-document
+            fastlane pilot upload -u 6758503914 -i $FL_OUTPUT_DIR/Emlio.ipa
+          fi
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+
+    publishing:
+      email:
+        recipients:
+          - cayww9@gmail.com
+        notify_on_build_success: true
+        notify_on_build_failure: true
