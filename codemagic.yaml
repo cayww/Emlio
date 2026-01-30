@@ -18,6 +18,11 @@ workflows:
           set -e
           mkdir -p $FL_OUTPUT_DIR
 
+          # 自动获取最新 TestFlight build number +1
+          LATEST_BUILD_NUMBER=$(fastlane run get_latest_testflight_build_number app_identifier:"com.asjhdsf.emlio" | grep "The latest build number" | awk '{print $NF}')
+          BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
+          echo "使用 build number: $BUILD_NUMBER"
+
           # 构建 archive
           xcodebuild archive \
             -project Emlio.xcodeproj \
@@ -27,7 +32,8 @@ workflows:
             -archivePath $FL_OUTPUT_DIR/Emlio.xcarchive \
             CODE_SIGN_STYLE=Automatic \
             SKIP_INSTALL=NO \
-            BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
+            BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
+            BUILD_NUMBER=$BUILD_NUMBER
 
           # 导出 IPA 用于 App Store
           xcodebuild -exportArchive \
@@ -45,16 +51,14 @@ workflows:
 
       - name: Upload to TestFlight / App Store Connect
         script: |
-          echo "📤 上传到 App Store / TestFlight"
-          if [ -f "$FL_OUTPUT_DIR/Emlio.ipa" ]; then
-            gem install fastlane --no-document
-            fastlane pilot upload -u 6758503914 -i $FL_OUTPUT_DIR/Emlio.ipa
-          fi
+          echo "📤 上传到 TestFlight / App Store (API Key)"
+          gem install fastlane --no-document
+
+          # 自动上传并使用 Codemagic 注入的 API Key
+          fastlane pilot upload \
+            -i $FL_OUTPUT_DIR/Emlio.ipa \
+            --skip_waiting_for_build_processing true \
+            --api_key_path $APP_STORE_CONNECT_PRIVATE_KEY
 
     artifacts:
       - build/ios/ipa/*.ipa
-
-    publishing:
-      email:
-        recipients:
-          - cayww9@gmail.com
