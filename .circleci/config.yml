@@ -36,12 +36,12 @@ jobs:
             - v1-bundle-
 
       - run:
-          name: Install Ruby 3.4.7 via rbenv
+          name: Install Ruby 3.3.8 via rbenv
           command: |
             brew install rbenv ruby-build
             eval "$(rbenv init -)"
-            rbenv install 3.4.7 --skip-existing
-            rbenv global 3.4.7
+            rbenv install 3.3.8 --skip-existing
+            rbenv global 3.3.8
             ruby -v
 
       - run:

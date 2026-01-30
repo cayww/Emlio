@@ -1,4 +1,4 @@
 source "https://rubygems.org"
 
-gem "fastlane", ">= 2.247"
-gem "fastlane-plugin-pgyer", "0.3.2"
+gem "fastlane"
+gem 'fastlane-plugin-pgyer', ">= 0.2.4"
