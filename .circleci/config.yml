@@ -47,7 +47,8 @@ jobs:
       - run:
           name: Install Bundler & Gems
           command: |
-            gem install bundler
+            gem install bundler -v 2.7.2
+            bundle -v
             bundle config set path 'vendor/bundle'
 
       - save_cache:
