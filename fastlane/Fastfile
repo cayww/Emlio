@@ -1,40 +1,84 @@
 default_platform(:ios)
 
 platform :ios do
-
+  ############################################################
+  # CI 全局准备
+  ############################################################
   before_all do
-    UI.header "🚀 App Store Release"
-    setup_circle_ci
-  end
+    UI.header "🚀 CI iOS App Store Build"
 
-  lane :release do
-    api_key = app_store_connect_api_key(
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "120"
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_RETRIES"] = "5"
+
+    # CI 专用 keychain
+    create_keychain(
+      name: "ci.keychain",
+      password: "ci_password",
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      lock_when_sleeps: false
+    )
+
+    app_store_connect_api_key(
       key_id: ENV["ASC_KEY_ID"],
       issuer_id: ENV["ASC_ISSUER_ID"],
-      key_filepath: "AuthKey_#{ENV["ASC_KEY_ID"]}.p8",
+      key_filepath: "AuthKey_#{ENV['ASC_KEY_ID']}.p8",
       in_house: false
     )
+  end
 
+  ############################################################
+  # App Store 发布 Lane
+  ############################################################
+  lane :release do
+    sync_signing
+    build_appstore
+    upload_appstore
+  end
+
+  ############################################################
+  # 证书 & 描述文件
+  ############################################################
+  lane :sync_signing do
     match(
       type: "appstore",
-      api_key: api_key,
       app_identifier: ENV["BUNDLE_ID"],
-      readonly: false
+      username: ENV["FASTLANE_USER"],
+      readonly: false,
+      keychain_name: "ci.keychain",
+      keychain_password: "ci_password"
     )
+  end
 
+  ############################################################
+  # 编译
+  ############################################################
+  lane :build_appstore do
     gym(
       scheme: ENV["SCHEME"],
       export_method: "app-store",
       clean: true,
-      xcargs: "-allowProvisioningUpdates"
+      silent: true
     )
+  end
 
+  ############################################################
+  # 上传 App Store Connect
+  ############################################################
+  lane :upload_appstore do
     deliver(
-      api_key: api_key,
+      force: true,
       skip_metadata: true,
       skip_screenshots: true,
       submit_for_review: false
     )
   end
 
+  ############################################################
+  # CI 清理
+  ############################################################
+  after_all do
+    delete_keychain(name: "ci.keychain")
+  end
 end
