@@ -111,7 +111,7 @@ platform :ios do
     #   }
     # )
   	match(
-        git_branch: username,
+        git_branch: pre,
         username: username,
         type: "appstore",
         app_identifier: [bundle_id],
@@ -119,7 +119,7 @@ platform :ios do
         )
 
     match_result = match(
-        git_branch: username,
+        git_branch: pre,
         username: username,
         type: export_method.gsub("-", ""),
         app_identifier: [bundle_id],
