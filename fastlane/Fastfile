@@ -94,9 +94,9 @@ platform :ios do
     #   }
     #   )
 
-    # match_nuke(
-    #   type: "development",
-    #   )
+    match_nuke(
+      type: "development",
+      )
 
     # CI 中执行 match 创建新证书上传到 git 报错 Author identity unknown，需要指定 Git 用户身份
     # sh "git config --global user.email 'ci@example.com'"
@@ -114,7 +114,7 @@ platform :ios do
         type: "development",
         app_identifier: [bundle_id],
         force_for_new_devices: true,
-        readonly: true,
+        readonly: false,
         )
 
     match_result = match(
@@ -122,7 +122,7 @@ platform :ios do
         username: username,
         type: export_method.gsub("-", ""),
         app_identifier: [bundle_id],
-        readonly: true,
+        readonly: false,
         )
     puts match_result
     UI.important("✅ match_result: #{match_result}")
