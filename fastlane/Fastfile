@@ -58,7 +58,7 @@ platform :ios do
     on_match
     prepare_gym
     gym(
-      project: "Emlio/Emlio.xcodeproj",
+      project: "Emlio.xcodeproj",
       scheme: scheme,                       # 使用环境变量 SCHEME
       clean: true,
       # configuration: "Release",
