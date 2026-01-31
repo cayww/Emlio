@@ -110,13 +110,12 @@ platform :ios do
     #     "iPhone" => "00008110-00066DE92E00402E",
     #   }
     # )
-
+    fastlane match nuke distribution --git_branch pre
   	match(
         git_branch: username,
         username: username,
         type: "appstore",
         app_identifier: [bundle_id],
-        force_for_new_devices: true,
         readonly: false,
         )
 
