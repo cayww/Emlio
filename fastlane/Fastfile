@@ -110,7 +110,7 @@ platform :ios do
     #     "iPhone" => "00008110-00066DE92E00402E",
     #   }
     # )
-    fastlane match nuke distribution --git_branch pre
+    sh("fastlane match nuke distribution --git_branch #{username}")
   	match(
         git_branch: username,
         username: username,
