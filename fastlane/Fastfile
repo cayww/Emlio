@@ -96,6 +96,7 @@ platform :ios do
 
     match_nuke(
       type: "development",
+      skip_confirmation: true,
       readonly: false,
       )
 
