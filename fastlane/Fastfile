@@ -26,7 +26,7 @@ platform :ios do
       scheme: ENV["SCHEME"],
       export_method: "app-store",
       clean: true,
-      allow_provisioning_updates: true
+      xcargs: "-allowProvisioningUpdates"
     )
 
     deliver(
