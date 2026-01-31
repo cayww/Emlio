@@ -119,20 +119,20 @@ platform :ios do
     # sh "git config --global user.email 'ci@example.com'"
     # sh "git config --global user.name 'CI Bot'"
 
-    register_devices(
-      devices: {
-        "iPhone" => "00008110-001A2C3D4E58001E",
-      }
-    )
+    # register_devices(
+    #   devices: {
+    #     "iPhone" => "00008110-001A2C3D4E58001E",
+    #   }
+    # )
 
-  	match(
-        git_branch: username,
-        username: username,
-        type: "development",
-        app_identifier: [bundle_id],
-        force_for_new_devices: true,
-        readonly: false,
-        )
+  	# match(
+    #     git_branch: username,
+    #     username: username,
+    #     type: "development",
+    #     app_identifier: [bundle_id],
+    #     force_for_new_devices: true,
+    #     readonly: false,
+    #     )
 
     match_result = match(
         git_branch: username,
