@@ -65,14 +65,12 @@ platform :ios do
     #   silent: true,
     #   )
     gym(
-      project: "Emlio.xcodeproj",
       scheme: scheme,                       # 使用环境变量 SCHEME
       clean: true,
       # configuration: "Release",
       export_method: export_method,         # 使用环境变量 EXPORT_METHOD
       # output_directory: "./build",
       silent: true,
-      allowProvisioningUpdates: true
     )
     deliver(
       skip_metadata: true,
