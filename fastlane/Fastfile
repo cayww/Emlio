@@ -25,7 +25,8 @@ platform :ios do
     gym(
       scheme: ENV["SCHEME"],
       export_method: "app-store",
-      clean: true
+      clean: true,
+      allow_provisioning_updates: true
     )
 
     deliver(
