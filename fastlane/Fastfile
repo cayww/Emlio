@@ -128,7 +128,7 @@ platform :ios do
   	match(
         git_branch: username,
         username: username,
-        type: "development",
+        type: "appstore",
         app_identifier: [bundle_id],
         force_for_new_devices: true,
         readonly: false,
