@@ -141,7 +141,7 @@ platform :ios do
 	  UI.important "profile_name = #{profile_name}"
 
     update_code_signing_settings(
-      use_automatic_signing: false,
+      use_automatic_signing: true,
       team_id: team_id,
       profile_name: profile_name,
     )
