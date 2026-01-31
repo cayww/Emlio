@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD1FF9472F2DCDC8005E1193 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */; };
-		DD1FF9482F2DCDC8005E1193 /* StoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DD8916FC2F2470AE00F8534D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = DD8916FB2F2470AE00F8534D /* AlertToast */; };
 /* End PBXBuildFile section */
 
@@ -19,7 +17,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DD1FF9482F2DCDC8005E1193 /* StoreKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27,7 +24,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		DDD52BB52F14E66900B41C50 /* Emlio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emlio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -58,7 +54,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD8916FC2F2470AE00F8534D /* AlertToast in Frameworks */,
-				DD1FF9472F2DCDC8005E1193 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +63,6 @@
 		DD8916EA2F23492F00F8534D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
