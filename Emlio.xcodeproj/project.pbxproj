@@ -7,9 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD1FF89E2F2DCCC3005E1193 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */; };
+		DD1FF9472F2DCDC8005E1193 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */; };
+		DD1FF9482F2DCDC8005E1193 /* StoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DD8916FC2F2470AE00F8534D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = DD8916FB2F2470AE00F8534D /* AlertToast */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DD1FF9492F2DCDC8005E1193 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DD1FF9482F2DCDC8005E1193 /* StoreKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DD1FF89D2F2DCCC3005E1193 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -43,7 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD8916FC2F2470AE00F8534D /* AlertToast in Frameworks */,
-				DD1FF89E2F2DCCC3005E1193 /* StoreKit.framework in Frameworks */,
+				DD1FF9472F2DCDC8005E1193 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +100,7 @@
 				DDD52BB12F14E66900B41C50 /* Sources */,
 				DDD52BB22F14E66900B41C50 /* Frameworks */,
 				DDD52BB32F14E66900B41C50 /* Resources */,
+				DD1FF9492F2DCDC8005E1193 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
