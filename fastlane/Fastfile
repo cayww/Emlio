@@ -65,6 +65,7 @@ platform :ios do
     #   )
     gym(
       scheme: scheme,                       # 使用环境变量 SCHEME
+      project: "./Emlio.xcodeproj",
       clean: true,
       export_method: export_method,         # 使用环境变量 EXPORT_METHOD
       export_options: {
@@ -173,7 +174,7 @@ platform :ios do
       path: "Emlio.xcodeproj",
       use_automatic_signing: false,
       team_id: "Z4KQ78MY59",
-      targets: ["Runner"],
+      targets: ["Emlio"],
       code_sign_identity: "Apple Distribution",
       profile_name: "match AppStore com.asjhdsf.emlio 1769847936",
     )
