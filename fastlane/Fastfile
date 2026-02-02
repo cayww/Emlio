@@ -63,23 +63,23 @@ platform :ios do
     #   clean: true,
     #   silent: true,
     #   )
-    # gym(
-    #   scheme: scheme,                       # 使用环境变量 SCHEME
-    #   clean: true,
-    #   # configuration: "Release",
-    #   export_method: export_method,         # 使用环境变量 EXPORT_METHOD
-    #   # output_directory: "./build",
-    #   silent: true,
-    #   xcargs: "-allowProvisioningUpdates"
-    # )
-    # deliver(
-    #   skip_metadata: true,
-    #   skip_screenshots: true,
-    #   submit_for_review: false,
-    #   run_precheck_before_submit: true,
-    #   precheck_include_in_app_purchases: false
-    # ) if export_method == "app-store"
-    # pgyer(api_key: pgy_api_key) if export_method == "ad-hoc"
+    gym(
+      scheme: scheme,                       # 使用环境变量 SCHEME
+      clean: true,
+      export_method: export_method,         # 使用环境变量 EXPORT_METHOD
+      output_directory: "./build/gym",     # 指定 IPA 输出目录
+      silent: true,
+      xcargs: "-allowProvisioningUpdates"
+    )
+
+    # 根据不同导出方式上传
+    deliver(
+      skip_metadata: true,
+      skip_screenshots: true,
+      submit_for_review: false
+    ) if export_method == "app-store"
+
+    pgyer(api_key: pgy_api_key) if export_method == "ad-hoc"
   end
 
   lane :on_match do

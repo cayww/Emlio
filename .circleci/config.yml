@@ -63,6 +63,7 @@ jobs:
       - run:
           name: Zip ipa
           command: |
+            cd build/gym
             IPA=$(find build -name "*.ipa" | head -n 1)
             if [ -z "$IPA" ]; then
               echo "❌ No ipa found"
