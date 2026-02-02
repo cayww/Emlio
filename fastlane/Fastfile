@@ -67,9 +67,15 @@ platform :ios do
       scheme: scheme,                       # 使用环境变量 SCHEME
       clean: true,
       export_method: export_method,         # 使用环境变量 EXPORT_METHOD
+      export_options: {
+        provisioningProfiles: {
+          "com.asjhdsf.emlio" => "match AppStore com.asjhdsf.emlio 1769847936"
+        }
+      } 
       output_directory: "./build/gym",     # 指定 IPA 输出目录
       silent: true,
-      xcargs: "-allowProvisioningUpdates"
+      xcargs: "-allowProvisioningUpdates",
+      xcodebuild_arguments: ["DEVELOPMENT_TEAM=Z4KQ78MY59"]
     )
 
     # 根据不同导出方式上传
