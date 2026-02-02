@@ -71,6 +71,7 @@ platform :ios do
       export_method: export_method,         # 使用环境变量 EXPORT_METHOD
       # output_directory: "./build",
       silent: true,
+      xcargs: "-allowProvisioningUpdates"
     )
     deliver(
       skip_metadata: true,
