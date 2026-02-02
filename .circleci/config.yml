@@ -64,11 +64,6 @@ jobs:
           name: Zip ipa
           command: |
             cd build/gym
-            IPA=$(find build -name "*.ipa" | head -n 1)
-            if [ -z "$IPA" ]; then
-              echo "❌ No ipa found"
-              exit 1
-            fi
             zip ipa.zip "$IPA"
 
       - store_artifacts:
