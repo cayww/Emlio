@@ -64,7 +64,7 @@ jobs:
           name: Zip ipa
           command: |
             cd build/gym
-            zip ipa.zip "$IPA"
+            zip ipa.zip *.ipa
 
       - store_artifacts:
           path: build
