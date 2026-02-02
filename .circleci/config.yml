@@ -8,7 +8,7 @@ jobs:
 
     environment:
       BUNDLE_PATH: vendor/bundle # Bundler 安装路径，方便缓存
-      FL_OUTPUT_DIR: build
+      FL_OUTPUT_DIR: build/gym
 
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
