@@ -71,7 +71,7 @@ platform :ios do
         provisioningProfiles: {
           "com.asjhdsf.emlio" => "match AppStore com.asjhdsf.emlio 1769847936"
         }
-      } 
+      },
       output_directory: "./build/gym",     # 指定 IPA 输出目录
       silent: true,
       xcargs: "-allowProvisioningUpdates",
