@@ -74,8 +74,7 @@ platform :ios do
       },
       output_directory: "./build/gym",     # 指定 IPA 输出目录
       silent: true,
-      xcargs: "-allowProvisioningUpdates",
-      xcodebuild_arguments: ["DEVELOPMENT_TEAM=Z4KQ78MY59"]
+      xcargs: ["-allowProvisioningUpdates","DEVELOPMENT_TEAM=Z4KQ78MY59"]
     )
 
     # 根据不同导出方式上传
