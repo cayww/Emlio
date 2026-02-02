@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   build-and-upload:
     macos:
-      xcode: "26.2.0"
+      xcode: "16.4.0"
 
     environment:
       BUNDLE_PATH: vendor/bundle # Bundler 安装路径，方便缓存
@@ -36,20 +36,19 @@ jobs:
             - v1-bundle-
 
       - run:
-          name: Install Ruby 3.3.8 via rbenv
+          name: Install Ruby
           command: |
             brew install rbenv ruby-build
             eval "$(rbenv init -)"
-            rbenv install 3.3.8 --skip-existing
-            rbenv global 3.3.8
+            rbenv install 3.3.6 --skip-existing
+            rbenv global 3.3.6
             ruby -v
 
       - run:
-          name: Install Bundler & Gems
+          name: Install Bundler
           command: |
-            gem install bundler -v 2.7.2
-            bundle -v
-            bundle config set path 'vendor/bundle'
+            gem install bundler
+            bundle config set --local path 'vendor/bundle'
             bundle install
 
       - save_cache:

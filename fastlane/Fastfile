@@ -12,7 +12,6 @@
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
-xcode_select "/Applications/Xcode-26.2.app"
 default_platform(:ios)
 
 
@@ -56,7 +55,7 @@ platform :ios do
 
   lane :release do
     on_match
-    # prepare_gym
+    prepare_gym
     # gym(
     #   export_method: export_method,
     #   # output_directory: "./build",
@@ -64,28 +63,28 @@ platform :ios do
     #   clean: true,
     #   silent: true,
     #   )
-    gym(
-      scheme: scheme,                       # 使用环境变量 SCHEME
-      clean: true,
-      # configuration: "Release",
-      export_method: export_method,         # 使用环境变量 EXPORT_METHOD
-      # output_directory: "./build",
-      silent: true,
-      xcargs: "-allowProvisioningUpdates"
-    )
-    deliver(
-      skip_metadata: true,
-      skip_screenshots: true,
-      submit_for_review: false,
-      run_precheck_before_submit: true,
-      precheck_include_in_app_purchases: false
-    ) if export_method == "app-store"
-    pgyer(api_key: pgy_api_key) if export_method == "ad-hoc"
+    # gym(
+    #   scheme: scheme,                       # 使用环境变量 SCHEME
+    #   clean: true,
+    #   # configuration: "Release",
+    #   export_method: export_method,         # 使用环境变量 EXPORT_METHOD
+    #   # output_directory: "./build",
+    #   silent: true,
+    #   xcargs: "-allowProvisioningUpdates"
+    # )
+    # deliver(
+    #   skip_metadata: true,
+    #   skip_screenshots: true,
+    #   submit_for_review: false,
+    #   run_precheck_before_submit: true,
+    #   precheck_include_in_app_purchases: false
+    # ) if export_method == "app-store"
+    # pgyer(api_key: pgy_api_key) if export_method == "ad-hoc"
   end
 
   lane :on_match do
 
-    api_key = app_store_connect_api_key(
+    app_store_connect_api_key(
       key_id: ENV["ASC_KEY_ID"],
       issuer_id: ENV["ASC_ISSUER_ID"],
       # key_content: ENV["ASC_KEY_CONTENT"],
@@ -94,12 +93,12 @@ platform :ios do
       in_house: false # 如果是企业账号，设为true
     )
 
-    current_build = latest_testflight_build_number(
-      api_key: api_key,
-      app_identifier: "com.asjhdsf.emlio",  # 你的 bundle ID
-    )
+    # current_build = latest_testflight_build_number(
+    #   api_key: api_key,
+    #   app_identifier: "com.asjhdsf.emlio",  # 你的 bundle ID
+    # )
 
-    UI.message("当前 App Store Connect / TestFlight 最新 build number 是：#{current_build}")
+    # UI.message("当前 App Store Connect / TestFlight 最新 build number 是：#{current_build}")
 
   	# produce( # Alias for the create_app_online action
     #   username: username,
@@ -134,6 +133,15 @@ platform :ios do
     #     readonly: false,
     #     )
 
+  	match(
+        git_branch: username,
+        username: username,
+        type: "appstore",
+        app_identifier: [bundle_id],
+        force_for_new_devices: true,
+        readonly: false,
+        )
+
     match_result = match(
         git_branch: username,
         username: username,
@@ -148,19 +156,22 @@ platform :ios do
 
   end
 
-  # lane :prepare_gym do
+  lane :prepare_gym do
 
-  #   team_id = ENV["sigh_#{bundle_id}_development_team-id"]
-  #   UI.important("Team ID: #{team_id}")
+    team_id = ENV["sigh_#{bundle_id}_development_team-id"]
+    UI.important("Team ID: #{team_id}")
 
-  #   profile_name = ENV["sigh_#{bundle_id}_development_profile-name"]
-	#   UI.important "profile_name = #{profile_name}"
+    profile_name = ENV["sigh_#{bundle_id}_development_profile-name"]
+	  UI.important "profile_name = #{profile_name}"
 
-  #   update_code_signing_settings(
-  #     use_automatic_signing: true,
-  #     team_id: team_id,
-  #     profile_name: profile_name,
-  #   )
-  # end
+    update_code_signing_settings(
+      path: "Emlio.xcodeproj",
+      use_automatic_signing: false,
+      team_id: "Z4KQ78MY59",
+      targets: ["Runner"],
+      code_sign_identity: "Apple Distribution",
+      profile_name: "match AppStore com.asjhdsf.emlio",
+    )
+  end
 
 end
