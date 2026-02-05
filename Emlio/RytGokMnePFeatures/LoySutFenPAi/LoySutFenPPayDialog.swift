@@ -8,7 +8,6 @@ struct PayDialog: View {
   @State private var overlayOpacity: Double = 0.5
   private let animationDuration = 0.1
   var body: some View {
-
     ZStack {
       Color(.black)
         .opacity(0.5)
@@ -91,7 +90,6 @@ struct PayDialog: View {
       }
     }
     .ignoresSafeArea()
-
   }
 
   func close() {

@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD8916FC2F2470AE00F8534D /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = DD8916FB2F2470AE00F8534D /* AlertToast */; };
+		DD57CC152F33626200AD4895 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = DD57CC142F33626200AD4895 /* FacebookAEM */; };
+		DD57CC172F33626200AD4895 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = DD57CC162F33626200AD4895 /* FacebookBasics */; };
+		DD57CC192F33626200AD4895 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = DD57CC182F33626200AD4895 /* FacebookCore */; };
+		DDF8505E2F34485D0004DD9D /* AdjustGoogleOdm in Frameworks */ = {isa = PBXBuildFile; productRef = DDF8505D2F34485D0004DD9D /* AdjustGoogleOdm */; };
+		DDF850602F34485D0004DD9D /* AdjustSdk in Frameworks */ = {isa = PBXBuildFile; productRef = DDF8505F2F34485D0004DD9D /* AdjustSdk */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,7 +57,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD8916FC2F2470AE00F8534D /* AlertToast in Frameworks */,
+				DDF850602F34485D0004DD9D /* AdjustSdk in Frameworks */,
+				DD57CC152F33626200AD4895 /* FacebookAEM in Frameworks */,
+				DD57CC192F33626200AD4895 /* FacebookCore in Frameworks */,
+				DD57CC172F33626200AD4895 /* FacebookBasics in Frameworks */,
+				DDF8505E2F34485D0004DD9D /* AdjustGoogleOdm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +113,11 @@
 			);
 			name = Emlio;
 			packageProductDependencies = (
-				DD8916FB2F2470AE00F8534D /* AlertToast */,
+				DD57CC142F33626200AD4895 /* FacebookAEM */,
+				DD57CC162F33626200AD4895 /* FacebookBasics */,
+				DD57CC182F33626200AD4895 /* FacebookCore */,
+				DDF8505D2F34485D0004DD9D /* AdjustGoogleOdm */,
+				DDF8505F2F34485D0004DD9D /* AdjustSdk */,
 			);
 			productName = Emlio;
 			productReference = DDD52BB52F14E66900B41C50 /* Emlio.app */;
@@ -136,7 +148,8 @@
 			mainGroup = DDD52BAC2F14E66900B41C50;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				DD8916FA2F2470AE00F8534D /* XCRemoteSwiftPackageReference "AlertToast" */,
+				DD57CC132F33626200AD4895 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				DDF8505C2F34485D0004DD9D /* XCRemoteSwiftPackageReference "ios_sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DDD52BB62F14E66900B41C50 /* Products */;
@@ -295,16 +308,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Emlio/Emlio.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6NUFR97X3A;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Emlio/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to capture landscapes, portraits, and videos. Your photos and videos can decorate your profile or share with friends. They're securely stored on your device and only shared with your permission. Privacy and security are protected.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for recording voice messages and sharing audio. Audio stays on your device unless you share. Privacy is our priority.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to your photo library for sharing memorable photos/videos. It stays on your device unless you share. Access is for easy sharing and is privacy-protected.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -318,7 +333,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.asjhdsf.emlio;
+				PRODUCT_BUNDLE_IDENTIFIER = app.myfy.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -340,16 +355,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Emlio/Emlio.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 6NUFR97X3A;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Emlio/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs camera access to capture landscapes, portraits, and videos. Your photos and videos can decorate your profile or share with friends. They're securely stored on your device and only shared with your permission. Privacy and security are protected.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs location access for sharing, discovering events, and using location-based features. Location data is used responsibly with your consent. Privacy and security are our priorities.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for recording voice messages and sharing audio. Audio stays on your device unless you share. Privacy is our priority.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to your photo library for sharing memorable photos/videos. It stays on your device unless you share. Access is for easy sharing and is privacy-protected.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -363,7 +380,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.asjhdsf.emlio;
+				PRODUCT_BUNDLE_IDENTIFIER = app.myfy.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -404,21 +421,49 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DD8916FA2F2470AE00F8534D /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+		DD57CC132F33626200AD4895 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.9;
+				minimumVersion = 14.1.0;
+			};
+		};
+		DDF8505C2F34485D0004DD9D /* XCRemoteSwiftPackageReference "ios_sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adjust/ios_sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DD8916FB2F2470AE00F8534D /* AlertToast */ = {
+		DD57CC142F33626200AD4895 /* FacebookAEM */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DD8916FA2F2470AE00F8534D /* XCRemoteSwiftPackageReference "AlertToast" */;
-			productName = AlertToast;
+			package = DD57CC132F33626200AD4895 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookAEM;
+		};
+		DD57CC162F33626200AD4895 /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD57CC132F33626200AD4895 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		DD57CC182F33626200AD4895 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD57CC132F33626200AD4895 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		DDF8505D2F34485D0004DD9D /* AdjustGoogleOdm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDF8505C2F34485D0004DD9D /* XCRemoteSwiftPackageReference "ios_sdk" */;
+			productName = AdjustGoogleOdm;
+		};
+		DDF8505F2F34485D0004DD9D /* AdjustSdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDF8505C2F34485D0004DD9D /* XCRemoteSwiftPackageReference "ios_sdk" */;
+			productName = AdjustSdk;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

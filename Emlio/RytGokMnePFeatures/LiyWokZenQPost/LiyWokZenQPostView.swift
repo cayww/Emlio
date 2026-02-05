@@ -92,9 +92,7 @@ struct PostView: View {
                 do {
                   modelContext.insert(post)
                   try modelContext.save()
-                  print("保存成功: \(post)")
                 } catch {
-                  print("保存失败:", error)
                 }
                 show = false
               }

@@ -1,4 +1,3 @@
-import AlertToast
 import StoreKit
 import SwiftUI
 
@@ -13,9 +12,7 @@ struct WalletView: View {
     GridItem(.flexible(), spacing: 13),
     GridItem(.flexible(), spacing: 13),
   ]
-  @State private var showToast: Bool = false
   var body: some View {
-
     ZStack {
       VStack(alignment: .leading) {
         Spacer().frame(height: 52)
@@ -58,7 +55,7 @@ struct WalletView: View {
         Spacer().frame(height: 30)
         ScrollView {
           LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(purchaseManager.localProducts, id: \.self) { item in
+            ForEach(purchaseManager.gfdbdfixzbhjyioht, id: \.self) { item in
               HStack(spacing: 10) {
                 Image("Assets/emlio_wallet_item")
                   .resizable()
@@ -91,12 +88,9 @@ struct WalletView: View {
     .onAppear {
       Task {
         isLoading = true
-        await purchaseManager.loadProducts()
+        purchaseManager.loadProducts()
         isLoading = false
       }
-    }
-    .toast(isPresenting: $showToast) {
-      AlertToast(type: .regular, title: "Purchase failed, please try again later")
     }
     .background(DefaultBackground())
     .navigationBarBackButtonHidden(true)
@@ -119,7 +113,6 @@ struct WalletView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-
   }
 
   @MainActor
@@ -133,17 +126,17 @@ struct WalletView: View {
     isPurchasing = true
     Task {
       defer { isPurchasing = false }
-      guard let product = purchaseManager.products.first(where: { $0.id == item.id }) else {
+      guard
+        let product = purchaseManager.fgvfidbjfdfdvuh.first(where: {
+          $0.productIdentifier == item.id
+        })
+      else {
         return
       }
-      do {
-        let coins = try await purchaseManager.purchase(product)
+      purchaseManager.purchase(product: product) { coins in
         if coins > 0 {
           updateUserCoins(by: coins)
         }
-      } catch {
-        showToast = true
-        debugPrint("Purchase failed:", error)
       }
     }
   }

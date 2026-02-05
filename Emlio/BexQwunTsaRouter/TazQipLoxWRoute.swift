@@ -5,7 +5,9 @@ enum AppPhase: Hashable {
   case launch
   case guide
   case main
+  case agreement(url: URL)
 }
+
 enum GuideRoute: Hashable {
   case guide
   case agreement(url: URL)

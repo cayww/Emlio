@@ -1,4 +1,3 @@
-import AlertToast
 import SwiftUI
 
 struct ReportView: View {
@@ -13,9 +12,7 @@ struct ReportView: View {
     "Other",
   ]
   @State var isLoading = false
-  @State private var showToast: Bool = false
   var body: some View {
-
     VStack {
       Spacer().frame(height: 24)
       ForEach(reportOptions.indices, id: \.self) { index in
@@ -54,7 +51,7 @@ struct ReportView: View {
           }
           isLoading = true
           try? await Task.sleep(nanoseconds: 481_000_000)
-          showToast = true
+          ToastManager.shared.show("Your report will be processed within 24 hours.", duration: 4)
           isLoading = false
         }
       }) {
@@ -95,9 +92,5 @@ struct ReportView: View {
           .font(.system(size: 20, weight: .bold))
       }
     }
-    .toast(isPresenting: $showToast) {
-      AlertToast(type: .complete(.black), title: "Your report will be processed within 24 hours.")
-    }
-
   }
 }

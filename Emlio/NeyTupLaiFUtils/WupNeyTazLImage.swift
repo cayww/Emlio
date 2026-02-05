@@ -83,7 +83,6 @@ func saveImageToDocuments(image: UIImage, prefix: String) -> URL? {
     try data.write(to: fileURL)
     return fileURL
   } catch {
-    print("保存图片失败:", error)
     return nil
   }
 }

@@ -73,7 +73,6 @@ struct ReacreateView: View {
                 modelContext.insert(recreate)
                 try modelContext.save()
               } catch {
-                print("保存失败:", error)
               }
               router.path.removeLast()
             }

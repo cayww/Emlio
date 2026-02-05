@@ -52,6 +52,5 @@ func bootstrapIfNeeded(context: ModelContext) {
     try bootstrapData(context: context)
     UserDefaults.standard.set(true, forKey: key)
   } catch {
-    print("Bootstrap failed:", error)
   }
 }

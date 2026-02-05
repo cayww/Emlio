@@ -1,11 +1,9 @@
-import AlertToast
 import PhotosUI
 import SwiftUI
 
 struct ResultView: View {
 
   @EnvironmentObject var router: NavigationRouter
-  @State private var showToast: Bool = false
   private var aiGen = 1
   init() {
     self.aiGen = Int.random(in: 1...5)
@@ -27,7 +25,7 @@ struct ResultView: View {
         PHPhotoLibrary.requestAuthorization { status in
           if status == .authorized || status == .limited {
             UIImageWriteToSavedPhotosAlbum(UIImage(contentsOfFile: url!.path)!, nil, nil, nil)
-            showToast = true
+            ToastManager.shared.show("Saved to photos")
           }
         }
       } label: {
@@ -46,9 +44,6 @@ struct ResultView: View {
       )
       .clipShape(RoundedRectangle(cornerRadius: 100))
       Spacer()
-    }
-    .toast(isPresenting: $showToast) {
-      AlertToast(type: .complete(.black), title: "Saved to Photos")
     }
     .padding(.horizontal, 16)
     .frame(maxWidth: .infinity)

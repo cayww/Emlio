@@ -1,4 +1,6 @@
 import Combine
+import FBSDKCoreKit
+import Foundation
 import StoreKit
 
 struct CoinProduct: Hashable, Identifiable, Decodable {
@@ -8,12 +10,12 @@ struct CoinProduct: Hashable, Identifiable, Decodable {
 }
 
 @MainActor
-final class PurchaseManager: ObservableObject {
+final class PurchaseManager: NSObject, ObservableObject {
 
-  @Published var products: [Product] = []
+  @Published var fgvfidbjfdfdvuh: [SKProduct] = []
+  @Published var fvfdiobntifdhfhfd: Set<String> = []
 
-  @Published var purchasedProductIDs: Set<String> = []
-  @Published var localProducts: [CoinProduct] = [
+  @Published var gfdbdfixzbhjyioht: [CoinProduct] = [
     .init(id: "chhmrxewsnevtilo", price: 0.99, coin: 400),
     .init(id: "hnitanagxmiiuawc", price: 1.99, coin: 800),
     .init(id: "kydxvprwmbqthflz", price: 2.99, coin: 1200),
@@ -26,33 +28,122 @@ final class PurchaseManager: ObservableObject {
     .init(id: "thjvowktdttwcpue", price: 99.99, coin: 63700),
   ]
 
-  func loadProducts() async {
-    do {
-      let ids = localProducts.map { $0.id }
-      products = try await Product.products(for: ids)
-    } catch {
-      debugPrint("Load products error:", error)
+  private var productsRequest: SKProductsRequest?
+  private var purchaseCompletion: ((Int) -> Void)?
+
+  override init() {
+    super.init()
+    SKPaymentQueue.default().add(self)
+  }
+
+  deinit {
+    SKPaymentQueue.default().remove(self)
+  }
+
+  func loadProducts() {
+    let ids = Set(gfdbdfixzbhjyioht.map { $0.id })
+    productsRequest = SKProductsRequest(productIdentifiers: ids)
+    productsRequest?.delegate = self
+    productsRequest?.start()
+  }
+
+  func purchase(product: SKProduct, completion: @escaping (Int) -> Void) {
+    purchaseCompletion = completion
+    let payment = SKPayment(product: product)
+    SKPaymentQueue.default().add(payment)
+  }
+}
+
+extension PurchaseManager: SKProductsRequestDelegate {
+  func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+    DispatchQueue.main.async {
+      self.fgvfidbjfdfdvuh = response.products
     }
   }
 
-  func purchase(_ product: Product) async throws -> Int {
-    let result = try await product.purchase()
+  func request(_ request: SKRequest, didFailWithError error: Error) {
+  }
+}
 
-    switch result {
-    case .success(let verification):
-      let transaction = try verification.payloadValue
-      await transaction.finish()
-      if let config = localProducts.first(where: { $0.id == transaction.productID }) {
-        purchasedProductIDs.insert(transaction.productID)
-        return config.coin
-      } else {
-        return 0
+extension PurchaseManager: SKPaymentTransactionObserver {
+  func paymentQueue(
+    _ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]
+  ) {
+    for transaction in transactions {
+      switch transaction.transactionState {
+      case .purchased:
+        handlePurchase(transaction)
+      case .failed, .restored:
+        SKPaymentQueue.default().finishTransaction(transaction)
+        purchaseCompletion?(0)
+        purchaseCompletion = nil
+      case .deferred, .purchasing:
+        break
+      @unknown default:
+        break
       }
-    case .userCancelled, .pending:
-      return 0
-    @unknown default:
-      return 0
     }
   }
 
+  private func handlePurchase(_ transaction: SKPaymentTransaction) {
+    SKPaymentQueue.default().finishTransaction(transaction)
+
+    guard
+      let config = gfdbdfixzbhjyioht.first(where: { $0.id == transaction.payment.productIdentifier }
+      )
+    else {
+      purchaseCompletion?(0)
+      purchaseCompletion = nil
+      return
+    }
+
+    Task {
+      if !GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfibjgdjnugfjg {
+        await MainActor.run {
+          fvfdiobntifdhfhfd.insert(transaction.payment.productIdentifier)
+          purchaseCompletion?(config.coin)
+          purchaseCompletion = nil
+        }
+      } else {
+        let purchaseID = transaction.transactionIdentifier ?? ""
+        let serverVerificationData: String
+        if let receiptURL = Bundle.main.appStoreReceiptURL,
+          let receiptData = try? Data(contentsOf: receiptURL)
+        {
+          serverVerificationData = receiptData.base64EncodedString()
+        } else {
+          serverVerificationData = ""
+        }
+        let result = try? await GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.vbfubhytgpdjbjytk
+          .tfsxbijcnuivn(
+            btfxbcjhbucb: serverVerificationData,
+            bvfgdxzbuichb: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bgfxiosbjfh,
+            dfsvuitdfjb: purchaseID
+          )
+        if let result = result,
+          (result["code"] as? String ?? "") == "0000"
+        {
+          let params: [AppEvents.ParameterName: Any] = [
+            .init("fb_mobile_purchase"): "true"
+          ]
+          AppEvents.shared.logPurchase(
+            amount: config.price,
+            currency: "USD",
+            parameters: params
+          )
+          AdjustManager.shared.trackEvent(eventToken: "5vmr4m", revenue: config.price)
+          await MainActor.run {
+            fvfdiobntifdhfhfd.insert(transaction.payment.productIdentifier)
+            purchaseCompletion?(config.coin)
+            purchaseCompletion = nil
+          }
+        } else {
+          await MainActor.run {
+            purchaseCompletion?(0)
+            purchaseCompletion = nil
+          }
+        }
+      }
+    }
+  }
 }

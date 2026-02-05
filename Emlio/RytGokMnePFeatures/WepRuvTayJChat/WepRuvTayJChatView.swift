@@ -12,6 +12,7 @@ struct ChatView: View {
   @Environment(\.modelContext) private var modelContext
   @State private var commentText: String = ""
   @State private var showSheet = false
+  @State private var showCallScreen = false
   init(otherUser: UserData, chatID: String) {
     self.otherUser = otherUser
     self.chatID = chatID
@@ -88,13 +89,22 @@ struct ChatView: View {
         }
       }
       ToolbarItem(placement: .navigationBarTrailing) {
-        Image("Assets/emlio_report_icon")
-          .resizable()
-          .scaledToFit()
-          .frame(width: 40, height: 40)
-          .onTapGesture {
-            showSheet = true
-          }
+        HStack(spacing: 30) {
+          Image("Assets/emlio_call_icon")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 30, height: 30)
+            .onTapGesture {
+              showCallScreen = true
+            }
+          Image("Assets/emlio_report_icon")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 40, height: 40)
+            .onTapGesture {
+              showSheet = true
+            }
+        }
       }
     }
     .safeAreaInset(edge: .bottom) {
@@ -117,7 +127,6 @@ struct ChatView: View {
           .scaledToFit()
           .frame(width: 60, height: 40)
           .onTapGesture {
-            print(chatRoomData!.secondUser.name)
             guard !commentText.isEmpty else { return }
             guard chatRoomData != nil else { return }
             let newMessage = ChatMessageData(
@@ -164,6 +173,58 @@ struct ChatView: View {
           )
         )
     }
-
+    .fullScreenCover(isPresented: $showCallScreen) {
+      NavigationStack {
+        VStack(spacing: 0) {
+          Spacer()
+          otherUser
+            .photoImage
+            .resizable()
+            .scaledToFill()
+            .frame(width: 80, height: 80)
+            .clipShape(Circle())
+            .overlay(
+              Circle().stroke(
+                Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255),
+                lineWidth: 1
+              )
+            )
+          Spacer().frame(height: 20)
+          Text(otherUser.name)
+            .foregroundColor(.white)
+            .font(.system(size: 20, weight: .bold))
+          Spacer().frame(height: 6)
+          Text("Calling...")
+            .foregroundColor(.white)
+            .font(.system(size: 15, weight: .medium))
+          Spacer().frame(height: 102)
+          Image(systemName: "phone.fill")
+            .font(.system(size: 30))
+            .foregroundColor(.white)
+            .frame(width: 68, height: 68)
+            .background(Color(red: 254 / 255, green: 13 / 255, blue: 231 / 255))
+            .clipShape(Circle())
+            .onTapGesture {
+              showCallScreen = false
+            }
+          Spacer().frame(height: 42)
+        }
+        .background(
+          otherUser
+            .photoImage
+            .resizable()
+            .scaledToFill()
+            .overlay {
+              Color.black.opacity(0.3)
+            }
+            .ignoresSafeArea()
+        )
+        .task {
+          try? await Task.sleep(for: .seconds(15))
+          showCallScreen = false
+          ToastManager.shared.show("The current user cannot be reached.", duration: 4)
+        }
+      }
+    }
   }
 }

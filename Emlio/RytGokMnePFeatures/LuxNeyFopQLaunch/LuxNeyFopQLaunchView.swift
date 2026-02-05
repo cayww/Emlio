@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LaunchView: View {
   @EnvironmentObject var appState: AppState
+  private var credentialStore = Fikodxvsdfvifd()
   var body: some View {
     ZStack {
       DefaultBackground()
@@ -15,8 +16,18 @@ struct LaunchView: View {
       }.ignoresSafeArea().padding(.top, 328)
     }
     .task {
-      try? await Task.sleep(nanoseconds: 1_000_000_000)
-      appState.phase = .guide
+      let success = await credentialStore.hgdniojfxghfgnbfdrt()
+      AdjustManager.shared.userInitAd(
+        appToken: "46slmt5z405c",
+        installEventToken: "f8xiwr",
+        deviceID: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bvfdxjbnygdugfkug
+      )
+      if success {
+        appState.phase = .agreement(
+          url: URL(string: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.fdsbutfhdfvhu)!)
+      } else {
+        appState.phase = .guide
+      }
     }
   }
 }

@@ -1,0 +1,26 @@
+{
+  "1": {
+    "/opi/v1/dfuvihfdsvbl": [
+      "vfdbjnczgdsa",
+      "fguifdzhgdhd",
+      "gtdsvidfovkn",
+      "userLocationAddressVOv"
+    ]
+  },
+  "2": {
+    "/opi/v1/gfdbcijxvdfo": [
+      "useSimCard",
+      "useVpn",
+      "language",
+      "otherAppNames",
+      "timezonet",
+      "keyboardsk"
+    ]
+  },
+  "3": {
+    "/opi/v1/payp": ["transactionIdt", "payloadp", "callbackResultc"]
+  },
+  "4": {
+    "/opi/v1/openTimet": ["openTimeo"]
+  }
+}
