@@ -25,9 +25,9 @@ final class Fikodxvsdfvifd {
   func gfbiojgfdfgdkbgf() -> Bool {
     guard let gfdnkbjogfx = dfsagtophjkythyth else { return false }
     // TODO
-    // ToastManager.shared.show(
-    //   "\(gfdnkbjogfx["code"] as? String ?? "")\n\(gfdnkbjogfx["message"] as? String ?? "")",
-    //   duration: 10)
+    ToastManager.shared.show(
+      "\(gfdnkbjogfx["code"] as? String ?? "")\n\(gfdnkbjogfx["message"] as? String ?? "")",
+      duration: 10)
     return GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bxdfboiubgfxbuif.contains("iPhone")
       && (gfdnkbjogfx["code"] as? String) == "0000"
   }

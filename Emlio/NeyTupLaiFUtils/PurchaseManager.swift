@@ -8,7 +8,6 @@ struct CoinProduct: Hashable, Identifiable, Decodable {
   let price: Double
   let coin: Int
 }
-
 @MainActor
 final class PurchaseManager: NSObject, ObservableObject {
 
@@ -16,16 +15,12 @@ final class PurchaseManager: NSObject, ObservableObject {
   @Published var fvfdiobntifdhfhfd: Set<String> = []
 
   @Published var gfdbdfixzbhjyioht: [CoinProduct] = [
-    .init(id: "chhmrxewsnevtilo", price: 0.99, coin: 400),
-    .init(id: "hnitanagxmiiuawc", price: 1.99, coin: 800),
-    .init(id: "kydxvprwmbqthflz", price: 2.99, coin: 1200),
-    .init(id: "bujxjchvymbgwsdv", price: 4.99, coin: 2450),
-    .init(id: "dkdlbprlznhmiszl", price: 9.99, coin: 5150),
-    .init(id: "meodrltemfcoelfm", price: 19.99, coin: 10800),
-    .init(id: "zqmpwdylxrfkbhvt", price: 29.99, coin: 15000),
-    .init(id: "rblqtkvpfzxdmywh", price: 69.99, coin: 36000),
-    .init(id: "ckcpsfpimeybjpnb", price: 49.99, coin: 29400),
-    .init(id: "thjvowktdttwcpue", price: 99.99, coin: 63700),
+    .init(id: "lvbsvhxcgcrvesor", price: 0.99, coin: 400),
+    .init(id: "dxismgcwewhrtezo", price: 4.99, coin: 2450),
+    .init(id: "khtxlcejaxmqcsra", price: 9.99, coin: 4900),
+    .init(id: "yadwwvxspgxwlndb", price: 19.99, coin: 9800),
+    .init(id: "qnrcuelbtiuflyky", price: 49.99, coin: 24500),
+    .init(id: "ymohxnvpkqxutvab", price: 99.99, coin: 49000),
   ]
 
   private var productsRequest: SKProductsRequest?
@@ -34,10 +29,6 @@ final class PurchaseManager: NSObject, ObservableObject {
   override init() {
     super.init()
     SKPaymentQueue.default().add(self)
-  }
-
-  deinit {
-    SKPaymentQueue.default().remove(self)
   }
 
   func loadProducts() {
@@ -62,6 +53,7 @@ extension PurchaseManager: SKProductsRequestDelegate {
   }
 
   func request(_ request: SKRequest, didFailWithError error: Error) {
+    print(error.localizedDescription)
   }
 }
 
@@ -114,7 +106,8 @@ extension PurchaseManager: SKPaymentTransactionObserver {
         } else {
           serverVerificationData = ""
         }
-        let result = try? await GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.vbfubhytgpdjbjytk
+        let result: [String: Any]? = try? await GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh
+          .vbfubhytgpdjbjytk
           .tfsxbijcnuivn(
             btfxbcjhbucb: serverVerificationData,
             bvfgdxzbuichb: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bgfxiosbjfh,

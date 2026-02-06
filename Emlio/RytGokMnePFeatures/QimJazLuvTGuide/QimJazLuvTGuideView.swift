@@ -16,7 +16,7 @@ struct GuideView: View {
         ZStack {
           VStack(spacing: 0) {
             Spacer().layoutPriority(1)
-            if !GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfibjgdjnugfjg {
+            if GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfibjgdjnugfjg {
               Button(action: {
                 Task {
                   if isLoading { return }
