@@ -12,7 +12,6 @@ struct EmlioApp: App {
   @ObservedObject var protector = ScreenProtectionManager.shared
   init() {
     _ = ScreenProtectionManager.shared
-
     Task {
       await GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfbvfdioubjvfb(
         vfduhvdvbbn: "36421726",

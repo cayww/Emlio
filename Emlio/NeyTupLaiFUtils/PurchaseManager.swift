@@ -57,7 +57,6 @@ extension PurchaseManager: SKProductsRequestDelegate {
   }
 
   func request(_ request: SKRequest, didFailWithError error: Error) {
-    print(error.localizedDescription)
   }
 }
 

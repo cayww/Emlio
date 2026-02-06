@@ -53,9 +53,18 @@ final class GidsjnvfdbAfdvuyht: ObservableObject {
   private var _fdsvyubtfbygf = ""
 
   var fdsbutfhdfvhu: String {
-    "\(gfdbkymnfdonyfgh)?appId=\(fdbiotgjfbygifu)&token=\(sbijydribnfjfh)"
+    let dict = [
+      "token": sbijydribnfjfh, "timestamp": "\(Int(Date().timeIntervalSince1970 * 1000))",
+    ]
+    if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: []),
+      let jsonString = (String(data: jsonData, encoding: .utf8))
+    {
+      let enString = Ugfbovjgfibgfhbfg.shared.encryptText(jsonString)
+      return "\(gfdbkymnfdonyfgh)?appId=\(fdbiotgjfbygifu)&openParams=\(enString)"
+    } else {
+      return "\(gfdbkymnfdonyfgh)?appId=\(fdbiotgjfbygifu)&token=\(sbijydribnfjfh)"
+    }
   }
-
   var bvfdxjbnygdugfkug: String {
     _fdubvntfklsbnmyfds.isEmpty ? "" : _fdubvntfklsbnmyfds + fdbiotgjfbygifu
   }

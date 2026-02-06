@@ -29,8 +29,5 @@ struct RootView: View {
       }
       .padding(.top, 50)
     }
-    .onAppear {
-
-    }
   }
 }

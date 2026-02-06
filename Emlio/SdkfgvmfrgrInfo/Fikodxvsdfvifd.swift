@@ -1,5 +1,7 @@
+import CFNetwork
 import Foundation
-import SystemConfiguration.CaptiveNetwork
+import Network
+import SystemConfiguration
 import UIKit
 
 @MainActor
@@ -8,26 +10,26 @@ final class Fikodxvsdfvifd {
   var dfsagtophjkythyth: [String: Any]?
 
   func tbidfjsbvftdhdf() -> Bool {
-    var gfdbiojdg: UnsafeMutablePointer<ifaddrs>?
-    guard getifaddrs(&gfdbiojdg) == 0, let firstAddr = gfdbiojdg else { return false }
-    defer { freeifaddrs(gfdbiojdg) }
-
-    var pointer = firstAddr
-    while pointer.pointee.ifa_next != nil {
-      let name = String(cString: pointer.pointee.ifa_name)
-      if name.hasPrefix("utun") || name.hasPrefix("ppp") || name.hasPrefix("ipsec") {
+    let vpnProtocolsKeysIdentifiers = [
+      "tap", "tun", "ppp", "ipsec", "utun", "pptp",
+    ]
+    guard let cfDict = CFNetworkCopySystemProxySettings() else { return false }
+    let nsDict = cfDict.takeRetainedValue() as NSDictionary
+    guard let scopedKeys = nsDict["__SCOPED__"] as? NSDictionary,
+      let allKeys = scopedKeys.allKeys as? [String]
+    else {
+      return false
+    }
+    for key in allKeys {
+      for protocolId in vpnProtocolsKeysIdentifiers where key.starts(with: protocolId) {
         return true
       }
-      pointer = pointer.pointee.ifa_next!
     }
     return false
   }
+
   func gfbiojgfdfgdkbgf() -> Bool {
     guard let gfdnkbjogfx = dfsagtophjkythyth else { return false }
-    // TODO
-    ToastManager.shared.show(
-      "\(gfdnkbjogfx["code"] as? String ?? "")\n\(gfdnkbjogfx["message"] as? String ?? "")",
-      duration: 10)
     return GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bxdfboiubgfxbuif.contains("iPhone")
       && (gfdnkbjogfx["code"] as? String) == "0000"
   }
