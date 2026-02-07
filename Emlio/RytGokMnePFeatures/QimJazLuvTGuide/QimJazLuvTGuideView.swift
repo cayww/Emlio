@@ -39,10 +39,10 @@ struct GuideView: View {
                         } else {
                           guard let data = r["result"] as? String
                           else { return }
-                          let decrypted = GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.gfbuicxhobfjh
-                            .decryptText(
+                          let fdbvfdopivmitrb = GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.gfbuicxhobfjh
+                            .btgrdbidoxbjmtry(
                               data)
-                          guard let rr = decrypted.data(using: .utf8),
+                          guard let rr = fdbvfdopivmitrb.data(using: .utf8),
                             let rrrr = try? JSONSerialization.jsonObject(with: rr)
                               as? [String: Any]
                           else {
@@ -78,9 +78,10 @@ struct GuideView: View {
                     } else {
                       guard let data = r["result"] as? String
                       else { return }
-                      let decrypted = GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.gfbuicxhobfjh.decryptText(
-                        data)
-                      guard let rr = decrypted.data(using: .utf8),
+                      let fdbvfdopivmitrb = GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.gfbuicxhobfjh
+                        .btgrdbidoxbjmtry(
+                          data)
+                      guard let rr = fdbvfdopivmitrb.data(using: .utf8),
                         let rrrr = try? JSONSerialization.jsonObject(with: rr)
                           as? [String: Any]
                       else {

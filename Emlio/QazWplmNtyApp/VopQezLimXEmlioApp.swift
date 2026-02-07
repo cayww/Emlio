@@ -8,14 +8,16 @@ struct EmlioApp: App {
   let container: ModelContainer
   @StateObject private var appState = AppState()
   @StateObject private var locationManager = LocationManager()
-  @StateObject private var purchaseManager = PurchaseManager()
+  @StateObject private var purchaseManager = UduvfdvPurchaseManager()
   @ObservedObject var protector = ScreenProtectionManager.shared
   init() {
     _ = ScreenProtectionManager.shared
+    Ugfbovjgfibgfhbfg.shared.fdvuintrobuyihr()
     Task {
       await GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfbvfdioubjvfb(
-        vfduhvdvbbn: "36421726",
-        fdvunrtubf: "https://opi.szj237s2.link",
+        vfduhvdvbbn: Ugfbovjgfibgfhbfg.shared.btgrdbidoxbjmtry("eda4103ee826500fbf06d9a374bc1eb1"),
+        fdvunrtubf: Ugfbovjgfibgfhbfg.shared.btgrdbidoxbjmtry(
+          "08121526e43d1aa72b8de820ea8e288dddd51a000040dfc7275772ea4a075b2e"),
       )
     }
     do {
@@ -34,7 +36,6 @@ struct EmlioApp: App {
     } catch {
       fatalError("Failed to create ModelContainer: \(error)")
     }
-
   }
 
   var body: some Scene {

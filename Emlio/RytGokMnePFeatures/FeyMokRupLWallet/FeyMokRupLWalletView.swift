@@ -5,9 +5,7 @@ struct WalletView: View {
 
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject var appState: AppState
-  @EnvironmentObject var purchaseManager: PurchaseManager
-  @State private var isPurchasing: Bool = false
-  @State private var isLoading: Bool = false
+  @EnvironmentObject var purchaseManager: UduvfdvPurchaseManager
   let columns = [
     GridItem(.flexible(), spacing: 13),
     GridItem(.flexible(), spacing: 13),
@@ -75,7 +73,24 @@ struct WalletView: View {
               .background(.white.opacity(0.1))
               .cornerRadius(20)
               .onTapGesture {
-                handlePurchase(item: item)
+                guard
+                  let product = purchaseManager.fgvfidbjfdfdvuh.first(where: {
+                    $0.productIdentifier == item.id
+                  })
+                else {
+                  ToastManager.shared.show("Recharge failed")
+                  return
+                }
+                ToastManager.shared.showLoading()
+                purchaseManager.fdbciubjhgtjhfy(product: product) { result in
+                  if result > 0 {
+                    updateUserCoins(by: result)
+                    ToastManager.shared.show("Purchase success")
+                  } else {
+                    ToastManager.shared.show("Purchase failed")
+                  }
+                  ToastManager.shared.hideLoading()
+                }
               }
             }
           }
@@ -83,13 +98,14 @@ struct WalletView: View {
         .scrollBounceBehavior(.basedOnSize)
       }
       .padding(.horizontal, 16)
-      if isLoading || isPurchasing { loadingView }
     }
     .onAppear {
       Task {
-        isLoading = true
-        purchaseManager.loadProducts()
-        isLoading = false
+        ToastManager.shared.showLoading()
+        defer {
+          ToastManager.shared.hideLoading()
+        }
+        purchaseManager.gvbucdibvnfrdf()
       }
     }
     .background(DefaultBackground())
@@ -119,46 +135,5 @@ struct WalletView: View {
   private func updateUserCoins(by amount: Int) {
     guard let user = appState.currentUser else { return }
     user.coin += amount
-  }
-
-  private func handlePurchase(item: CoinProduct) {
-    guard !isPurchasing else { return }
-    isPurchasing = true
-    Task {
-      defer { isPurchasing = false }
-      guard
-        let product = purchaseManager.fgvfidbjfdfdvuh.first(where: {
-          $0.productIdentifier == item.id
-        })
-      else {
-        return
-      }
-      purchaseManager.purchase(product: product) { coins in
-        if coins > 0 {
-          updateUserCoins(by: coins)
-        }
-      }
-    }
-  }
-  private var loadingView: some View {
-    GeometryReader { proxyReader in
-      ZStack {
-        Color.white.opacity(0.1)
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-        ProgressView()
-          .progressViewStyle(
-            CircularProgressViewStyle(tint: .white)
-          )
-          .scaleEffect(x: 2, y: 2, anchor: .center)
-          .background(
-            RoundedRectangle(cornerRadius: 16)
-              .foregroundColor(Color.black.opacity(0.7))
-              .frame(width: 80, height: 80)
-          )
-          .position(x: proxyReader.size.width / 2, y: proxyReader.size.height / 2)
-      }
-    }
-    .ignoresSafeArea()
-    .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.2)))
   }
 }

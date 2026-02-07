@@ -20,10 +20,10 @@ struct LaunchView: View {
     }
     .task {
       let success = await credentialStore.hgdniojfxghfgnbfdrt()
-      AdjustManager.shared.userInitAd(
-        appToken: "46slmt5z405c",
-        installEventToken: "f8xiwr",
-        deviceID: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bvfdxjbnygdugfkug
+      Hdsivcbhreuyvndkx.shared.tyrdboidfjbtyr(
+        gfdzivhotrhgtdg: "46slmt5z405c",
+        fdsviofdpjvbutrh: "f8xiwr",
+        bvgrtdbdfoiuhbvvt: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bvfdxjbnygdugfkug
       )
       if success {
         appState.phase = .agreement(

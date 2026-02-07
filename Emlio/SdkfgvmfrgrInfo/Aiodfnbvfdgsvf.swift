@@ -8,30 +8,30 @@ final class Ugfbovjgfibgfhbfg {
   private var key: Data!
   private var iv: Data!
 
-  func initCrypto() {
+  func fdvuintrobuyihr() {
     key = Bundle.env("ENCRYPT_KEY").data(using: .utf8)
     iv = Bundle.env("ENCRYPT_IV").data(using: .utf8)
   }
 
-  func encryptText(_ plainText: String) -> String {
+  func gtrsviudjsvtr(_ plainText: String) -> String {
     guard let data = plainText.data(using: .utf8),
-      let encrypted = aes(data, operation: CCOperation(kCCEncrypt))
+      let encrypted = gfbfjginblier(data, btgrdbvjidns: CCOperation(kCCEncrypt))
     else {
       return ""
     }
     return encrypted.hexString
   }
 
-  func decryptText(_ cipherHex: String) -> String {
+  func btgrdbidoxbjmtry(_ cipherHex: String) -> String {
     guard let data = Data(hex: cipherHex),
-      let decrypted = aes(data, operation: CCOperation(kCCDecrypt))
+      let fdbvfdopivmitrb = gfbfjginblier(data, btgrdbvjidns: CCOperation(kCCDecrypt))
     else {
       return ""
     }
-    return String(decoding: decrypted, as: UTF8.self)
+    return String(decoding: fdbvfdopivmitrb, as: UTF8.self)
   }
 
-  private func aes(_ data: Data, operation: CCOperation) -> Data? {
+  private func gfbfjginblier(_ data: Data, btgrdbvjidns: CCOperation) -> Data? {
     let dataLength = data.count
     let outLength = dataLength + kCCBlockSizeAES128
     var outputData = Data(count: outLength)
@@ -43,7 +43,7 @@ final class Ugfbovjgfibgfhbfg {
         iv.withUnsafeBytes { ivBytes in
           key.withUnsafeBytes { keyBytes in
             CCCrypt(
-              operation,
+              btgrdbvjidns,
               CCAlgorithm(kCCAlgorithmAES),
               CCOptions(kCCOptionPKCS7Padding),
               keyBytes.baseAddress,

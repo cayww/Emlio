@@ -59,7 +59,7 @@ final class GidsjnvfdbAfdvuyht: ObservableObject {
     if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: []),
       let jsonString = (String(data: jsonData, encoding: .utf8))
     {
-      let enString = Ugfbovjgfibgfhbfg.shared.encryptText(jsonString)
+      let enString = Ugfbovjgfibgfhbfg.shared.gtrsviudjsvtr(jsonString)
       return "\(gfdbkymnfdonyfgh)?appId=\(fdbiotgjfbygifu)&openParams=\(enString)"
     } else {
       return "\(gfdbkymnfdonyfgh)?appId=\(fdbiotgjfbygifu)&token=\(sbijydribnfjfh)"
@@ -78,7 +78,6 @@ final class GidsjnvfdbAfdvuyht: ObservableObject {
     vfduhvdvbbn: String,
     fdvunrtubf: String,
   ) async {
-    gfbuicxhobfjh.initCrypto()
     fdbiotgjfbygifu = vfduhvdvbbn
     gfdsbioyjfbnyh = fdvunrtubf
     sdibjgfibdygfjhdf = try! sdviunfbiuhgjnkvhch()

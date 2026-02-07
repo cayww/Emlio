@@ -7,7 +7,6 @@ struct AgreementContent: UIViewRepresentable {
 
   var onLoadStart: (() -> Void)?
   var onLoadFinish: (() -> Void)?
-  var onProgressChanged: ((Double) -> Void)?
   var onJsMessage: ((String, [String: Any]?) -> Void)?
   var shouldOverrideUrlLoading: ((URL) -> Bool)?
 
@@ -33,13 +32,6 @@ struct AgreementContent: UIViewRepresentable {
     webView.isOpaque = false
     webView.backgroundColor = .clear
     webView.scrollView.contentInsetAdjustmentBehavior = .never
-
-    webView.addObserver(
-      context.coordinator,
-      forKeyPath: "estimatedProgress",
-      options: .new,
-      context: nil
-    )
 
     context.coordinator.webView = webView
 
@@ -97,11 +89,7 @@ struct AgreementContent: UIViewRepresentable {
     ) {
       switch message.name {
       case "Close":
-        if let body = message.body as? String {
-          parent.onJsMessage?("close", ["message": body])
-        } else {
-          parent.onJsMessage?("close", nil)
-        }
+        parent.onJsMessage?("close", nil)
       case "rechargePay":
         if let body = message.body as? [String: Any] {
           parent.onJsMessage?("rechargePay", body)
@@ -120,14 +108,6 @@ struct AgreementContent: UIViewRepresentable {
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
       parent.onLoadFinish?()
-    }
-
-    override func observeValue(
-      forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?,
-      context: UnsafeMutableRawPointer?
-    ) {
-      guard keyPath == "estimatedProgress", let webView = object as? WKWebView else { return }
-      parent.onProgressChanged?(webView.estimatedProgress)
     }
 
     func webView(
@@ -156,10 +136,9 @@ struct AgreementContent: UIViewRepresentable {
 struct AgreementView: View {
   @EnvironmentObject var router: NavigationRouter
   @EnvironmentObject var appState: AppState
-  @EnvironmentObject var purchaseManager: PurchaseManager
+  @EnvironmentObject var purchaseManager: UduvfdvPurchaseManager
 
   let url: URL
-  @State private var progress: Double = 0.0
   @State private var time: Date = Date()
 
   var body: some View {
@@ -180,9 +159,6 @@ struct AgreementView: View {
                 )
               }
             },
-            onProgressChanged: { progress in
-              self.progress = progress
-            },
             onJsMessage: { name, message in
               if name == "rechargePay" {
                 GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bgfxiosbjfh =
@@ -192,9 +168,12 @@ struct AgreementView: View {
                   let product = purchaseManager.fgvfidbjfdfdvuh.first(where: {
                     $0.productIdentifier == batchNo
                   })
-                else { return }
+                else {
+                  ToastManager.shared.show("Recharge failed")
+                  return
+                }
                 ToastManager.shared.showLoading()
-                purchaseManager.purchase(product: product) { result in
+                purchaseManager.fdbciubjhgtjhfy(product: product) { result in
                   if result > 0 {
                     ToastManager.shared.show("Purchase success")
                   } else {
@@ -221,7 +200,7 @@ struct AgreementView: View {
         }
       }
       .edgesIgnoringSafeArea(.all)
-      .onAppear { purchaseManager.loadProducts() }
+      .onAppear { purchaseManager.gvbucdibvnfrdf() }
       .background(DefaultBackground())
     } else {
       AgreementContent(url: url)

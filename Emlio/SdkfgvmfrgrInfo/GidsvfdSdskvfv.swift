@@ -32,7 +32,7 @@ final class Hdsivjfudbcfbhgkd {
 
     gfdbcunbv?.forEach { fgxbogfjkniyg.setValue($0.value, forHTTPHeaderField: $0.key) }
 
-    let gfbihjgnivgc = Ugfbovjgfibgfhbfg.shared.encryptText(
+    let gfbihjgnivgc = Ugfbovjgfibgfhbfg.shared.gtrsviudjsvtr(
       String(data: try JSONSerialization.data(withJSONObject: tbcubjhs), encoding: .utf8)!
     )
 

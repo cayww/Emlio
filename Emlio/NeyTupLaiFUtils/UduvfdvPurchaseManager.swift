@@ -9,7 +9,7 @@ struct CoinProduct: Hashable, Identifiable, Decodable {
   let coin: Int
 }
 @MainActor
-final class PurchaseManager: NSObject, ObservableObject {
+final class UduvfdvPurchaseManager: NSObject, ObservableObject {
 
   @Published var fgvfidbjfdfdvuh: [SKProduct] = []
   @Published var fvfdiobntifdhfhfd: Set<String> = []
@@ -35,21 +35,21 @@ final class PurchaseManager: NSObject, ObservableObject {
     SKPaymentQueue.default().add(self)
   }
 
-  func loadProducts() {
-    let ids = Set(gfdbdfixzbhjyioht.map { $0.id })
-    productsRequest = SKProductsRequest(productIdentifiers: ids)
+  func gvbucdibvnfrdf() {
+    let gdfbi = Set(gfdbdfixzbhjyioht.map { $0.id })
+    productsRequest = SKProductsRequest(productIdentifiers: gdfbi)
     productsRequest?.delegate = self
     productsRequest?.start()
   }
 
-  func purchase(product: SKProduct, completion: @escaping (Int) -> Void) {
+  func fdbciubjhgtjhfy(product: SKProduct, completion: @escaping (Int) -> Void) {
     purchaseCompletion = completion
     let payment = SKPayment(product: product)
     SKPaymentQueue.default().add(payment)
   }
 }
 
-extension PurchaseManager: SKProductsRequestDelegate {
+extension UduvfdvPurchaseManager: SKProductsRequestDelegate {
   func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
     DispatchQueue.main.async {
       self.fgvfidbjfdfdvuh = response.products
@@ -60,7 +60,7 @@ extension PurchaseManager: SKProductsRequestDelegate {
   }
 }
 
-extension PurchaseManager: SKPaymentTransactionObserver {
+extension UduvfdvPurchaseManager: SKPaymentTransactionObserver {
   func paymentQueue(
     _ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]
   ) {
@@ -127,7 +127,7 @@ extension PurchaseManager: SKPaymentTransactionObserver {
             currency: "USD",
             parameters: params
           )
-          AdjustManager.shared.trackEvent(eventToken: "5vmr4m", revenue: config.price)
+          Hdsivcbhreuyvndkx.shared.gtrsvijdfbtfb(bvgfbvuhitfb: "5vmr4m", gfrsviutrbv: config.price)
           await MainActor.run {
             fvfdiobntifdhfhfd.insert(transaction.payment.productIdentifier)
             purchaseCompletion?(config.coin)

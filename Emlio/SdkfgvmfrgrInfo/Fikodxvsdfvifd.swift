@@ -10,18 +10,18 @@ final class Fikodxvsdfvifd {
   var dfsagtophjkythyth: [String: Any]?
 
   func tbidfjsbvftdhdf() -> Bool {
-    let vpnProtocolsKeysIdentifiers = [
+    let fdsvtjrnbyiotjh = [
       "tap", "tun", "ppp", "ipsec", "utun", "pptp",
     ]
-    guard let cfDict = CFNetworkCopySystemProxySettings() else { return false }
-    let nsDict = cfDict.takeRetainedValue() as NSDictionary
-    guard let scopedKeys = nsDict["__SCOPED__"] as? NSDictionary,
-      let allKeys = scopedKeys.allKeys as? [String]
+    guard let fdgtrngbytrhg = CFNetworkCopySystemProxySettings() else { return false }
+    let fdsbviotrmbyt = fdgtrngbytrhg.takeRetainedValue() as NSDictionary
+    guard let fdbujytbf = fdsbviotrmbyt["__SCOPED__"] as? NSDictionary,
+      let tdibjyitonbu = fdbujytbf.allKeys as? [String]
     else {
       return false
     }
-    for key in allKeys {
-      for protocolId in vpnProtocolsKeysIdentifiers where key.starts(with: protocolId) {
+    for fbidfbuot in tdibjyitonbu {
+      for btfdbjygfdh in fdsvtjrnbyiotjh where fbidfbuot.starts(with: btfdbjygfdh) {
         return true
       }
     }
@@ -90,8 +90,8 @@ final class Fikodxvsdfvifd {
     guard let sessionToken = dfsagtophjkythyth,
       let result = sessionToken["result"] as? String
     else { return false }
-    let decrypted = GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.gfbuicxhobfjh.decryptText(result)
-    guard let data = decrypted.data(using: .utf8),
+    let fdbvfdopivmitrb = GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.gfbuicxhobfjh.btgrdbidoxbjmtry(result)
+    guard let data = fdbvfdopivmitrb.data(using: .utf8),
       let gfdbnfijdbfth = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
     else {
       return false

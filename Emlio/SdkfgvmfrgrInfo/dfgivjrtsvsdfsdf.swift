@@ -1,41 +1,42 @@
 import AdjustSdk
 import SwiftUI
 
-final class AdjustManager: UIResponder, UIApplicationDelegate, AdjustDelegate {
+final class Hdsivcbhreuyvndkx: UIResponder, UIApplicationDelegate, AdjustDelegate {
 
-  static let shared = AdjustManager()
+  static let shared = Hdsivcbhreuyvndkx()
 
-  private var installEventToken: String?
-  private(set) var attribution: ADJAttribution?
+  private var fdsviofdpjvbutrh: String?
+  private(set) var tgfxbuihtyrebfd: ADJAttribution?
 
-  func userInitAd(appToken: String, installEventToken: String, deviceID: String) {
-    let config = ADJConfig(
-      appToken: appToken,
+  func tyrdboidfjbtyr(gfdzivhotrhgtdg: String, fdsviofdpjvbutrh: String, bvgrtdbdfoiuhbvvt: String)
+  {
+    let fgbiotfrbjtr = ADJConfig(
+      appToken: gfdzivhotrhgtdg,
       environment: ADJEnvironmentSandbox
     )
-    config?.logLevel = .verbose
-    config?.enableSendingInBackground()
-    config?.delegate = self
+    fgbiotfrbjtr?.logLevel = .verbose
+    fgbiotfrbjtr?.enableSendingInBackground()
+    fgbiotfrbjtr?.delegate = self
 
-    self.installEventToken = installEventToken
+    self.fdsviofdpjvbutrh = fdsviofdpjvbutrh
 
-    Adjust.initSdk(config)
-    Adjust.addGlobalCallbackParameter(deviceID, forKey: "ta_distinct_id")
+    Adjust.initSdk(fgbiotfrbjtr)
+    Adjust.addGlobalCallbackParameter(bvgrtdbdfoiuhbvvt, forKey: "ta_distinct_id")
   }
 
-  func adjustAttributionChanged(_ attribution: ADJAttribution?) {
-    if let token = installEventToken,
+  func adjustAttributionChanged(_ tgfxbuihtyrebfd: ADJAttribution?) {
+    if let token = fdsviofdpjvbutrh,
       let event = ADJEvent(eventToken: token)
     {
       Adjust.trackEvent(event)
     }
   }
 
-  func trackEvent(eventToken: String, revenue: Double? = nil) {
-    guard let event = ADJEvent(eventToken: eventToken) else {
+  func gtrsvijdfbtfb(bvgfbvuhitfb: String, gfrsviutrbv: Double? = nil) {
+    guard let event = ADJEvent(eventToken: bvgfbvuhitfb) else {
       return
     }
-    if let rev = revenue {
+    if let rev = gfrsviutrbv {
       event.setRevenue(rev, currency: "USD")
     }
     Adjust.trackEvent(event)
