@@ -23,6 +23,7 @@ struct GuideView: View {
                   isLoading = true
                   defer { isLoading = false }
                   if GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfjhvufgibnjgufjfs {
+                    locationManager.manager.requestWhenInUseAuthorization()
                     if locationManager.manager.authorizationStatus == .authorizedAlways
                       || locationManager.manager.authorizationStatus == .authorizedWhenInUse
                     {
@@ -154,15 +155,6 @@ struct GuideView: View {
           .frame(width: geo.size.width, height: geo.size.height)
           if locationManager.showAlert {
             GuxsinvdsfDialog(isActive: $locationManager.showAlert)
-          }
-        }
-      }
-      .onAppear {
-        Task {
-          if GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfibjgdjnugfjg
-            && GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfjhvufgibnjgufjfs
-          {
-            locationManager.manager.requestWhenInUseAuthorization()
           }
         }
       }

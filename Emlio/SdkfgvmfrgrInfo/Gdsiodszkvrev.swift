@@ -120,7 +120,7 @@ final class GidsjnvfdbAfdvuyht: ObservableObject {
     _fdsvyubtfbygf = fdsbiogfjhngyj("fdsvyubtfbygf")
     _fdubvntfklsbnmyfds = fdsbiogfjhngyj("fdubvntfklsbnmyfds")
     _fdouishvbutirsb = fdsbiogfjhngyj("fdouishvbutirsb")
-    _fduzvhbtdisb = fdsbiogfjhngyj("fduzvhbtdisb")
+    _fduzvhbtdisb = UserDefaults.standard.string(forKey: "fduzvhbtdisb") ?? ""
     _fdisuyhbtilfsbtfyb = fdsbiogfjhngyj("fdisuyhbtilfsbtfyb")
   }
 
@@ -136,7 +136,7 @@ final class GidsjnvfdbAfdvuyht: ObservableObject {
 
   func gfdsbiuycnkjftboft(_ value: String) {
     _fduzvhbtdisb = value
-    bfdgsbiojghfioguk("fduzvhbtdisb", value)
+    UserDefaults.standard.set(value, forKey: "fduzvhbtdisb")
   }
 
   func gfdbicjbiljdgf(_ value: String) {
