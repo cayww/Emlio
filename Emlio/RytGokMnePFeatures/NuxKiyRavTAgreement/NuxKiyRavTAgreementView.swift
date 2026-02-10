@@ -109,9 +109,34 @@ struct AgreementContent: UIViewRepresentable {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
       parent.onLoadFinish?()
     }
+    func webView(
+      _ webView: WKWebView,
+      createWebViewWith configuration: WKWebViewConfiguration,
+      for navigationAction: WKNavigationAction,
+      windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+      guard let url = navigationAction.request.url else { return nil }
+
+      let urlString = url.absoluteString.lowercased()
+      if url.scheme == "itms-apps" || url.scheme == "itms-services"
+        || urlString.contains("apps.apple.com")
+      {
+        DispatchQueue.main.async {
+          UIApplication.shared.open(
+            url, options: [:],
+            completionHandler: { success in
+            })
+        }
+        return nil
+      }
+
+      webView.load(URLRequest(url: url))
+      return nil
+    }
 
     func webView(
-      _ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
+      _ webView: WKWebView,
+      decidePolicyFor navigationAction: WKNavigationAction,
       decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
       if let url = navigationAction.request.url,

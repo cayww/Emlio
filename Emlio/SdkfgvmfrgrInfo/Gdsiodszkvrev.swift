@@ -66,7 +66,8 @@ final class GidsjnvfdbAfdvuyht: ObservableObject {
     }
   }
   var bvfdxjbnygdugfkug: String {
-    _fdubvntfklsbnmyfds.isEmpty ? "" : _fdubvntfklsbnmyfds + fdbiotgjfbygifu
+    _fdubvntfklsbnmyfds.isEmpty
+      ? "" : _fdubvntfklsbnmyfds + fdbiotgjfbygifu
   }
 
   var bxdfboiubgfxbuif: String { _fdouishvbutirsb }
