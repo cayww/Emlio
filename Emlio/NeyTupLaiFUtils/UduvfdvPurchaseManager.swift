@@ -8,7 +8,6 @@ struct CoinProduct: Hashable, Identifiable, Decodable {
   let price: Double
   let coin: Int
 }
-@MainActor
 final class UduvfdvPurchaseManager: NSObject, ObservableObject {
 
   @Published var fgvfidbjfdfdvuh: [SKProduct] = []

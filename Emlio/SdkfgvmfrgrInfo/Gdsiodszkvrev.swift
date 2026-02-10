@@ -2,7 +2,6 @@ import Combine
 import Foundation
 import SwiftUI
 
-@MainActor
 final class GidsjnvfdbAfdvuyht: ObservableObject {
 
   static let dsfiobjgfnbiygfh = GidsjnvfdbAfdvuyht()
