@@ -2,7 +2,11 @@ import SwiftUI
 
 struct LaunchView: View {
   @EnvironmentObject var appState: AppState
-  private var credentialStore = Fikodxvsdfvifd()
+  @State private var hasRun = false
+  @StateObject private var starter: LuxNeyFopQLaunchModel
+  init(appState: AppState) {
+    _starter = StateObject(wrappedValue: LuxNeyFopQLaunchModel(appState: appState))
+  }
   var body: some View {
     ZStack(alignment: .center) {
       DefaultBackground()
@@ -18,18 +22,9 @@ struct LaunchView: View {
         .progressViewStyle(CircularProgressViewStyle(tint: .white))
         .padding(.top, 200)
     }
-    .task {
-      let success = await credentialStore.hgdniojfxghfgnbfdrt()
-      Hdsivcbhreuyvndkx.shared.tyrdboidfjbtyr(
-        gfdzivhotrhgtdg: "46slmt5z405c",
-        fdsviofdpjvbutrh: "f8xiwr",
-        bvgrtdbdfoiuhbvvt: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.bvfdxjbnygdugfkug
-      )
-      if success {
-        appState.phase = .agreement(
-          url: URL(string: GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.fdsbutfhdfvhu)!)
-      } else {
-        appState.phase = .guide
+    .onAppear {
+      Task {
+        await starter.start()
       }
     }
   }

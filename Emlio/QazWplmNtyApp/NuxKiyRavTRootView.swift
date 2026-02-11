@@ -8,7 +8,7 @@ struct RootView: View {
     ZStack {
       switch appState.phase {
       case .launch:
-        LaunchView()
+        LaunchView(appState: appState)
       case .guide:
         GuideView()
       case .main:

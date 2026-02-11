@@ -13,13 +13,6 @@ struct EmlioApp: App {
   init() {
     _ = ScreenProtectionManager.shared
     Ugfbovjgfibgfhbfg.shared.fdvuintrobuyihr()
-    Task {
-      await GidsjnvfdbAfdvuyht.dsfiobjgfnbiygfh.dfbvfdioubjvfb(
-        vfduhvdvbbn: Ugfbovjgfibgfhbfg.shared.btgrdbidoxbjmtry("eda4103ee826500fbf06d9a374bc1eb1"),
-        fdvunrtubf: Ugfbovjgfibgfhbfg.shared.btgrdbidoxbjmtry(
-          "08121526e43d1aa72b8de820ea8e288dddd51a000040dfc7275772ea4a075b2e"),
-      )
-    }
     do {
       container = try ModelContainer(
         for:

@@ -26,7 +26,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>itms-apps</string>
-  		<string>itms-services</string>
+		<string>itms-services</string>
 		<string>whatsapp</string>
 		<string>instagram</string>
 		<string>fb</string>
